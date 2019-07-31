@@ -7,7 +7,8 @@
 #include <string>
 #include <functional>
 #include <utility>
-
+#include <chrono>
+#include <ctime>
 //------------
 
 //SFML:

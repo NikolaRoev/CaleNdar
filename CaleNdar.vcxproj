@@ -93,10 +93,12 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClInclude Include="src\CurrentTime.h" />
     <ClInclude Include="src\pch.h" />
     <ClInclude Include="src\UI.h" />
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="src\CurrentTime.cpp" />
     <ClCompile Include="src\EntryPoint.cpp" />
     <ClCompile Include="src\pch.cpp">
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">Create</PrecompiledHeader>
