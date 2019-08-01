@@ -1,32 +1,84 @@
 #pragma once
+#include "pch.h"
 
 
 //================================================================================================================================
 //================================================================================================================================
 //================================================================================================================================
 
-//STL headers:
-#include <iostream>
-#include <vector>
-#include <array>
-#include <string>
-#include <chrono>
-#include <ctime>
+namespace cn {
+
+	struct Day {
+		int date{0};
+		std::string name;
+	};
+
+	struct Month {
+		std::string name;
+		std::vector<Day> days;
+	};
+
+	struct Year {
+		int year{0};
+		std::array<Month, 12> months;
+	};
+
+}
 
 //================================================================================================================================
 //================================================================================================================================
 //================================================================================================================================
 
-//Placeholder.
+//Helper functions.
+
+//Index:  Name:
+//0   -   Sunday
+//1   -   Monday
+//2   -   Tuesday
+//3   -   Wednesday
+//4   -   Thursday
+//5   -   Friday
+//6   -   Saturday
+int day_number(const int& day, const int& month, int year);
+
+std::string day_name(const int& index);
+
+//Input:   Output:
+//0    -   January
+//1    -   February
+//2    -   March
+//3    -   April
+//4    -   May
+//5    -   June
+//6    -   July
+//7    -   August
+//8    -   September
+//9    -   October
+//10   -   November
+//11   -   December
+std::string month_name(const int& month_number);
+
+//Input: Name:       Days:
+//0      January     31
+//1      February    28 (non - leap) / 29 (leap)
+//2      March       31
+//3      April       30
+//4      May         31
+//5      June        30
+//6      July        31
+//7      August      31
+//8      September   30
+//9      October     31
+//10     November    30
+//11     December    31
+int number_of_days(const int& month_number, const int& year);
 
 //================================================================================================================================
 //================================================================================================================================
 //================================================================================================================================
 
-//SFML:
-#include <SFML/Graphics.hpp>
-#include <SFML/System.hpp>
-#include <SFML/Window.hpp>
+//Generates a calendar for a given year.
+cn::Year generate_calendar(const int& year);
 
 //================================================================================================================================
 //================================================================================================================================
