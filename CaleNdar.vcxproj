@@ -94,12 +94,14 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClInclude Include="src\CalendarGenerator.h" />
+    <ClInclude Include="src\Core.h" />
     <ClInclude Include="src\CurrentTime.h" />
     <ClInclude Include="src\pch.h" />
     <ClInclude Include="src\UI.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="src\CalendarGenerator.cpp" />
+    <ClCompile Include="src\Core.cpp" />
     <ClCompile Include="src\CurrentTime.cpp" />
     <ClCompile Include="src\EntryPoint.cpp" />
     <ClCompile Include="src\pch.cpp">
