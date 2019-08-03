@@ -21,6 +21,8 @@ namespace cn {
 		virtual void draw(sf::RenderWindow& window, sf::Event& event, sf::Mouse& mouse);
 
 		virtual void set_hl(const char* data_hl, std::size_t size_hl, const float& x, const float& y, const double& DELTA_X, const double& DELTA_Y);
+
+		virtual void set_font(const std::string& path, const unsigned int& text_size, const sf::Color color, const float& x, const float& y, const double& DELTA_X, const double& DELTA_Y, const std::string& _text);
 	};
 
 	//================================================================================================================================
@@ -43,7 +45,6 @@ namespace cn {
 
 
 		void resize(const double& DELTA_X, const double& DELTA_Y) override {
-			
 			sprite.scale(static_cast<float>(DELTA_X), static_cast<float>(DELTA_Y));
 			hl_sprite.scale(static_cast<float>(DELTA_X), static_cast<float>(DELTA_Y));
 
@@ -79,13 +80,81 @@ namespace cn {
 
 	//================================================================================================================================
 
-	struct Label {
+	struct Label : public Image {
 		sf::Font font;
 		sf::Text text;
 
-		void resize(const double& DELTA_X, const double& DELTA_Y);
+		sf::FloatRect text_position;
 
-		void draw(sf::RenderWindow& window, sf::Event& event, sf::Mouse& mouse);
+		void resize(const double& DELTA_X, const double& DELTA_Y) override;
+
+		void draw(sf::RenderWindow& window, sf::Event& event, sf::Mouse& mouse) override;
+
+		void set_font(const std::string& path, const unsigned int& text_size, const sf::Color color, const float& x, const float& y, const double& DELTA_X, const double& DELTA_Y, const std::string& _text) override;
+	};
+
+	//================================================================================================================================
+
+	template <typename Function, typename... Args>
+	struct TextButton : public Label {
+		sf::Texture hl_texture;
+		sf::Sprite hl_sprite;
+		
+		using ReturnType = std::invoke_result_t<Function, Args...>;
+		std::function<ReturnType()> function;
+
+
+		TextButton(Function _function, Args... args) : function(std::bind(_function, std::forward<Args>(args)...)) {}
+
+
+		auto on_click() {
+			return function();
+		}
+
+		void resize(const double& DELTA_X, const double& DELTA_Y) override {
+			sprite.scale(static_cast<float>(DELTA_X), static_cast<float>(DELTA_Y));
+			hl_sprite.scale(static_cast<float>(DELTA_X), static_cast<float>(DELTA_Y));
+
+			position = sprite.getGlobalBounds();
+
+			text.scale(static_cast<float>(DELTA_X), static_cast<float>(DELTA_Y));
+			text_position = text.getGlobalBounds();
+		}
+
+		void draw(sf::RenderWindow& window, sf::Event& event, sf::Mouse& mouse) override {
+			sf::Vector2i mouse_position = sf::Mouse::getPosition(window);
+			window.draw(sprite);
+			window.draw(text);
+
+			if (position.contains(static_cast<float>(mouse_position.x), static_cast<float>(mouse_position.y))) {
+				if (event.type == sf::Event::MouseButtonPressed && event.mouseButton.button == sf::Mouse::Left) {
+					while (position.contains(static_cast<float>(mouse_position.x), static_cast<float>(mouse_position.y))) {
+						window.waitEvent(event);
+						if (event.type == sf::Event::MouseButtonReleased) {
+							on_click();
+						}
+						mouse_position = sf::Mouse::getPosition(window);
+					}
+				}
+				window.draw(hl_sprite);
+			}
+		}
+
+		void set_hl(const char* data_hl, std::size_t size_hl, const float& x, const float& y, const double& DELTA_X, const double& DELTA_Y) override {
+			hl_texture.loadFromMemory(data_hl, size_hl);
+			hl_sprite.setTexture(hl_texture);
+			hl_sprite.setPosition(x, y);
+		}
+
+		void set_font(const std::string& path, const unsigned int& text_size, const sf::Color color, const float& x, const float& y, const double& DELTA_X, const double& DELTA_Y, const std::string& _text) override {
+			font.loadFromFile(path);
+			text.setFont(font);
+			text.setCharacterSize(text_size);
+			text.setFillColor(color);
+			text.setPosition(x, y);
+
+			text.setString(_text);
+		}
 	};
 
 	//================================================================================================================================
@@ -125,7 +194,12 @@ public:
 
 	//Call this when you want to add an image to be drawn.
 	void add_drawable(cn::Image& image, const char* data, std::size_t size, const float& x, const float& y);
+	//Button.
 	void add_drawable(cn::Image& image, const char* data, std::size_t size, const char* data_hl, std::size_t size_hl, const float& x, const float& y);
+	//Label.
+	void add_drawable(cn::Image& image, const char* data, std::size_t size, const float& x, const float& y, const std::string& path, const unsigned int& text_size, const sf::Color color, const float& text_x, const float& text_y, const std::string& _text);
+	//TextButton.
+	void add_drawable(cn::Image& image, const char* data, std::size_t size, const char* data_hl, std::size_t size_hl, const float& x, const float& y, const std::string& path, const unsigned int& text_size, const sf::Color color, const float& text_x, const float& text_y, const std::string& _text);
 
 	//This is our application.
 	void main_loop(std::vector<cn::Image*>& in_frame);

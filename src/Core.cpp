@@ -8,8 +8,9 @@
 
 namespace cn {
 
+	//================================================================================================================================
+
 	void Image::resize(const double& DELTA_X, const double& DELTA_Y) {
-		
 		sprite.scale(static_cast<float>(DELTA_X), static_cast<float>(DELTA_Y));
 		position = sprite.getGlobalBounds();
 	}
@@ -19,6 +20,35 @@ namespace cn {
 	}
 
 	void Image::set_hl(const char* data_hl, std::size_t size_hl, const float& x, const float& y, const double& DELTA_X, const double& DELTA_Y) {}
+
+	void Image::set_font(const std::string& path, const unsigned int& text_size, const sf::Color color, const float& x, const float& y, const double& DELTA_X, const double& DELTA_Y, const std::string& _text) {}
+
+	//================================================================================================================================
+
+	void Label::resize(const double& DELTA_X, const double& DELTA_Y) {
+		sprite.scale(static_cast<float>(DELTA_X), static_cast<float>(DELTA_Y));
+		position = sprite.getGlobalBounds();
+
+		text.scale(static_cast<float>(DELTA_X), static_cast<float>(DELTA_Y));
+		text_position = text.getGlobalBounds();
+	}
+
+	void Label::draw(sf::RenderWindow& window, sf::Event& event, sf::Mouse& mouse) {
+		window.draw(sprite);
+		window.draw(text);
+	}
+
+	void Label::set_font(const std::string& path, const unsigned int& text_size, const sf::Color color, const float& x, const float& y, const double& DELTA_X, const double& DELTA_Y, const std::string& _text) {
+		font.loadFromFile(path);
+		text.setFont(font);
+		text.setCharacterSize(text_size);
+		text.setFillColor(color);
+		text.setPosition(x, y);
+
+		text.setString(_text);
+	}
+
+	//================================================================================================================================
 
 }
 
@@ -78,6 +108,32 @@ void Core::add_drawable(cn::Image& image, const char* data, std::size_t size, co
 	image.sprite.setTexture(image.texture);
 	image.sprite.setPosition(x, y);
 	image.set_hl(data_hl, size_hl, x, y, DELTA_X, DELTA_Y);
+
+	image.resize(DELTA_X, DELTA_Y);
+
+	drawables.push_back(&image);
+}
+
+void Core::add_drawable(cn::Image& image, const char* data, std::size_t size, const float& x, const float& y, const std::string& path, const unsigned int& text_size, const sf::Color color, const float& text_x, const float& text_y, const std::string& _text) {
+	image.texture.loadFromMemory(data, size);
+	image.sprite.setTexture(image.texture);
+	image.sprite.setPosition(x, y);
+
+	image.set_font(path, text_size, color, text_x, text_y, DELTA_X, DELTA_Y, _text);
+
+	image.resize(DELTA_X, DELTA_Y);
+
+	drawables.push_back(&image);
+}
+
+void Core::add_drawable(cn::Image& image, const char* data, std::size_t size, const char* data_hl, std::size_t size_hl, const float& x, const float& y, const std::string& path, const unsigned int& text_size, const sf::Color color, const float& text_x, const float& text_y, const std::string& _text) {
+	image.texture.loadFromMemory(data, size);
+	image.sprite.setTexture(image.texture);
+	image.sprite.setPosition(x, y);
+
+	image.set_hl(data_hl, size_hl, x, y, DELTA_X, DELTA_Y);
+
+	image.set_font(path, text_size, color, text_x, text_y, DELTA_X, DELTA_Y, _text);
 
 	image.resize(DELTA_X, DELTA_Y);
 
