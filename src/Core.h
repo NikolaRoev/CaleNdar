@@ -186,7 +186,7 @@ private:
 
 public:
 	sf::RenderWindow window;
-	sf::Event event{sf::Event::Closed};
+	sf::Event event{sf::Event::MouseMoved};
 	sf::Mouse mouse;
 
 	//Call this once when we start up the program.
