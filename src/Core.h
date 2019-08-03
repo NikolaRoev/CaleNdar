@@ -8,6 +8,8 @@
 
 namespace cn {
 
+	//================================================================================================================================
+
 	struct Image {
 		sf::Texture texture;
 		sf::Sprite sprite;
@@ -21,8 +23,10 @@ namespace cn {
 		virtual void set_hl(const char* data_hl, std::size_t size_hl, const float& x, const float& y, const double& DELTA_X, const double& DELTA_Y);
 	};
 
+	//================================================================================================================================
+
 	template <typename Function, typename... Args>
-	struct HlImage : public Image {
+	struct Button : public Image {
 		sf::Texture hl_texture;
 		sf::Sprite hl_sprite;
 
@@ -30,7 +34,7 @@ namespace cn {
 		std::function<ReturnType()> function;
 
 
-		HlImage(Function _function, Args... args) : function(std::bind(_function, std::forward<Args>(args)...)) {}
+		Button(Function _function, Args... args) : function(std::bind(_function, std::forward<Args>(args)...)) {}
 
 
 		auto on_click() {
@@ -72,6 +76,19 @@ namespace cn {
 			hl_sprite.setPosition(x, y);
 		}
 	};
+
+	//================================================================================================================================
+
+	struct Label {
+		sf::Font font;
+		sf::Text text;
+
+		void resize(const double& DELTA_X, const double& DELTA_Y);
+
+		void draw(sf::RenderWindow& window, sf::Event& event, sf::Mouse& mouse);
+	};
+
+	//================================================================================================================================
 
 }
 

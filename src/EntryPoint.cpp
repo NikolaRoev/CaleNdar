@@ -836,7 +836,7 @@ int main() {
 
 
 
-	cn::HlImage button(test, 1, 2);
+	cn::Button button(test, 1, 2);
 	core->add_drawable(button, imageData1, sizeof(imageData1), imageData2, sizeof(imageData2), 20, 20);
 
 
