@@ -7,6 +7,7 @@ void test(int j, int i) {
 }
 
 int main() {
+	/*
 	Core* core = new Core;
 
 	sf::VideoMode mode = { 1024, 576, 32 };
@@ -842,6 +843,19 @@ int main() {
 
 	std::vector<cn::Image*> in_frame = {&background, &button};
 	core->main_loop(in_frame);
+	*/
 
+	cn::Event event = { 12, 12, "test", "test" };
+	cn::SavedDay day = { 20, "Monday", true, {event} };
+	cn::SavedMonth month = { "January", {day} };
+	cn::SavedYear year = { 2019, {month, month, month, month, month, month, month, month, month, month, month, month} };
+	std::vector<cn::SavedYear> save = { year };
+
+	serialize(save);
+
+	std::vector<cn::SavedYear> test;
+
+	deserialize(test);
+	
 	std::cin.get();
 }

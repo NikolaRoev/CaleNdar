@@ -1,37 +1,75 @@
 #pragma once
+#include "pch.h"
 
 
 //================================================================================================================================
 //================================================================================================================================
 //================================================================================================================================
 
-//STL headers:
-#include <iostream>
-#include <vector>
-#include <array>
-#include <string>
-#include <chrono>
-#include <ctime>
-#include <functional>
-#include <utility>
-#include <ostream>
-#include <istream>
-#include <fstream>
+namespace cn {
+
+	//================================================================================================================================
+
+	struct Event {
+		int start_time{ 0 };
+		int end_time{ 0 };
+
+		std::string name;
+		std::string description;
+	};
+
+	//================================================================================================================================
+
+	struct SavedDay {
+		int date{ 0 };
+		std::string name;
+
+		bool saved{ false };
+		std::vector<Event> events;
+	};
+
+	struct SavedMonth {
+		std::string name;
+		std::vector<SavedDay> days;
+	};
+
+	struct SavedYear {
+		int year{ 0 };
+		std::array<SavedMonth, 12> months;
+	};
+
+	//================================================================================================================================
+
+}
 
 //================================================================================================================================
 //================================================================================================================================
 //================================================================================================================================
 
-//Placeholder.
+void serialize_string(std::ofstream& os, std::string& string);
+
+void serialize_events(std::ofstream& os, std::vector<cn::Event>& events);
+
+void serialize_days(std::ofstream& os, std::vector<cn::SavedDay>& days);
+
+void serialize_months(std::ofstream& os, std::array<cn::SavedMonth, 12>& months);
+
+void serialize(std::vector<cn::SavedYear>& save);
 
 //================================================================================================================================
 //================================================================================================================================
 //================================================================================================================================
 
-//SFML:
-#include <SFML/Graphics.hpp>
-#include <SFML/System.hpp>
-#include <SFML/Window.hpp>
+
+void deserialize_string(std::ifstream& is, std::string& string);
+
+void deserialize_events(std::ifstream& is, std::vector<cn::Event>& events);
+
+void deserialize_days(std::ifstream& is, std::vector<cn::SavedDay>& days);
+
+void deserialize_months(std::ifstream& is, std::array<cn::SavedMonth, 12>& months);
+
+void deserialize(std::vector<cn::SavedYear>& save);
 
 //================================================================================================================================
 //================================================================================================================================
