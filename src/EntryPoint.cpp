@@ -846,16 +846,14 @@ int main() {
 	*/
 
 	cn::Event event = { 12, 12, "test", "test" };
-	cn::SavedDay day = { 20, "Monday", true, {event} };
-	cn::SavedMonth month = { "January", {day} };
+	cn::SavedDay day = { 20, "Monday", true, {event, event, event, event, event, event, event, event, event, event, event, event, event, event, event, event, event, event, event, event, event, event, event, event, event, event, event, event, event, event, event, event, event, event, event, event, event, event, event, event} };
+	cn::SavedMonth month = { "January", {day, day, day, day, day, day, day, day, day, day, day, day, day, day, day, day, day, day, day, day, day, day, day, day, day, day, day, day, day, day, day } };
 	cn::SavedYear year = { 2019, {month, month, month, month, month, month, month, month, month, month, month, month} };
-	std::vector<cn::SavedYear> save = { year };
+	std::vector<cn::SavedYear> save = { year, year };
 
 	serialize(save);
 
 	std::vector<cn::SavedYear> test;
 
 	deserialize(test);
-	
-	std::cin.get();
 }

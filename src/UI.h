@@ -8,8 +8,9 @@
 
 class UI {
 private:
-
 	std::vector<cn::SavedYear> years;
+
+	cn::SavedYear* current_year;
 
 public:
 
