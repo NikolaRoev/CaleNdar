@@ -129,17 +129,17 @@ namespace cn {
 
 		sf::FloatRect text_position;
 
-		void resize(const double& DELTA_X, const double& DELTA_Y) override;
+		virtual void resize(const double& DELTA_X, const double& DELTA_Y) override;
 
-		void draw(sf::RenderWindow& window, sf::Event& event, sf::Mouse& mouse) override;
+		virtual void draw(sf::RenderWindow& window, sf::Event& event, sf::Mouse& mouse) override;
 
-		void draw(sf::RenderWindow& window) override;
+		virtual void draw(sf::RenderWindow& window) override;
 
-		void set_image(const char* data, std::size_t size, const float& x, const float& y) override;
+		virtual void set_image(const char* data, std::size_t size, const float& x, const float& y) override;
 
-		void set_hl(const char* data_hl, std::size_t size_hl, const float& x, const float& y) override {}
+		virtual void set_hl(const char* data_hl, std::size_t size_hl, const float& x, const float& y) override {}
 
-		void set_font(const std::string& path, const unsigned int& text_size, const sf::Color color, const float& x, const float& y, const std::string& _text) override;
+		virtual void set_font(const std::string& path, const unsigned int& text_size, const sf::Color color, const float& x, const float& y, const std::string& _text) override;
 	};
 
 	//================================================================================================================================
