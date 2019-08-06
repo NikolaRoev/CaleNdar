@@ -19,9 +19,15 @@ namespace cn {
 		window.draw(sprite);
 	}
 
-	void Image::set_hl(const char* data_hl, std::size_t size_hl, const float& x, const float& y, const double& DELTA_X, const double& DELTA_Y) {}
+	void Image::draw(sf::RenderWindow& window) {
+		window.draw(sprite);
+	}
 
-	void Image::set_font(const std::string& path, const unsigned int& text_size, const sf::Color color, const float& x, const float& y, const double& DELTA_X, const double& DELTA_Y, const std::string& _text) {}
+	void Image::set_image(const char* data, std::size_t size, const float& x, const float& y) {
+		texture.loadFromMemory(data, size);
+		sprite.setTexture(texture);
+		sprite.setPosition(x, y);
+	}
 
 	//================================================================================================================================
 
@@ -38,7 +44,18 @@ namespace cn {
 		window.draw(text);
 	}
 
-	void Label::set_font(const std::string& path, const unsigned int& text_size, const sf::Color color, const float& x, const float& y, const double& DELTA_X, const double& DELTA_Y, const std::string& _text) {
+	void Label::draw(sf::RenderWindow& window) {
+		window.draw(sprite);
+		window.draw(text);
+	}
+
+	void Label::set_image(const char* data, std::size_t size, const float& x, const float& y) {
+		texture.loadFromMemory(data, size);
+		sprite.setTexture(texture);
+		sprite.setPosition(x, y);
+	}
+
+	void Label::set_font(const std::string& path, const unsigned int& text_size, const sf::Color color, const float& x, const float& y, const std::string& _text) {
 		font.loadFromFile(path);
 		text.setFont(font);
 		text.setCharacterSize(text_size);
@@ -93,54 +110,47 @@ void Core::setup_window(sf::VideoMode& mode, const uint32_t& style) {
 	set_delta_values();
 }
 
-void Core::add_drawable(cn::Image& image, const char* data, std::size_t size, const float& x, const float& y) {
-	image.texture.loadFromMemory(data, size);
-	image.sprite.setTexture(image.texture);
-	image.sprite.setPosition(x, y);
+void Core::add_drawable(cn::Drawable& image, const char* data, std::size_t size, const float& x, const float& y) {
+	image.set_image(data, size, x, y);
 
 	image.resize(DELTA_X, DELTA_Y);
 
 	drawables.push_back(&image);
 }
 
-void Core::add_drawable(cn::Image& image, const char* data, std::size_t size, const char* data_hl, std::size_t size_hl, const float& x, const float& y) {
-	image.texture.loadFromMemory(data, size);
-	image.sprite.setTexture(image.texture);
-	image.sprite.setPosition(x, y);
-	image.set_hl(data_hl, size_hl, x, y, DELTA_X, DELTA_Y);
+void Core::add_drawable(cn::Drawable& image, const char* data, std::size_t size, const char* data_hl, std::size_t size_hl, const float& x, const float& y) {
+	image.set_image(data, size, x, y);
+
+	image.set_hl(data_hl, size_hl, x, y);
 
 	image.resize(DELTA_X, DELTA_Y);
 
 	drawables.push_back(&image);
 }
 
-void Core::add_drawable(cn::Image& image, const char* data, std::size_t size, const float& x, const float& y, const std::string& path, const unsigned int& text_size, const sf::Color color, const float& text_x, const float& text_y, const std::string& _text) {
-	image.texture.loadFromMemory(data, size);
-	image.sprite.setTexture(image.texture);
-	image.sprite.setPosition(x, y);
+void Core::add_drawable(cn::Drawable& image, const char* data, std::size_t size, const float& x, const float& y, const std::string& path, const unsigned int& text_size, const sf::Color color, const float& text_x, const float& text_y, const std::string& _text) {
+	image.set_image(data, size, x, y);
 
-	image.set_font(path, text_size, color, text_x, text_y, DELTA_X, DELTA_Y, _text);
+	image.set_font(path, text_size, color, text_x, text_y, _text);
 
 	image.resize(DELTA_X, DELTA_Y);
 
 	drawables.push_back(&image);
 }
 
-void Core::add_drawable(cn::Image& image, const char* data, std::size_t size, const char* data_hl, std::size_t size_hl, const float& x, const float& y, const std::string& path, const unsigned int& text_size, const sf::Color color, const float& text_x, const float& text_y, const std::string& _text) {
-	image.texture.loadFromMemory(data, size);
-	image.sprite.setTexture(image.texture);
-	image.sprite.setPosition(x, y);
+void Core::add_drawable(cn::Drawable& image, const char* data, std::size_t size, const char* data_hl, std::size_t size_hl, const float& x, const float& y, const std::string& path, const unsigned int& text_size, const sf::Color color, const float& text_x, const float& text_y, const std::string& _text) {
+	image.set_image(data, size, x, y);
 
-	image.set_hl(data_hl, size_hl, x, y, DELTA_X, DELTA_Y);
+	image.set_hl(data_hl, size_hl, x, y);
 
-	image.set_font(path, text_size, color, text_x, text_y, DELTA_X, DELTA_Y, _text);
+	image.set_font(path, text_size, color, text_x, text_y, _text);
 
 	image.resize(DELTA_X, DELTA_Y);
 
 	drawables.push_back(&image);
 }
 
-void Core::main_loop(std::vector<cn::Image*>& in_frame) {
+void Core::main_loop(std::vector<cn::Drawable*>& in_frame) {
 	while (window.isOpen()) {
 		for (auto& each : in_frame) {
 			each->draw(window, event, mouse);
@@ -160,6 +170,41 @@ void Core::main_loop(std::vector<cn::Image*>& in_frame) {
 			window.setView(sf::View(visibleArea));
 		}
 		
+	}
+}
+
+void Core::pop_up_loop(std::vector<cn::Drawable*>& in_frame_background, std::vector<cn::Drawable*>& in_frame_foreground, sf::FloatRect& constraints) {
+	while (window.isOpen()) {
+		for (auto& each : in_frame_background) {
+			each->draw(window);
+		}
+		
+		for (auto& each : in_frame_foreground) {
+			each->draw(window, event, mouse);
+		}
+		window.display();
+
+
+		window.pollEvent(event);
+
+		if (event.type == sf::Event::Closed) {
+			window.close();
+		}
+
+		sf::Vector2i mouse_position = sf::Mouse::getPosition(window);
+		if (constraints.contains(static_cast<float>(mouse_position.x), static_cast<float>(mouse_position.y))) {
+			if (event.type == sf::Event::MouseButtonPressed && event.mouseButton.button == sf::Mouse::Left) {
+				break;
+			}
+		}
+
+		sf::Vector2u new_size = window.getSize();
+		if ((window_width != new_size.x) || (window_height != new_size.y)) {
+			resized_window(new_size);
+			sf::FloatRect visibleArea(0, 0, static_cast<float>(new_size.x), static_cast<float>(new_size.y));
+			window.setView(sf::View(visibleArea));
+		}
+
 	}
 }
 

@@ -7,7 +7,7 @@ void test(int j, int i) {
 }
 
 int main() {
-	/*
+	
 	Core* core = new Core;
 
 	sf::VideoMode mode = { 1024, 576, 32 };
@@ -841,10 +841,12 @@ int main() {
 	core->add_drawable(button, imageData1, sizeof(imageData1), imageData2, sizeof(imageData2), 20, 20, "temp/arial.ttf", 20 , sf::Color::Black, 40, 40, "Test");
 
 
-	std::vector<cn::Image*> in_frame = {&background, &button};
+	std::vector<cn::Drawable*> in_frame = {&background, &button};
 	core->main_loop(in_frame);
-	*/
-
+	//sf::FloatRect testr = { 0, 0, 1024, 768 };
+	//core->pop_up_loop(in_frame, in_frame, testr);
+	
+	/*
 	cn::Event event = { 12, 12, "test", "test" };
 	cn::SavedDay day = { 20, "Monday", true, {event, event, event, event, event, event, event, event, event, event, event, event, event, event, event, event, event, event, event, event, event, event, event, event, event, event, event, event, event, event, event, event, event, event, event, event, event, event, event, event} };
 	cn::SavedMonth month = { "January", {day, day, day, day, day, day, day, day, day, day, day, day, day, day, day, day, day, day, day, day, day, day, day, day, day, day, day, day, day, day, day } };
@@ -856,4 +858,5 @@ int main() {
 	std::vector<cn::SavedYear> test;
 
 	deserialize(test);
+	*/
 }
