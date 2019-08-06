@@ -192,7 +192,7 @@ void Core::pop_up_loop(std::vector<cn::Drawable*>& in_frame_background, std::vec
 		}
 
 		sf::Vector2i mouse_position = sf::Mouse::getPosition(window);
-		if (constraints.contains(static_cast<float>(mouse_position.x), static_cast<float>(mouse_position.y))) {
+		if (!constraints.contains(static_cast<float>(mouse_position.x), static_cast<float>(mouse_position.y))) {
 			if (event.type == sf::Event::MouseButtonPressed && event.mouseButton.button == sf::Mouse::Left) {
 				break;
 			}
