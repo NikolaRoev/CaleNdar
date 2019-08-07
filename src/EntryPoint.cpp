@@ -836,7 +836,6 @@ int main() {
 	};
 
 
-
 	cn::TextButton button(test, 1, 2);
 	core->add_drawable(button, imageData1, sizeof(imageData1), imageData2, sizeof(imageData2), 20, 20, "temp/arial.ttf", 20 , sf::Color::Black, 40, 40, "Test");
 
