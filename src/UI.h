@@ -23,6 +23,8 @@ private:
 
 	cn::SavedYear* current_year;
 
+	int current_date{ 0 };
+
 public:
 
 };
