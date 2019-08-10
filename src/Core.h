@@ -230,8 +230,8 @@ private:
 	double native_width{1920};
 	double native_height{1080};
 
-	unsigned int window_width{0};
-	unsigned int window_height{0};
+	unsigned int window_width{ 0 };
+	unsigned int window_height{ 0 };
 
 	double DELTA_X{1.0f};
 	double DELTA_Y{1.0f};

@@ -9,7 +9,7 @@
 namespace cn {
 
 	struct Day {
-		int date{0};
+		int date{ 0 };
 		std::string name;
 	};
 
@@ -19,7 +19,7 @@ namespace cn {
 	};
 
 	struct Year {
-		int year{0};
+		int year{ 0 };
 		std::array<Month, 12> months;
 	};
 
