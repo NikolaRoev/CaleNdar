@@ -1,7 +1,6 @@
 #include "pch.h"
 #include "UI.h"
-#include "Core.h"
-#include "CurrentTime.h"
+
 
 void test(int j, int i) {
 	std::cout << i + j;
@@ -10,7 +9,7 @@ void test(int j, int i) {
 int main() {
 
 	
-	/*
+	
 	Core* core = new Core;
 
 	sf::VideoMode mode = { 1024, 576, 32 };
@@ -837,16 +836,15 @@ int main() {
 		'\x16', '\x60', '\x58', '\x00', '\x97', '\x16', '\x42', '\xd1', '\x03', '\xb7', '\x11', '\x37', '\x1e', '\x97', '\x00', '\x00', '\x00', '\x00', '\x49', '\x45',
 		'\x4e', '\x44', '\xae', '\x42', '\x60', '\x82', '\xff',
 	};
-	*/
+	
 
-	/*
 	cn::TextButton button(test, 1, 2);
 	core->add_drawable(button, imageData1, sizeof(imageData1), imageData2, sizeof(imageData2), 20, 20, "temp/arial.ttf", 20 , sf::Color::Black, 40, 40, "Test");
 
 
 	std::vector<cn::Drawable*> in_frame = {&background, &button};
 	core->main_loop(in_frame);
-	*/
+
 	//sf::FloatRect testr = { 0, 0, 1024, 768 };
 	//core->pop_up_loop(in_frame, in_frame, testr);
 	

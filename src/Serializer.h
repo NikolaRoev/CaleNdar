@@ -24,17 +24,18 @@ namespace cn {
 		int date{ 0 };
 		std::string name;
 
-		bool saved{ false };
 		std::vector<Event> events;
 	};
 
 	struct SavedMonth {
 		std::string name;
+
 		std::vector<SavedDay> days;
 	};
 
 	struct SavedYear {
 		int year{ 0 };
+
 		std::array<SavedMonth, 12> months;
 	};
 

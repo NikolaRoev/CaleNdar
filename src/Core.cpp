@@ -10,8 +10,13 @@ namespace cn {
 
 	//================================================================================================================================
 
-	void Image::resize(const double& DELTA_X, const double& DELTA_Y) {
-		sprite.scale(static_cast<float>(DELTA_X), static_cast<float>(DELTA_Y));
+	float DELTA_X{ 1.0f };
+	float DELTA_Y{ 1.0f };
+
+	//================================================================================================================================
+
+	void Image::resize(const float& resize_delta_x, const float& resize_delta_y) {
+		sprite.scale(resize_delta_x, resize_delta_y);
 		position = sprite.getGlobalBounds();
 	}
 
@@ -26,16 +31,16 @@ namespace cn {
 	void Image::set_image(const char* data, std::size_t size, const float& x, const float& y) {
 		texture.loadFromMemory(data, size);
 		sprite.setTexture(texture);
-		sprite.setPosition(x, y);
+		sprite.setPosition(x*DELTA_X, y*DELTA_Y);
 	}
 
 	//================================================================================================================================
 
-	void Label::resize(const double& DELTA_X, const double& DELTA_Y) {
-		sprite.scale(static_cast<float>(DELTA_X), static_cast<float>(DELTA_Y));
+	void Label::resize(const float& resize_delta_x, const float& resize_delta_y) {
+		sprite.scale(resize_delta_x, resize_delta_y);
 		position = sprite.getGlobalBounds();
 
-		text.scale(static_cast<float>(DELTA_X), static_cast<float>(DELTA_Y));
+		text.scale(resize_delta_x, resize_delta_y);
 		text_position = text.getGlobalBounds();
 	}
 
@@ -52,7 +57,7 @@ namespace cn {
 	void Label::set_image(const char* data, std::size_t size, const float& x, const float& y) {
 		texture.loadFromMemory(data, size);
 		sprite.setTexture(texture);
-		sprite.setPosition(x, y);
+		sprite.setPosition(x*DELTA_X, y*DELTA_Y);
 	}
 
 	void Label::set_font(const std::string& path, const unsigned int& text_size, const sf::Color color, const float& x, const float& y, const std::string& _text) {
@@ -60,7 +65,7 @@ namespace cn {
 		text.setFont(font);
 		text.setCharacterSize(text_size);
 		text.setFillColor(color);
-		text.setPosition(x, y);
+		text.setPosition(x*DELTA_X, y*DELTA_Y);
 
 		text.setString(_text);
 	}
@@ -75,21 +80,21 @@ namespace cn {
 
 //Private:
 void Core::set_delta_values() {
-	DELTA_X = 1 - (((native_width - static_cast<double>(window_width)) / (native_width / 100.0)) / 100.0);
-	DELTA_Y = 1 - (((native_height - static_cast<double>(window_height)) / (native_height / 100.0)) / 100.0);
+	cn::DELTA_X = 1 - (((native_width - static_cast<float>(window_width)) / (native_width / 100.0f)) / 100.0f);
+	cn::DELTA_Y = 1 - (((native_height - static_cast<float>(window_height)) / (native_height / 100.0f)) / 100.0f);
 }
 
 void Core::resized_window(sf::Vector2u& new_size) {
 	window_width = new_size.x;
 	window_height = new_size.y;
 
-	double old_delta_x = 1/DELTA_X;
-	double old_delta_y = 1/DELTA_Y;
+	float old_delta_x = 1/cn::DELTA_X;
+	float old_delta_y = 1/cn::DELTA_Y;
 
 	set_delta_values();
 
 	for (auto& each : drawables) {
-		each->resize(DELTA_X*old_delta_x, DELTA_Y*old_delta_y);
+		each->resize(cn::DELTA_X*old_delta_x, cn::DELTA_Y*old_delta_y);
 	}
 }
 
@@ -111,7 +116,7 @@ void Core::setup_window(sf::VideoMode& mode, const uint32_t& style) {
 void Core::add_drawable(cn::Drawable& image, const char* data, std::size_t size, const float& x, const float& y) {
 	image.set_image(data, size, x, y);
 
-	image.resize(DELTA_X, DELTA_Y);
+	image.resize(cn::DELTA_X, cn::DELTA_Y);
 
 	drawables.push_back(&image);
 }
@@ -121,7 +126,7 @@ void Core::add_drawable(cn::Drawable& image, const char* data, std::size_t size,
 
 	image.set_hl(data_hl, size_hl, x, y);
 
-	image.resize(DELTA_X, DELTA_Y);
+	image.resize(cn::DELTA_X, cn::DELTA_Y);
 
 	drawables.push_back(&image);
 }
@@ -131,7 +136,7 @@ void Core::add_drawable(cn::Drawable& image, const char* data, std::size_t size,
 
 	image.set_font(path, text_size, color, text_x, text_y, _text);
 
-	image.resize(DELTA_X, DELTA_Y);
+	image.resize(cn::DELTA_X, cn::DELTA_Y);
 
 	drawables.push_back(&image);
 }
@@ -143,7 +148,7 @@ void Core::add_drawable(cn::Drawable& image, const char* data, std::size_t size,
 
 	image.set_font(path, text_size, color, text_x, text_y, _text);
 
-	image.resize(DELTA_X, DELTA_Y);
+	image.resize(cn::DELTA_X, cn::DELTA_Y);
 
 	drawables.push_back(&image);
 }

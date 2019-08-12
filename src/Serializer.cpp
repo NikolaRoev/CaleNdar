@@ -32,7 +32,6 @@ void serialize_days(std::ofstream& os, std::vector<cn::SavedDay>& days) {
 	for (unsigned int i = 0; i < len; ++i) {
 		os.write((char*)& days[i].date, sizeof(int));
 		serialize_string(os, days[i].name);
-		os.write((char*)& days[i].saved, sizeof(bool));
 		serialize_events(os, days[i].events);
 	}
 }
@@ -95,7 +94,6 @@ void deserialize_days(std::ifstream& is, std::vector<cn::SavedDay>& days) {
 	for (unsigned int i = 0; i < len; ++i) {
 		is.read((char*)& days[i].date, sizeof(int));
 		deserialize_string(is, days[i].name);
-		is.read((char*)& days[i].saved, sizeof(bool));
 		deserialize_events(is, days[i].events);
 	}
 }

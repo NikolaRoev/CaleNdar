@@ -10,8 +10,14 @@ namespace cn {
 
 	//================================================================================================================================
 
+	extern float DELTA_X;
+	extern float DELTA_Y;
+
+	//================================================================================================================================
+
 	struct Drawable {
-		virtual void resize(const double& DELTA_X, const double& DELTA_Y) = 0;
+
+		virtual void resize(const float& resize_delta_x, const float& resize_delta_y) = 0;
 
 		virtual void draw(sf::RenderWindow& window, sf::Event& event, sf::Mouse& mouse) = 0;
 
@@ -32,7 +38,7 @@ namespace cn {
 
 		sf::FloatRect position;
 
-		void resize(const double& DELTA_X, const double& DELTA_Y) override;
+		void resize(const float& resize_delta_x, const float& resize_delta_y) override;
 
 		void draw(sf::RenderWindow& window, sf::Event& event, sf::Mouse& mouse) override;
 
@@ -69,9 +75,9 @@ namespace cn {
 		}
 
 
-		void resize(const double& DELTA_X, const double& DELTA_Y) override {
-			sprite.scale(static_cast<float>(DELTA_X), static_cast<float>(DELTA_Y));
-			hl_sprite.scale(static_cast<float>(DELTA_X), static_cast<float>(DELTA_Y));
+		void resize(const float& resize_delta_x, const float& resize_delta_y) override {
+			sprite.scale(resize_delta_x, resize_delta_y);
+			hl_sprite.scale(resize_delta_x, resize_delta_y);
 
 			position = sprite.getGlobalBounds();
 		}
@@ -101,16 +107,16 @@ namespace cn {
 			window.draw(sprite);
 		}
 
-		virtual void set_image(const char* data, std::size_t size, const float& x, const float& y) {
+		void set_image(const char* data, std::size_t size, const float& x, const float& y) override {
 			texture.loadFromMemory(data, size);
 			sprite.setTexture(texture);
-			sprite.setPosition(x, y);
+			sprite.setPosition(x*DELTA_X, y*DELTA_Y);
 		}
 
 		void set_hl(const char* data_hl, std::size_t size_hl, const float& x, const float& y) override {
 			hl_texture.loadFromMemory(data_hl, size_hl);
 			hl_sprite.setTexture(hl_texture);
-			hl_sprite.setPosition(x, y);
+			hl_sprite.setPosition(x*DELTA_X, y*DELTA_Y);
 		}
 
 		void set_font(const std::string& path, const unsigned int& text_size, const sf::Color color, const float& x, const float& y, const std::string& _text) override {}
@@ -129,7 +135,7 @@ namespace cn {
 
 		sf::FloatRect text_position;
 
-		virtual void resize(const double& DELTA_X, const double& DELTA_Y) override;
+		virtual void resize(const float& resize_delta_x, const float& resize_delta_y) override;
 
 		virtual void draw(sf::RenderWindow& window, sf::Event& event, sf::Mouse& mouse) override;
 
@@ -160,13 +166,13 @@ namespace cn {
 			return function();
 		}
 
-		void resize(const double& DELTA_X, const double& DELTA_Y) override {
-			sprite.scale(static_cast<float>(DELTA_X), static_cast<float>(DELTA_Y));
-			hl_sprite.scale(static_cast<float>(DELTA_X), static_cast<float>(DELTA_Y));
+		void resize(const float& resize_delta_x, const float& resize_delta_y) override {
+			sprite.scale(resize_delta_x, resize_delta_y);
+			hl_sprite.scale(resize_delta_x, resize_delta_y);
 
 			position = sprite.getGlobalBounds();
 
-			text.scale(static_cast<float>(DELTA_X), static_cast<float>(DELTA_Y));
+			text.scale(resize_delta_x, resize_delta_y);
 			text_position = text.getGlobalBounds();
 		}
 
@@ -197,13 +203,13 @@ namespace cn {
 		void set_image(const char* data, std::size_t size, const float& x, const float& y) override {
 			texture.loadFromMemory(data, size);
 			sprite.setTexture(texture);
-			sprite.setPosition(x, y);
+			sprite.setPosition(x*DELTA_X, y*DELTA_Y);
 		}
 
 		void set_hl(const char* data_hl, std::size_t size_hl, const float& x, const float& y) override {
 			hl_texture.loadFromMemory(data_hl, size_hl);
 			hl_sprite.setTexture(hl_texture);
-			hl_sprite.setPosition(x, y);
+			hl_sprite.setPosition(x*DELTA_X, y*DELTA_Y);
 		}
 
 		void set_font(const std::string& path, const unsigned int& text_size, const sf::Color color, const float& x, const float& y, const std::string& _text) override {
@@ -211,7 +217,7 @@ namespace cn {
 			text.setFont(font);
 			text.setCharacterSize(text_size);
 			text.setFillColor(color);
-			text.setPosition(x, y);
+			text.setPosition(x*DELTA_X, y*DELTA_Y);
 
 			text.setString(_text);
 		}
@@ -227,14 +233,11 @@ namespace cn {
 
 class Core {
 private:
-	double native_width{1920};
-	double native_height{1080};
+	float native_width{1920};
+	float native_height{1080};
 
 	unsigned int window_width{ 0 };
 	unsigned int window_height{ 0 };
-
-	double DELTA_X{1.0f};
-	double DELTA_Y{1.0f};
 
 	std::vector<cn::Drawable*> drawables;
 
