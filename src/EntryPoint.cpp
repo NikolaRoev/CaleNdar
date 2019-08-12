@@ -8,8 +8,7 @@ void test(int j, int i) {
 
 int main() {
 
-	
-	
+
 	Core* core = new Core;
 
 	sf::VideoMode mode = { 1024, 576, 32 };
@@ -845,12 +844,14 @@ int main() {
 	std::vector<cn::Drawable*> in_frame = {&background, &button};
 	core->main_loop(in_frame);
 
+
+
 	//sf::FloatRect testr = { 0, 0, 1024, 768 };
 	//core->pop_up_loop(in_frame, in_frame, testr);
 	
-	/*
+	
 	cn::Event event = { 12, 12, "test", "test" };
-	cn::SavedDay day = { 20, "Monday", true, {event, event, event, event, event, event, event, event, event, event, event, event, event, event, event, event, event, event, event, event, event, event, event, event, event, event, event, event, event, event, event, event, event, event, event, event, event, event, event, event} };
+	cn::SavedDay day = { 20, "Monday", {event, event, event, event, event, event, event, event, event, event, event, event, event, event, event, event, event, event, event, event, event, event, event, event, event, event, event, event, event, event, event, event, event, event, event, event, event, event, event, event} };
 	cn::SavedMonth month = { "January", {day, day, day, day, day, day, day, day, day, day, day, day, day, day, day, day, day, day, day, day, day, day, day, day, day, day, day, day, day, day, day } };
 	cn::SavedYear year = { 2019, {month, month, month, month, month, month, month, month, month, month, month, month} };
 	std::vector<cn::SavedYear> save = { year, year };
@@ -860,5 +861,11 @@ int main() {
 	std::vector<cn::SavedYear> test;
 
 	deserialize(test);
+	
+
+	/*
+	sf::String teadsloh = "ab";
+	size_t len = teadsloh.getSize();
+	size_t char_len = sizeof(teadsloh[0]);
 	*/
 }
