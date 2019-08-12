@@ -10,11 +10,6 @@ namespace cn {
 
 	//================================================================================================================================
 
-	float DELTA_X{ 1.0f };
-	float DELTA_Y{ 1.0f };
-
-	//================================================================================================================================
-
 	void Image::resize(const float& resize_delta_x, const float& resize_delta_y) {
 		sprite.scale(resize_delta_x, resize_delta_y);
 		position = sprite.getGlobalBounds();
