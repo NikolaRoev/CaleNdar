@@ -1,2 +1,2 @@
 # CaleNdar
-A calendar aplication.
+A calendar aplication using SFML.
