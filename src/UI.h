@@ -1,5 +1,6 @@
 #pragma once
 #include "pch.h"
+#include "CalendarGenerator.h"
 #include "Serializer.h"
 #include "CurrentTime.h"
 #include "Core.h"
@@ -30,9 +31,9 @@ private:
 
 	//End ============================================================================================================================
 
-	std::vector<cn::SavedYear> years;
+	std::vector<cn::Year> years;
 
-	cn::SavedYear* current_year;
+	cn::Year* current_year{ nullptr };
 
 	std::pair<int, int> current_date; //Month, Day.
 

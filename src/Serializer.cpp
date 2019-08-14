@@ -25,7 +25,7 @@ void serialize_events(std::ofstream& os, std::vector<cn::Event>& events) {
 	}
 }
 
-void serialize_days(std::ofstream& os, std::vector<cn::SavedDay>& days) {
+void serialize_days(std::ofstream& os, std::vector<cn::Day>& days) {
 	size_t len = days.size();
 	os.write((char*)& len, sizeof(len));
 
@@ -36,7 +36,7 @@ void serialize_days(std::ofstream& os, std::vector<cn::SavedDay>& days) {
 	}
 }
 
-void serialize_months(std::ofstream& os, std::array<cn::SavedMonth, 12> & months) {
+void serialize_months(std::ofstream& os, std::array<cn::Month, 12> & months) {
 	size_t len = months.size();
 	os.write((char*)& len, sizeof(len));
 
@@ -46,7 +46,7 @@ void serialize_months(std::ofstream& os, std::array<cn::SavedMonth, 12> & months
 	}
 }
 
-void serialize(std::vector<cn::SavedYear>& save) {
+void serialize(std::vector<cn::Year>& save) {
 	std::ofstream os("save.bin", std::ios::binary);
 	
 	size_t len = save.size();
@@ -86,7 +86,7 @@ void deserialize_events(std::ifstream& is, std::vector<cn::Event>& events) {
 	}
 }
 
-void deserialize_days(std::ifstream& is, std::vector<cn::SavedDay>& days) {
+void deserialize_days(std::ifstream& is, std::vector<cn::Day>& days) {
 	size_t len;
 	is.read((char*)& len, sizeof(len));
 	days.resize(len);
@@ -98,7 +98,7 @@ void deserialize_days(std::ifstream& is, std::vector<cn::SavedDay>& days) {
 	}
 }
 
-void deserialize_months(std::ifstream& is, std::array<cn::SavedMonth, 12> & months) {
+void deserialize_months(std::ifstream& is, std::array<cn::Month, 12> & months) {
 	size_t len;
 	is.read((char*)& len, sizeof(len));
 
@@ -108,7 +108,7 @@ void deserialize_months(std::ifstream& is, std::array<cn::SavedMonth, 12> & mont
 	}
 }
 
-void deserialize(std::vector<cn::SavedYear>& save) {
+void deserialize(std::vector<cn::Year>& save) {
 	std::ifstream is("save.bin", std::ios::binary);
 
 	size_t len;

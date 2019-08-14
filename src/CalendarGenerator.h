@@ -8,18 +8,30 @@
 
 namespace cn {
 
+	struct Event {
+		int start_time{ 0 };
+		int end_time{ 0 };
+
+		std::string name;
+		std::string description;
+	};
+
 	struct Day {
 		int date{ 0 };
 		std::string name;
+
+		std::vector<Event> events;
 	};
 
 	struct Month {
 		std::string name;
+
 		std::vector<Day> days;
 	};
 
 	struct Year {
 		int year{ 0 };
+
 		std::array<Month, 12> months;
 	};
 
