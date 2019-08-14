@@ -159,6 +159,7 @@ void Core::main_loop(std::vector<cn::Drawable*>& in_frame) {
 		window.pollEvent(event);
 		if (event.type == sf::Event::Closed) {
 			window.close();
+			cn::APPLICATION_STATE = EXIT;
 		}
 
 		sf::Vector2u new_size = window.getSize();
@@ -187,6 +188,7 @@ void Core::pop_up_loop(std::vector<cn::Drawable*>& in_frame_background, std::vec
 
 		if (event.type == sf::Event::Closed) {
 			window.close();
+			cn::APPLICATION_STATE = EXIT;
 		}
 
 		sf::Vector2i mouse_position = sf::Mouse::getPosition(window);

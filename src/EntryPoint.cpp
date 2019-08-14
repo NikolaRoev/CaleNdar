@@ -7,8 +7,10 @@ void test(int j, int i) {
 }
 
 int main() {
+	UI ui;
+	ui.application_loop();
 
-
+	/*
 	Core* core = new Core;
 
 	sf::VideoMode mode = { 1024, 576, 32 };
@@ -861,7 +863,7 @@ int main() {
 	std::vector<cn::SavedYear> test;
 
 	deserialize(test);
-	
+	*/
 
 	/*
 	sf::String teadsloh = "ab";
