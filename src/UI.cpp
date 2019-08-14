@@ -22,8 +22,9 @@ void UI::individual_day_loop() {
 
 //Public:
 void UI::application_loop() {
-	bool open = true;
+	serialize(years);
 	
+	bool open = true;
 	while (open) {
 		switch (cn::APPLICATION_STATE) {
 			case START_MENU: {
