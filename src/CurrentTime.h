@@ -7,13 +7,13 @@
 //================================================================================================================================
 
 namespace cn {
-	struct current_time {
+	struct CurrentTime {
 		int hour{ 0 };
 		int minute{ 0 };
 		int second{ 0 };
 	};
 
-	struct current_date {
+	struct CurrentDate {
 		int year{ 0 };
 		int month{ 0 };
 		int day{ 0 };
@@ -27,9 +27,9 @@ namespace cn {
 //Returns the current system time.
 tm current();
 
-cn::current_time get_current_time();
+cn::CurrentTime get_current_time();
 
-cn::current_date get_current_date();
+cn::CurrentDate get_current_date();
 
 //================================================================================================================================
 //================================================================================================================================

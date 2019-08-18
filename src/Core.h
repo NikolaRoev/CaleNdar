@@ -67,7 +67,6 @@ namespace cn {
 
 	//================================================================================================================================
 
-	template <typename Function, typename... Args>
 	struct Button : public Drawable {
 		sf::Texture texture;
 		sf::Sprite sprite;
@@ -77,16 +76,10 @@ namespace cn {
 		sf::Texture hl_texture;
 		sf::Sprite hl_sprite;
 
-		using ReturnType = std::invoke_result_t<Function, Args...>;
-		std::function<ReturnType()> function;
 
+		std::function<void()> function;
 
-		Button(Function _function, Args... args) : function(std::bind(_function, std::forward<Args>(args)...)) {}
-
-
-		auto on_click() {
-			return function();
-		}
+		Button(std::function<void()> _function) : function(_function) {}
 
 
 		void resize(const float& resize_delta_x, const float& resize_delta_y) override {
@@ -106,7 +99,7 @@ namespace cn {
 					while (position.contains(static_cast<float>(mouse_position.x), static_cast<float>(mouse_position.y))) {
 						window.waitEvent(event);
 						if (event.type == sf::Event::MouseButtonReleased) {
-							on_click();
+							function();
 						}
 						mouse_position = sf::Mouse::getPosition(window);
 					}
@@ -164,21 +157,15 @@ namespace cn {
 
 	//================================================================================================================================
 
-	template <typename Function, typename... Args>
 	struct TextButton : public Label {
 		sf::Texture hl_texture;
 		sf::Sprite hl_sprite;
 		
-		using ReturnType = std::invoke_result_t<Function, Args...>;
-		std::function<ReturnType()> function;
+		
+		std::function<void()> function;
 
+		TextButton(std::function<void()> _function) : function(_function) {}
 
-		TextButton(Function _function, Args... args) : function(std::bind(_function, std::forward<Args>(args)...)) {}
-
-
-		auto on_click() {
-			return function();
-		}
 
 		void resize(const float& resize_delta_x, const float& resize_delta_y) override {
 			sprite.scale(resize_delta_x, resize_delta_y);
@@ -200,7 +187,7 @@ namespace cn {
 					while (position.contains(static_cast<float>(mouse_position.x), static_cast<float>(mouse_position.y))) {
 						window.waitEvent(event);
 						if (event.type == sf::Event::MouseButtonReleased) {
-							on_click();
+							function();
 						}
 						mouse_position = sf::Mouse::getPosition(window);
 					}

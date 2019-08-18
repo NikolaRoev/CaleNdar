@@ -17,10 +17,10 @@ tm current() {
 	return local_tm;
 }
 
-cn::current_time get_current_time() {
+cn::CurrentTime get_current_time() {
 	tm temp = current();
 
-	cn::current_time out;
+	cn::CurrentTime out;
 
 	out.hour = temp.tm_hour;
 	out.minute = temp.tm_min;
@@ -29,10 +29,10 @@ cn::current_time get_current_time() {
 	return out;
 }
 
-cn::current_date get_current_date() {
+cn::CurrentDate get_current_date() {
 	tm temp = current();
 
-	cn::current_date out;
+	cn::CurrentDate out;
 
 	out.year = temp.tm_year + 1900;
 	out.month = temp.tm_mon;
