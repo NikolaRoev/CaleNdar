@@ -7,10 +7,9 @@ void test(int j, int i) {
 }
 
 int main() {
-	UI ui;
-	ui.application_loop();
+	//UI ui;
+	//ui.application_loop();
 
-	/*
 	Core* core = new Core;
 
 	sf::VideoMode mode = { 1024, 576, 32 };
@@ -840,14 +839,14 @@ int main() {
 	
 
 	cn::TextButton button(test, 1, 2);
-	core->add_drawable(button, imageData1, sizeof(imageData1), imageData2, sizeof(imageData2), 20, 20, "temp/arial.ttf", 20 , sf::Color::Black, 40, 40, "Test");
+	core->add_drawable(button, imageData1, sizeof(imageData1), imageData2, sizeof(imageData2), 20, 20, "temp/times-new-roman.ttf", 40 , sf::Color::Black, 40, 40, "Test");
 
 
 	std::vector<cn::Drawable*> in_frame = {&background, &button};
 	core->main_loop(in_frame);
 
 
-
+	/*
 	//sf::FloatRect testr = { 0, 0, 1024, 768 };
 	//core->pop_up_loop(in_frame, in_frame, testr);
 	
