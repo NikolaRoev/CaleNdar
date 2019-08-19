@@ -12,18 +12,18 @@ void UI::test() {
 
 //================================================================================================================================
 
-void UI::set_current_year(cn::CurrentDate date) {
+void UI::set_current_year(const int& year) {
 	bool set = false;
 	
 	for (auto& each : years) {
-		if (each.year == date.year) {
+		if (each.year == year) {
 			current_year = &each;
 			set = true;
 		}
 	}
 
 	if (!current_year || !set) {
-		cn::Year temp_current_year = generate_calendar(date.year);
+		cn::Year temp_current_year = generate_calendar(year);
 
 		years.push_back(temp_current_year);
 
@@ -907,7 +907,7 @@ void UI::application_loop() {
 	cn::CurrentDate temp_date = get_current_date();
 	current_date = { temp_date.month, temp_date.day };
 
-	set_current_year(temp_date);
+	set_current_year(temp_date.year);
 	
 	bool open = true;
 	while (open) {

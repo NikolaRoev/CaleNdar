@@ -32,7 +32,7 @@ private:
 
 	//================================================================================================================================
 
-	void set_current_year(cn::CurrentDate year);
+	void set_current_year(const int& year);
 
 	void set_drawables();
 
