@@ -6,8 +6,19 @@
 //================================================================================================================================
 //================================================================================================================================
 
-void UI::test() {
-	std::cout << 3;
+void UI::clock_update() {
+	bool tick = true;
+	while (cn::APPLICATION_STATE == START_MENU) {
+		if (tick) {
+			start_menu_today->text.setString("EYO");
+			tick = false;
+		}
+		else if (!tick) {
+			start_menu_today->text.setString("Test");
+			tick = true;
+		}
+		std::this_thread::sleep_for(std::chrono::seconds(1));
+	}
 }
 
 //================================================================================================================================
@@ -908,6 +919,8 @@ void UI::application_loop() {
 	current_date = { temp_date.month, temp_date.day };
 
 	set_current_year(temp_date.year);
+
+	std::thread clock(&UI::clock_update, this);
 	
 	bool open = true;
 	while (open) {
@@ -931,6 +944,8 @@ void UI::application_loop() {
 			}
 		}
 	}
+
+	clock.join();
 }
 
 //================================================================================================================================

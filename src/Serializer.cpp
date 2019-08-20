@@ -110,14 +110,16 @@ void deserialize_months(std::ifstream& is, std::array<cn::Month, 12> & months) {
 
 void deserialize(std::vector<cn::Year>& save) {
 	std::ifstream is("save.bin", std::ios::binary);
+	
+	if (is.is_open()) {
+		size_t len;
+		is.read((char*)& len, sizeof(len));
+		save.resize(len);
 
-	size_t len;
-	is.read((char*)& len, sizeof(len));
-	save.resize(len);
-
-	for (unsigned int i = 0; i < len; ++i) {
-		is.read((char*)& save[i].year, sizeof(int));
-		deserialize_months(is, save[i].months);
+		for (unsigned int i = 0; i < len; ++i) {
+			is.read((char*)& save[i].year, sizeof(int));
+			deserialize_months(is, save[i].months);
+		}
 	}
 
 	is.close();
