@@ -6,19 +6,22 @@
 //================================================================================================================================
 
 //STL headers:
-#include <iostream>
 #include <vector>
 #include <array>
 #include <string>
+
 #include <chrono>
 #include <ctime>
+
 #include <functional>
-#include <utility>
-#include <ostream>
-#include <istream>
-#include <fstream>
-#include <memory>
 #include <thread>
+
+#include <ios>
+#include <istream>
+#include <ostream>
+#include <fstream>
+
+
 
 //================================================================================================================================
 //================================================================================================================================

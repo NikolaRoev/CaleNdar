@@ -47,7 +47,7 @@ void serialize_months(std::ofstream& os, std::array<cn::Month, 12> & months) {
 }
 
 void serialize(std::vector<cn::Year>& save) {
-	std::ofstream os("save.bin", std::ios::binary);
+	std::ofstream os("save.bin", std::ios::binary | std::ofstream::out | std::ofstream::trunc);
 	
 	size_t len = save.size();
 	os.write((char*)& len, sizeof(len));
