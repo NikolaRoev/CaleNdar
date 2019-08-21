@@ -41,7 +41,7 @@ void UI::set_drawables() {
 	//Start Menu Drawables ===========================================================================================================
 
 	start_menu_background = new cn::Image;
-	const char start_menu_background_date[] =
+	const char start_menu_background_data[] =
 	{
 		'\x89', '\x50', '\x4e', '\x47', '\x0d', '\x0a', '\x1a', '\x0a', '\x00', '\x00', '\x00', '\x0d', '\x49', '\x48', '\x44', '\x52', '\x00', '\x00', '\x07', '\x80',
 		'\x00', '\x00', '\x04', '\x38', '\x08', '\x02', '\x00', '\x00', '\x00', '\x67', '\xb1', '\x56', '\x14', '\x00', '\x00', '\x00', '\x09', '\x70', '\x48', '\x59',
@@ -577,45 +577,56 @@ void UI::set_drawables() {
 		'\x00', '\x06', '\xfe', '\x00', '\x15', '\x46', '\x30', '\xdd', '\x75', '\x91', '\x7e', '\x03', '\x00', '\x00', '\x00', '\x00', '\x49', '\x45', '\x4e', '\x44',
 		'\xae', '\x42', '\x60', '\x82', '\xff',
 	};
-	core->add_drawable(*start_menu_background, start_menu_background_date, sizeof(start_menu_background_date), 0, 0);
+	start_menu_background->setup(start_menu_background_data, sizeof(start_menu_background_data), 0, 0);
+	core->add_drawable(*start_menu_background);
 
 
 	start_menu_time = new cn::Label;
-	core->add_drawable(*start_menu_time, nullptr, NULL, 60, 40, "temp/times-new-roman.ttf", 100, sf::Color::Black, 60, 40, "");
-
+	start_menu_time->setup(nullptr, NULL, 60, 40, "temp/times-new-roman.ttf", 100, sf::Color::Black, 60, 40, "");
+	core->add_drawable(*start_menu_time);
 
 
 	//start_menu_today = new cn::TextButton([&]() {loop_selector = false; });
 	//core->add_drawable(*start_menu_today, imageData1, sizeof(imageData1), imageData2, sizeof(imageData2), 20, 20, "temp/times-new-roman.ttf", 40, sf::Color::Black, 40, 40, "Test");
 
+
+	start_menu_in_frame = { start_menu_background, start_menu_time };
 	//================================================================================================================================
 
 	//Day Selection Menu Drawables ===================================================================================================
 
 
 
+	day_selection_menu_in_frame = {};
 	//================================================================================================================================
 
 	//Individual Day Menu Drawables ==================================================================================================
 
 
 
+	individual_day_menu_in_frame = {};
+	//================================================================================================================================
+
+	//Pop up =========================================================================================================================
+
+
+
+	pop_up_frame = {};
 	//================================================================================================================================
 }
 
 //================================================================================================================================
 
 void UI::start_menu_loop() {
-	in_frame = { start_menu_background, start_menu_time };
-	core->main_loop(in_frame, loop_selector);
+	core->main_loop(start_menu_in_frame, loop_selector);
 }
 
 void UI::day_selection_menu_loop() {
-
+	core->main_loop(day_selection_menu_in_frame, loop_selector);
 }
 
 void UI::individual_day_loop() {
-
+	core->main_loop(individual_day_menu_in_frame, loop_selector);
 }
 
 //================================================================================================================================
@@ -661,14 +672,17 @@ void UI::application_loop() {
 	while (open) {
 		switch (cn::APPLICATION_STATE) {
 			case START_MENU: {
+				loop_selector = true;
 				start_menu_loop();
 				break;
 			}
 			case DAY_SELECTION_MENU: {
+				loop_selector = true;
 				day_selection_menu_loop();
 				break;
 			}
 			case INDIVIDUAL_DAY_MENU: {
+				loop_selector = true;
 				individual_day_loop();
 				break;
 			}

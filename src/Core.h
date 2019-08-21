@@ -31,17 +31,29 @@ namespace cn {
 
 	struct Drawable {
 
-		virtual void resize(const float& resize_delta_x, const float& resize_delta_y) = 0;
+		float image_x_position{ 0.f };
+		float image_y_position{ 0.f };
 
-		virtual void draw(sf::RenderWindow& window, sf::Event& event, sf::Mouse& mouse) = 0;
+		float text_x_position{ 0.f };
+		float text_y_position{ 0.f };
+
+		//Image.
+		virtual void setup(const char* data, std::size_t size, const float& x, const float& y) = 0;
+
+		//Button.
+		virtual void setup(const char* data, std::size_t size, const char* data_hl, std::size_t size_hl, const float& x, const float& y) = 0;
+
+		//Label.
+		virtual void setup(const char* data, std::size_t size, const float& x, const float& y, const std::string& path, const unsigned int& text_size, const sf::Color color, const float& text_x, const float& text_y, const std::string& _text) = 0;
+		
+		//Text button.
+		virtual void setup(const char* data, std::size_t size, const char* data_hl, std::size_t size_hl, const float& x, const float& y, const std::string& path, const unsigned int& text_size, const sf::Color color, const float& text_x, const float& text_y, const std::string& _text) = 0;
+
+		virtual void resize(const float& resize_delta_x, const float& resize_delta_y) = 0;
 
 		virtual void draw(sf::RenderWindow& window) = 0;
 
-		virtual void set_image(const char* data, std::size_t size, const float& x, const float& y) = 0;
-
-		virtual void set_hl(const char* data_hl, std::size_t size_hl, const float& x, const float& y) = 0;
-
-		virtual void set_font(const std::string& path, const unsigned int& text_size, const sf::Color color, const float& x, const float& y, const std::string& _text) = 0;
+		virtual void draw(sf::RenderWindow& window, sf::Event& event, sf::Mouse& mouse) = 0;
 	};
 
 	//================================================================================================================================
@@ -52,17 +64,17 @@ namespace cn {
 
 		sf::FloatRect position;
 
+		void setup(const char* data, std::size_t size, const float& x, const float& y) override;
+
+		void setup(const char* data, std::size_t size, const char* data_hl, std::size_t size_hl, const float& x, const float& y) override {}
+		void setup(const char* data, std::size_t size, const float& x, const float& y, const std::string& path, const unsigned int& text_size, const sf::Color color, const float& text_x, const float& text_y, const std::string& _text) override {}
+		void setup(const char* data, std::size_t size, const char* data_hl, std::size_t size_hl, const float& x, const float& y, const std::string& path, const unsigned int& text_size, const sf::Color color, const float& text_x, const float& text_y, const std::string& _text) override {}
+
 		void resize(const float& resize_delta_x, const float& resize_delta_y) override;
 
 		void draw(sf::RenderWindow& window, sf::Event& event, sf::Mouse& mouse) override;
 
 		void draw(sf::RenderWindow& window) override;
-
-		void set_image(const char* data, std::size_t size, const float& x, const float& y) override;
-
-		void set_hl(const char* data_hl, std::size_t size_hl, const float& x, const float& y) override {}
-
-		void set_font(const std::string& path, const unsigned int& text_size, const sf::Color color, const float& x, const float& y, const std::string& _text) override {}
 	};
 
 	//================================================================================================================================
@@ -76,57 +88,23 @@ namespace cn {
 		sf::Texture hl_texture;
 		sf::Sprite hl_sprite;
 
-
 		std::function<void()> function;
 
-		Button(std::function<void()> _function) : function(_function) {}
+
+		Button(std::function<void()> _function);
 
 
-		void resize(const float& resize_delta_x, const float& resize_delta_y) override {
-			sprite.scale(resize_delta_x, resize_delta_y);
-			hl_sprite.scale(resize_delta_x, resize_delta_y);
+		void setup(const char* data, std::size_t size, const char* data_hl, std::size_t size_hl, const float& x, const float& y) override;
 
-			position = sprite.getGlobalBounds();
-		}
+		void setup(const char* data, std::size_t size, const float& x, const float& y) override {}
+		void setup(const char* data, std::size_t size, const float& x, const float& y, const std::string& path, const unsigned int& text_size, const sf::Color color, const float& text_x, const float& text_y, const std::string& _text) override {}
+		void setup(const char* data, std::size_t size, const char* data_hl, std::size_t size_hl, const float& x, const float& y, const std::string& path, const unsigned int& text_size, const sf::Color color, const float& text_x, const float& text_y, const std::string& _text) override {}
 
+		void resize(const float& resize_delta_x, const float& resize_delta_y) override;
 
-		void draw(sf::RenderWindow& window, sf::Event& event, sf::Mouse& mouse) override {
-			sf::Vector2i mouse_position = sf::Mouse::getPosition(window);
-			window.draw(sprite);
+		void draw(sf::RenderWindow& window) override;
 
-			if (position.contains(static_cast<float>(mouse_position.x), static_cast<float>(mouse_position.y))) {
-				if (event.type == sf::Event::MouseButtonPressed && event.mouseButton.button == sf::Mouse::Left) {
-					while (position.contains(static_cast<float>(mouse_position.x), static_cast<float>(mouse_position.y))) {
-						window.waitEvent(event);
-						if (event.type == sf::Event::MouseButtonReleased) {
-							function();
-						}
-						mouse_position = sf::Mouse::getPosition(window);
-					}
-				}
-				window.draw(hl_sprite);
-			}
-
-			//add right click here with a new function and a new constructor
-		}
-
-		void draw(sf::RenderWindow& window) override {
-			window.draw(sprite);
-		}
-
-		void set_image(const char* data, std::size_t size, const float& x, const float& y) override {
-			texture.loadFromMemory(data, size);
-			sprite.setTexture(texture);
-			sprite.setPosition(x*DELTA_X, y*DELTA_Y);
-		}
-
-		void set_hl(const char* data_hl, std::size_t size_hl, const float& x, const float& y) override {
-			hl_texture.loadFromMemory(data_hl, size_hl);
-			hl_sprite.setTexture(hl_texture);
-			hl_sprite.setPosition(x*DELTA_X, y*DELTA_Y);
-		}
-
-		void set_font(const std::string& path, const unsigned int& text_size, const sf::Color color, const float& x, const float& y, const std::string& _text) override {}
+		void draw(sf::RenderWindow& window, sf::Event& event, sf::Mouse& mouse) override;
 	};
 
 	//================================================================================================================================
@@ -142,17 +120,18 @@ namespace cn {
 
 		sf::FloatRect text_position;
 
-		virtual void resize(const float& resize_delta_x, const float& resize_delta_y) override;
+		void setup(const char* data, std::size_t size, const float& x, const float& y, const std::string& path, const unsigned int& text_size, const sf::Color color, const float& text_x, const float& text_y, const std::string& _text) override;
 
-		virtual void draw(sf::RenderWindow& window, sf::Event& event, sf::Mouse& mouse) override;
+		void setup(const char* data, std::size_t size, const float& x, const float& y) override {}
+		void setup(const char* data, std::size_t size, const char* data_hl, std::size_t size_hl, const float& x, const float& y) override {}
+		void setup(const char* data, std::size_t size, const char* data_hl, std::size_t size_hl, const float& x, const float& y, const std::string& path, const unsigned int& text_size, const sf::Color color, const float& text_x, const float& text_y, const std::string& _text) override {}
+
+
+		virtual void resize(const float& resize_delta_x, const float& resize_delta_y) override;
 
 		virtual void draw(sf::RenderWindow& window) override;
 
-		virtual void set_image(const char* data, std::size_t size, const float& x, const float& y) override;
-
-		virtual void set_hl(const char* data_hl, std::size_t size_hl, const float& x, const float& y) override {}
-
-		virtual void set_font(const std::string& path, const unsigned int& text_size, const sf::Color color, const float& x, const float& y, const std::string& _text) override;
+		virtual void draw(sf::RenderWindow& window, sf::Event& event, sf::Mouse& mouse) override;
 	};
 
 	//================================================================================================================================
@@ -161,67 +140,24 @@ namespace cn {
 		sf::Texture hl_texture;
 		sf::Sprite hl_sprite;
 		
-		
 		std::function<void()> function;
 
-		TextButton(std::function<void()> _function) : function(_function) {}
+
+		TextButton(std::function<void()> _function);
 
 
-		void resize(const float& resize_delta_x, const float& resize_delta_y) override {
-			sprite.scale(resize_delta_x, resize_delta_y);
-			hl_sprite.scale(resize_delta_x, resize_delta_y);
+		void setup(const char* data, std::size_t size, const char* data_hl, std::size_t size_hl, const float& x, const float& y, const std::string& path, const unsigned int& text_size, const sf::Color color, const float& text_x, const float& text_y, const std::string& _text) override;
 
-			position = sprite.getGlobalBounds();
+		void setup(const char* data, std::size_t size, const float& x, const float& y) override {}
+		void setup(const char* data, std::size_t size, const char* data_hl, std::size_t size_hl, const float& x, const float& y) override {}
+		void setup(const char* data, std::size_t size, const float& x, const float& y, const std::string& path, const unsigned int& text_size, const sf::Color color, const float& text_x, const float& text_y, const std::string& _text) override {}
 
-			text.scale(resize_delta_x, resize_delta_y);
-			text_position = text.getGlobalBounds();
-		}
 
-		void draw(sf::RenderWindow& window, sf::Event& event, sf::Mouse& mouse) override {
-			sf::Vector2i mouse_position = sf::Mouse::getPosition(window);
-			window.draw(sprite);
-			window.draw(text);
+		void resize(const float& resize_delta_x, const float& resize_delta_y) override;
 
-			if (position.contains(static_cast<float>(mouse_position.x), static_cast<float>(mouse_position.y))) {
-				if (event.type == sf::Event::MouseButtonPressed && event.mouseButton.button == sf::Mouse::Left) {
-					while (position.contains(static_cast<float>(mouse_position.x), static_cast<float>(mouse_position.y))) {
-						window.waitEvent(event);
-						if (event.type == sf::Event::MouseButtonReleased) {
-							function();
-						}
-						mouse_position = sf::Mouse::getPosition(window);
-					}
-				}
-				window.draw(hl_sprite);
-			}
-		}
+		void draw(sf::RenderWindow& window) override;
 
-		void draw(sf::RenderWindow& window) override {
-			window.draw(sprite);
-			window.draw(text);
-		}
-
-		void set_image(const char* data, std::size_t size, const float& x, const float& y) override {
-			texture.loadFromMemory(data, size);
-			sprite.setTexture(texture);
-			sprite.setPosition(x*DELTA_X, y*DELTA_Y);
-		}
-
-		void set_hl(const char* data_hl, std::size_t size_hl, const float& x, const float& y) override {
-			hl_texture.loadFromMemory(data_hl, size_hl);
-			hl_sprite.setTexture(hl_texture);
-			hl_sprite.setPosition(x*DELTA_X, y*DELTA_Y);
-		}
-
-		void set_font(const std::string& path, const unsigned int& text_size, const sf::Color color, const float& x, const float& y, const std::string& _text) override {
-			font.loadFromFile(path);
-			text.setFont(font);
-			text.setCharacterSize(text_size);
-			text.setFillColor(color);
-			text.setPosition(x*DELTA_X, y*DELTA_Y);
-
-			text.setString(_text);
-		}
+		void draw(sf::RenderWindow& window, sf::Event& event, sf::Mouse& mouse) override;
 	};
 
 	//================================================================================================================================
@@ -256,14 +192,10 @@ public:
 	//Call this once when we start up the program.
 	void setup_window(sf::VideoMode& mode, const uint32_t& style);
 
-	//Call this when you want to add an image to be drawn.
-	void add_drawable(cn::Drawable& image, const char* data, std::size_t size, const float& x, const float& y);
-	//Button.
-	void add_drawable(cn::Drawable& image, const char* data, std::size_t size, const char* data_hl, std::size_t size_hl, const float& x, const float& y);
-	//Label.
-	void add_drawable(cn::Drawable& image, const char* data, std::size_t size, const float& x, const float& y, const std::string& path, const unsigned int& text_size, const sf::Color color, const float& text_x, const float& text_y, const std::string& _text);
-	//TextButton.
-	void add_drawable(cn::Drawable& image, const char* data, std::size_t size, const char* data_hl, std::size_t size_hl, const float& x, const float& y, const std::string& path, const unsigned int& text_size, const sf::Color color, const float& text_x, const float& text_y, const std::string& _text);
+
+	//Call this when you want to add a drawable.
+	void add_drawable(cn::Drawable& image);
+	
 
 	//This is our application.
 	void main_loop(std::vector<cn::Drawable*>& in_frame, bool& loop_selector);

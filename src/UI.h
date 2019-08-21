@@ -29,7 +29,12 @@ private:
 
 	//================================================================================================================================
 
-	std::vector<cn::Drawable*> in_frame;
+	std::vector<cn::Drawable*> start_menu_in_frame;
+	
+	std::vector<cn::Drawable*> day_selection_menu_in_frame;
+	
+	std::vector<cn::Drawable*> individual_day_menu_in_frame;
+
 
 	std::vector<cn::Drawable*> pop_up_frame;
 

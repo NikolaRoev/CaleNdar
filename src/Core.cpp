@@ -10,38 +10,125 @@ namespace cn {
 
 	//================================================================================================================================
 
-	void Image::resize(const float& resize_delta_x, const float& resize_delta_y) {
-		sprite.scale(resize_delta_x, resize_delta_y);
+	void Image::setup(const char* data, std::size_t size, const float& x, const float& y) {
+		image_x_position = x;
+		image_y_position = y;
+
+		texture.loadFromMemory(data, size);
+		sprite.setTexture(texture);
+		sprite.setPosition(x * DELTA_X, y * DELTA_Y);
+		sprite.scale(DELTA_X, DELTA_Y);
 		position = sprite.getGlobalBounds();
 	}
 
-	void Image::draw(sf::RenderWindow& window, sf::Event& event, sf::Mouse& mouse) {
-		window.draw(sprite);
+	void Image::resize(const float& resize_delta_x, const float& resize_delta_y) {
+		sprite.setPosition(image_x_position * DELTA_X, image_y_position * DELTA_Y);
+		
+		sprite.scale(resize_delta_x, resize_delta_y);
+		position = sprite.getGlobalBounds();
 	}
 
 	void Image::draw(sf::RenderWindow& window) {
 		window.draw(sprite);
 	}
 
-	void Image::set_image(const char* data, std::size_t size, const float& x, const float& y) {
-		texture.loadFromMemory(data, size);
-		sprite.setTexture(texture);
-		sprite.setPosition(x*DELTA_X, y*DELTA_Y);
+	void Image::draw(sf::RenderWindow& window, sf::Event& event, sf::Mouse& mouse) {
+		window.draw(sprite);
 	}
 
 	//================================================================================================================================
 
-	void Label::resize(const float& resize_delta_x, const float& resize_delta_y) {
+	Button::Button(std::function<void()> _function) : function(_function) {}
+
+	void Button::setup(const char* data, std::size_t size, const char* data_hl, std::size_t size_hl, const float& x, const float& y) {
+		image_x_position = x;
+		image_y_position = y;
+		
+		texture.loadFromMemory(data, size);
+		sprite.setTexture(texture);
+		sprite.setPosition(x * DELTA_X, y * DELTA_Y);
+
+		hl_texture.loadFromMemory(data_hl, size_hl);
+		hl_sprite.setTexture(hl_texture);
+		hl_sprite.setPosition(x * DELTA_X, y * DELTA_Y);
+
+		sprite.scale(DELTA_X, DELTA_Y);
+		hl_sprite.scale(DELTA_X, DELTA_Y);
+		position = sprite.getGlobalBounds();
+	}
+
+	void Button::resize(const float& resize_delta_x, const float& resize_delta_y) {
+		sprite.setPosition(image_x_position * DELTA_X, image_y_position * DELTA_Y);
+		hl_sprite.setPosition(image_x_position * DELTA_X, image_y_position * DELTA_Y);
+		
 		sprite.scale(resize_delta_x, resize_delta_y);
+		hl_sprite.scale(resize_delta_x, resize_delta_y);
+
+		position = sprite.getGlobalBounds();
+	}
+
+	void Button::draw(sf::RenderWindow& window) {
+		window.draw(sprite);
+	}
+
+	void Button::draw(sf::RenderWindow& window, sf::Event& event, sf::Mouse& mouse) {
+		sf::Vector2i mouse_position = sf::Mouse::getPosition(window);
+		window.draw(sprite);
+
+		if (position.contains(static_cast<float>(mouse_position.x), static_cast<float>(mouse_position.y))) {
+			if (event.type == sf::Event::MouseButtonPressed && event.mouseButton.button == sf::Mouse::Left) {
+				while (position.contains(static_cast<float>(mouse_position.x), static_cast<float>(mouse_position.y))) {
+					window.waitEvent(event);
+					if (event.type == sf::Event::MouseButtonReleased) {
+						function();
+					}
+					mouse_position = sf::Mouse::getPosition(window);
+				}
+			}
+			window.draw(hl_sprite);
+		}
+
+		//add right click here with a new function and a new constructor
+	}
+
+	//================================================================================================================================
+
+	void Label::setup(const char* data, std::size_t size, const float& x, const float& y, const std::string& path, const unsigned int& text_size, const sf::Color color, const float& text_x, const float& text_y, const std::string& _text) {
+		image_x_position = x;
+		image_y_position = y;
+		
+		text_x_position = text_x;
+		text_y_position = text_y;
+		
+		texture.loadFromMemory(data, size);
+		sprite.setTexture(texture);
+		sprite.setPosition(x * DELTA_X, y * DELTA_Y);
+
+		font.loadFromFile(path); //change this when you serialize the font file.
+		text.setFont(font);
+		text.setCharacterSize(text_size);
+		text.setFillColor(color);
+		text.setPosition(x * DELTA_X, y * DELTA_Y);
+
+		text.setString(_text);
+
+		sprite.scale(DELTA_X, DELTA_Y);
 		position = sprite.getGlobalBounds();
 
-		text.scale(resize_delta_x, resize_delta_y);
+		text.scale(DELTA_X, DELTA_Y);
 		text_position = text.getGlobalBounds();
 	}
 
-	void Label::draw(sf::RenderWindow& window, sf::Event& event, sf::Mouse& mouse) {
-		window.draw(sprite);
-		window.draw(text);
+	void Label::resize(const float& resize_delta_x, const float& resize_delta_y) {
+		sprite.setPosition(image_x_position * DELTA_X, image_y_position * DELTA_Y);
+		
+		sprite.scale(resize_delta_x, resize_delta_y);
+		position = sprite.getGlobalBounds();
+
+		text.setPosition(text_x_position * DELTA_X, text_y_position * DELTA_Y);
+
+		text.scale(resize_delta_x, resize_delta_y);
+		text_position = text.getGlobalBounds();
 	}
 
 	void Label::draw(sf::RenderWindow& window) {
@@ -49,20 +136,84 @@ namespace cn {
 		window.draw(text);
 	}
 
-	void Label::set_image(const char* data, std::size_t size, const float& x, const float& y) {
-		texture.loadFromMemory(data, size);
-		sprite.setTexture(texture);
-		sprite.setPosition(x*DELTA_X, y*DELTA_Y);
+	void Label::draw(sf::RenderWindow& window, sf::Event& event, sf::Mouse& mouse) {
+		window.draw(sprite);
+		window.draw(text);
 	}
 
-	void Label::set_font(const std::string& path, const unsigned int& text_size, const sf::Color color, const float& x, const float& y, const std::string& _text) {
+	//================================================================================================================================
+
+	TextButton::TextButton(std::function<void()> _function) : function(_function) {}
+
+	void TextButton::setup(const char* data, std::size_t size, const char* data_hl, std::size_t size_hl, const float& x, const float& y, const std::string& path, const unsigned int& text_size, const sf::Color color, const float& text_x, const float& text_y, const std::string& _text) {
+		image_x_position = x;
+		image_y_position = y;
+
+		text_x_position = text_x;
+		text_y_position = text_y;
+		
+		texture.loadFromMemory(data, size);
+		sprite.setTexture(texture);
+		sprite.setPosition(x * DELTA_X, y * DELTA_Y);
+
+		hl_texture.loadFromMemory(data_hl, size_hl);
+		hl_sprite.setTexture(hl_texture);
+		hl_sprite.setPosition(x * DELTA_X, y * DELTA_Y);
+
 		font.loadFromFile(path);
 		text.setFont(font);
 		text.setCharacterSize(text_size);
 		text.setFillColor(color);
-		text.setPosition(x*DELTA_X, y*DELTA_Y);
+		text.setPosition(x * DELTA_X, y * DELTA_Y);
 
 		text.setString(_text);
+
+		sprite.scale(DELTA_X, DELTA_Y);
+		hl_sprite.scale(DELTA_X, DELTA_Y);
+
+		position = sprite.getGlobalBounds();
+
+		text.scale(DELTA_X, DELTA_Y);
+		text_position = text.getGlobalBounds();
+	}
+
+	void TextButton::resize(const float& resize_delta_x, const float& resize_delta_y) {
+		sprite.setPosition(image_x_position * DELTA_X, image_y_position * DELTA_Y);
+		hl_sprite.setPosition(image_x_position * DELTA_X, image_y_position * DELTA_Y);
+		
+		sprite.scale(resize_delta_x, resize_delta_y);
+		hl_sprite.scale(resize_delta_x, resize_delta_y);
+
+		position = sprite.getGlobalBounds();
+
+		text.setPosition(text_x_position * DELTA_X, text_y_position * DELTA_Y);
+
+		text.scale(resize_delta_x, resize_delta_y);
+		text_position = text.getGlobalBounds();
+	}
+
+	void TextButton::draw(sf::RenderWindow& window) {
+		window.draw(sprite);
+		window.draw(text);
+	}
+
+	void TextButton::draw(sf::RenderWindow& window, sf::Event& event, sf::Mouse& mouse) {
+		sf::Vector2i mouse_position = sf::Mouse::getPosition(window);
+		window.draw(sprite);
+		window.draw(text);
+
+		if (position.contains(static_cast<float>(mouse_position.x), static_cast<float>(mouse_position.y))) {
+			if (event.type == sf::Event::MouseButtonPressed && event.mouseButton.button == sf::Mouse::Left) {
+				while (position.contains(static_cast<float>(mouse_position.x), static_cast<float>(mouse_position.y))) {
+					window.waitEvent(event);
+					if (event.type == sf::Event::MouseButtonReleased) {
+						function();
+					}
+					mouse_position = sf::Mouse::getPosition(window);
+				}
+			}
+			window.draw(hl_sprite);
+		}
 	}
 
 	//================================================================================================================================
@@ -108,43 +259,7 @@ void Core::setup_window(sf::VideoMode& mode, const uint32_t& style) {
 	set_delta_values();
 }
 
-void Core::add_drawable(cn::Drawable& image, const char* data, std::size_t size, const float& x, const float& y) {
-	image.set_image(data, size, x, y);
-
-	image.resize(cn::DELTA_X, cn::DELTA_Y);
-
-	drawables.push_back(&image);
-}
-
-void Core::add_drawable(cn::Drawable& image, const char* data, std::size_t size, const char* data_hl, std::size_t size_hl, const float& x, const float& y) {
-	image.set_image(data, size, x, y);
-
-	image.set_hl(data_hl, size_hl, x, y);
-
-	image.resize(cn::DELTA_X, cn::DELTA_Y);
-
-	drawables.push_back(&image);
-}
-
-void Core::add_drawable(cn::Drawable& image, const char* data, std::size_t size, const float& x, const float& y, const std::string& path, const unsigned int& text_size, const sf::Color color, const float& text_x, const float& text_y, const std::string& _text) {
-	image.set_image(data, size, x, y);
-
-	image.set_font(path, text_size, color, text_x, text_y, _text);
-
-	image.resize(cn::DELTA_X, cn::DELTA_Y);
-
-	drawables.push_back(&image);
-}
-
-void Core::add_drawable(cn::Drawable& image, const char* data, std::size_t size, const char* data_hl, std::size_t size_hl, const float& x, const float& y, const std::string& path, const unsigned int& text_size, const sf::Color color, const float& text_x, const float& text_y, const std::string& _text) {
-	image.set_image(data, size, x, y);
-
-	image.set_hl(data_hl, size_hl, x, y);
-
-	image.set_font(path, text_size, color, text_x, text_y, _text);
-
-	image.resize(cn::DELTA_X, cn::DELTA_Y);
-
+void Core::add_drawable(cn::Drawable& image) {
 	drawables.push_back(&image);
 }
 
