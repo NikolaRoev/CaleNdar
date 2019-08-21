@@ -148,8 +148,8 @@ void Core::add_drawable(cn::Drawable& image, const char* data, std::size_t size,
 	drawables.push_back(&image);
 }
 
-void Core::main_loop(std::vector<cn::Drawable*>& in_frame) {
-	while (window.isOpen()) {
+void Core::main_loop(std::vector<cn::Drawable*>& in_frame, bool& loop_selector) {
+	while (window.isOpen() && loop_selector) {
 		for (auto& each : in_frame) {
 			each->draw(window, event, mouse);
 		}
@@ -172,8 +172,8 @@ void Core::main_loop(std::vector<cn::Drawable*>& in_frame) {
 	}
 }
 
-void Core::pop_up_loop(std::vector<cn::Drawable*>& in_frame_background, std::vector<cn::Drawable*>& in_frame_foreground, sf::FloatRect& constraints) {
-	while (window.isOpen()) {
+void Core::pop_up_loop(std::vector<cn::Drawable*>& in_frame_background, std::vector<cn::Drawable*>& in_frame_foreground, sf::FloatRect& constraints, bool& loop_selector) {
+	while (window.isOpen() && loop_selector) {
 		for (auto& each : in_frame_background) {
 			each->draw(window);
 		}

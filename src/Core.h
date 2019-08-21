@@ -266,9 +266,9 @@ public:
 	void add_drawable(cn::Drawable& image, const char* data, std::size_t size, const char* data_hl, std::size_t size_hl, const float& x, const float& y, const std::string& path, const unsigned int& text_size, const sf::Color color, const float& text_x, const float& text_y, const std::string& _text);
 
 	//This is our application.
-	void main_loop(std::vector<cn::Drawable*>& in_frame);
+	void main_loop(std::vector<cn::Drawable*>& in_frame, bool& loop_selector);
 	//This is our pop-up loop.
-	void pop_up_loop(std::vector<cn::Drawable*>& in_frame_background, std::vector<cn::Drawable*>& in_frame_foreground, sf::FloatRect& constraints);
+	void pop_up_loop(std::vector<cn::Drawable*>& in_frame_background, std::vector<cn::Drawable*>& in_frame_foreground, sf::FloatRect& constraints, bool& loop_selector);
 };
 
 //================================================================================================================================
