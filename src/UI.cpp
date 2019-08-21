@@ -582,7 +582,7 @@ void UI::set_drawables() {
 
 
 	start_menu_time = new cn::Label;
-	start_menu_time->setup(nullptr, NULL, 60, 40, "temp/times-new-roman.ttf", 100, sf::Color::Black, 60, 40, "");
+	start_menu_time->setup(nullptr, NULL, 150, 30, "temp/times-new-roman.ttf", 100, sf::Color::Black, 150, 30, "");
 	core->add_drawable(*start_menu_time);
 
 
