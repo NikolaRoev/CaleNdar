@@ -46,8 +46,8 @@ void serialize_months(std::ofstream& os, std::array<cn::Month, 12> & months) {
 	}
 }
 
-void serialize(std::vector<cn::Year>& save) {
-	std::ofstream os("save.bin", std::ios::binary | std::ofstream::out | std::ofstream::trunc);
+void serialize(std::vector<cn::Year> save) {
+	std::ofstream os("save.bin", std::ios::binary | std::ios::out | std::ios::trunc);
 	
 	size_t len = save.size();
 	os.write((char*)& len, sizeof(len));
@@ -68,7 +68,7 @@ void serialize(std::vector<cn::Year>& save) {
 void deserialize_string(std::ifstream& is, std::string& string) {
 	size_t len;
 	is.read((char*)& len, sizeof(len));
-	string.reserve(len);
+	string.resize(len);
 
 	is.read(&string[0], len);
 }
@@ -109,7 +109,7 @@ void deserialize_months(std::ifstream& is, std::array<cn::Month, 12> & months) {
 }
 
 void deserialize(std::vector<cn::Year>& save) {
-	std::ifstream is("save.bin", std::ios::binary);
+	std::ifstream is("save.bin", std::ios::binary | std::ios::in);
 	
 	if (is.is_open()) {
 		size_t len;

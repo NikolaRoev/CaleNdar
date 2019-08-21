@@ -15,7 +15,7 @@ void serialize_days(std::ofstream& os, std::vector<cn::Day>& days);
 
 void serialize_months(std::ofstream& os, std::array<cn::Month, 12>& months);
 
-void serialize(std::vector<cn::Year>& save);
+void serialize(std::vector<cn::Year> save);
 
 //================================================================================================================================
 //================================================================================================================================

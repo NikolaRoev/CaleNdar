@@ -633,15 +633,15 @@ void UI::individual_day_loop() {
 
 //Public:
 void UI::application_loop() {
-	set_drawables();
 
 	deserialize(years);
 	
 	cn::CurrentDate temp_date = get_current_date();
-	current_date = { temp_date.month, temp_date.day };
+	current_date = {temp_date.year, temp_date.month, temp_date.day };
 
 	set_current_year(temp_date.year);
 
+	set_drawables();
 
 	std::thread clock([&]() {
 		while (cn::APPLICATION_STATE == START_MENU) {
