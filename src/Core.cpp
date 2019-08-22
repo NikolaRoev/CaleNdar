@@ -164,7 +164,7 @@ namespace cn {
 		text.setFont(font);
 		text.setCharacterSize(text_size);
 		text.setFillColor(color);
-		text.setPosition(x * DELTA_X, y * DELTA_Y);
+		text.setPosition(text_x * DELTA_X, text_y * DELTA_Y);
 
 		text.setString(_text);
 

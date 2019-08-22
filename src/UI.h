@@ -49,10 +49,11 @@ private:
 
 	cn::Image* start_menu_background;
 	cn::Label* start_menu_time;
-	
+	cn::Button* start_menu_arrow_left;
+	cn::Label* start_menu_year;
+	cn::Button* start_menu_arrow_right;
 	cn::TextButton* start_menu_today;
-
-
+	std::array<cn::TextButton*, 12> start_menu_month_buttons;
 
 	//================================================================================================================================
 
@@ -71,7 +72,7 @@ private:
 
 	//================================================================================================================================
 
-	void set_current_year(const int& year);
+	void set_current_year(const int year);
 
 	void set_drawables();
 
