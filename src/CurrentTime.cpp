@@ -17,28 +17,16 @@ tm current() {
 	return local_tm;
 }
 
-cn::CurrentTime get_current_time() {
+std::tuple<int, int, int> get_current_time() {
 	tm temp = current();
 
-	cn::CurrentTime out;
-
-	out.hour = temp.tm_hour;
-	out.minute = temp.tm_min;
-	out.second = temp.tm_sec;
-
-	return out;
+	return { temp.tm_hour, temp.tm_min, temp.tm_sec };
 }
 
-cn::CurrentDate get_current_date() {
+std::tuple<int, int, int> get_current_date() {
 	tm temp = current();
 
-	cn::CurrentDate out;
-
-	out.year = temp.tm_year + 1900;
-	out.month = temp.tm_mon;
-	out.day = temp.tm_mday - 1;
-
-	return out;
+	return { temp.tm_year + 1900, temp.tm_mon, temp.tm_mday - 1 };
 }
 
 //================================================================================================================================

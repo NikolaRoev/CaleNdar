@@ -1529,33 +1529,33 @@ void UI::application_loop() {
 
 	deserialize(years);
 	
-	cn::CurrentDate temp_date = get_current_date();
-	current_date = {temp_date.year, temp_date.month, temp_date.day };
+	auto[year, month, day] = get_current_date();
+	current_date = {year, month, day };
 
-	set_current_year(temp_date.year);
+	set_current_year(year);
 
 	set_drawables();
 
 	std::thread clock([&]() {
 		while (cn::APPLICATION_STATE == START_MENU) {
-			cn::CurrentTime temp = get_current_time();
+			auto[hour, minute, second] = get_current_time();
 			std::string minutes;
-			if (temp.minute < 10) {
-				minutes.append("0" + std::to_string(temp.minute));
+			if (minute < 10) {
+				minutes.append("0" + std::to_string(minute));
 			}
 			else {
-				minutes.append(std::to_string(temp.minute));
+				minutes.append(std::to_string(minute));
 			}
 			
 			std::string seconds;
-			if (temp.second < 10) {
-				seconds.append("0" + std::to_string(temp.second));
+			if (second < 10) {
+				seconds.append("0" + std::to_string(second));
 			}
 			else {
-				seconds.append(std::to_string(temp.second));
+				seconds.append(std::to_string(second));
 			}
 			
-			std::string time = std::to_string(temp.hour) + ":" + minutes + ":" + seconds;
+			std::string time = std::to_string(hour) + ":" + minutes + ":" + seconds;
 			start_menu_time->text.setString(time);
 		}
 	});

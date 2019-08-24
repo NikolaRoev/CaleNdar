@@ -9,6 +9,7 @@
 #include <vector>
 #include <array>
 #include <string>
+#include <tuple>
 
 #include <chrono>
 #include <ctime>
