@@ -266,7 +266,7 @@ void Core::add_drawable(cn::Drawable& image) {
 void Core::main_loop(std::vector<cn::Drawable*>& in_frame, bool& loop_selector) {
 	while (window.isOpen() && loop_selector) {
 		for (auto& each : in_frame) {
-			each->draw(window, event, mouse);
+			if (each) each->draw(window, event, mouse);
 		}
 		window.display();
 

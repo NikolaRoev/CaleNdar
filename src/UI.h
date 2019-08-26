@@ -59,7 +59,20 @@ private:
 
 	//Day Selection Menu Drawables ===================================================================================================
 
+	cn::Image* day_selection_menu_background;
 
+	cn::Label* day_selection_menu_month;
+	cn::TextButton* day_selection_menu_back;
+	
+	cn::Label* day_selection_menu_monday;
+	cn::Label* day_selection_menu_tuesday;
+	cn::Label* day_selection_menu_wednesday;
+	cn::Label* day_selection_menu_thursday;
+	cn::Label* day_selection_menu_friday;
+	cn::Label* day_selection_menu_saturday;
+	cn::Label* day_selection_menu_sunday;
+
+	std::array<std::pair<cn::TextButton*, cn::Label*>, 35> day_selection_menu_days;
 
 	//================================================================================================================================
 
