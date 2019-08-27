@@ -2332,6 +2332,7 @@ void UI::day_selection_menu_loop() {
 	if (current_month->days[0].name == "Saturday") offset = 5;
 	if (current_month->days[0].name == "Sunday") offset = 6;
 
+	int test;
 
 	const char day_selection_menu_days_data[] =
 	{
