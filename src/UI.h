@@ -1,10 +1,17 @@
 #pragma once
 #include "pch.h"
-#include "CalendarGenerator.h"
-#include "Serializer.h"
-#include "CurrentTime.h"
-#include "Core.h"
 
+#include "Globals.h"
+
+#include "Generators\CalendarGenerator.h"
+#include "Generators\Serializer.h"
+#include "Generators\CurrentTime.h"
+
+#include "Core\Core.h"
+
+#include "Structures/Structures.h"
+
+#include "ResourceManager/ResourceManager.h"
 
 //================================================================================================================================
 //================================================================================================================================

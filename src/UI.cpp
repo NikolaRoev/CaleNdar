@@ -588,7 +588,8 @@ void UI::set_drawables() {
 
 
 
-	start_menu_arrow_left = new cn::Button([&]() {
+	start_menu_arrow_left = new cn::Button;
+	start_menu_arrow_left->set_function([&]() {
 		set_current_year(current_year->year - 1);
 		start_menu_year->text.setString(std::to_string(current_year->year));
 	});
@@ -833,10 +834,11 @@ void UI::set_drawables() {
 
 
 
-	start_menu_arrow_right = new cn::Button([&]() {
+	start_menu_arrow_right = new cn::Button;
+	start_menu_arrow_right->set_function([&]() {
 		set_current_year(current_year->year + 1);
 		start_menu_year->text.setString(std::to_string(current_year->year));
-		});
+	});
 	const char start_menu_arrow_right_data[] =
 	{
 		'\x89', '\x50', '\x4e', '\x47', '\x0d', '\x0a', '\x1a', '\x0a', '\x00', '\x00', '\x00', '\x0d', '\x49', '\x48', '\x44', '\x52', '\x00', '\x00', '\x00', '\x32',
@@ -940,7 +942,8 @@ void UI::set_drawables() {
 
 
 
-	start_menu_today = new cn::TextButton([&]() {
+	start_menu_today = new cn::TextButton;
+	start_menu_today->set_function([&]() {
 		loop_selector = false;
 		set_current_year(current_date[0]);
 		current_month = &current_year->months[current_date[1] - 1];
@@ -1459,11 +1462,13 @@ void UI::set_drawables() {
 		'\x60', '\x82', '\xff',
 	};
 	for (unsigned int i = 0; i < 12; i++) {
-		start_menu_month_buttons[i] = new cn::TextButton([&, i]() {
+		start_menu_month_buttons[i] = new cn::TextButton;
+		start_menu_month_buttons[i]->set_function([&, i]() {
 			loop_selector = false;
 			current_month = &current_year->months[i];
 			cn::APPLICATION_STATE = DAY_SELECTION_MENU;
 		});
+
 		float temp_x;
 		float temp_y;
 		float temp_text_x;
@@ -2036,10 +2041,12 @@ void UI::set_drawables() {
 	core->add_drawable(*day_selection_menu_month);
 
 
-	day_selection_menu_back = new cn::TextButton([&]() {
+	day_selection_menu_back = new cn::TextButton;
+	day_selection_menu_back->set_function([&]() {
 		loop_selector = false;
 		cn::APPLICATION_STATE = START_MENU;
 	});
+
 	const char day_selection_menu_back_data[] =
 	{
 		'\x89', '\x50', '\x4e', '\x47', '\x0d', '\x0a', '\x1a', '\x0a', '\x00', '\x00', '\x00', '\x0d', '\x49', '\x48', '\x44', '\x52', '\x00', '\x00', '\x01', '\x2c',
@@ -2332,7 +2339,6 @@ void UI::day_selection_menu_loop() {
 	if (current_month->days[0].name == "Saturday") offset = 5;
 	if (current_month->days[0].name == "Sunday") offset = 6;
 
-	int test;
 
 	const char day_selection_menu_days_data[] =
 	{
@@ -2625,11 +2631,13 @@ void UI::day_selection_menu_loop() {
 	for (unsigned int i = 0; i < current_month->days.size(); i++) {
 		int j = i + offset;
 
-		day_selection_menu_days[j].first = new cn::TextButton([&, i]() {
+		day_selection_menu_days[j].first = new cn::TextButton;
+		day_selection_menu_days[j].first->set_function([&, i]() {
 			loop_selector = false;
 			current_day = &current_month->days[i];
 			cn::APPLICATION_STATE = INDIVIDUAL_DAY_MENU;
 		});
+
 		float temp_x;
 		float temp_y;
 		float temp_text_x;
