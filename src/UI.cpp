@@ -578,13 +578,11 @@ void UI::set_drawables() {
 		'\xae', '\x42', '\x60', '\x82', '\xff',
 	};
 	start_menu_background->setup(start_menu_background_data, sizeof(start_menu_background_data), 0, 0);
-	core->add_drawable(*start_menu_background);
 
 
 
 	start_menu_time = new cn::Label;
 	start_menu_time->setup(nullptr, NULL, 150, 30, "temp/times-new-roman.ttf", 100, sf::Color::Black, 150, 30, "");
-	core->add_drawable(*start_menu_time);
 
 
 
@@ -824,13 +822,11 @@ void UI::set_drawables() {
 		'\x49', '\x45', '\x4e', '\x44', '\xae', '\x42', '\x60', '\x82', '\xff',
 	};
 	start_menu_arrow_left->setup(start_menu_arrow_left_data, sizeof(start_menu_arrow_left_data), start_menu_arrow_hl_data, sizeof(start_menu_arrow_hl_data), 750, 52);
-	core->add_drawable(*start_menu_arrow_left);
 
 
 
 	start_menu_year = new cn::Label;
 	start_menu_year->setup(nullptr, NULL, 855, 30, "temp/times-new-roman.ttf", 100, sf::Color::Black, 855, 30, std::to_string(current_year->year));
-	core->add_drawable(*start_menu_year);
 
 
 
@@ -938,7 +934,6 @@ void UI::set_drawables() {
 		'\xba', '\x25', '\x34', '\xae', '\x00', '\x00', '\x00', '\x00', '\x49', '\x45', '\x4e', '\x44', '\xae', '\x42', '\x60', '\x82', '\xff',
 	};
 	start_menu_arrow_right->setup(start_menu_arrow_right_data, sizeof(start_menu_arrow_right_data), start_menu_arrow_hl_data, sizeof(start_menu_arrow_hl_data), 1110, 52);
-	core->add_drawable(*start_menu_arrow_right);
 
 
 
@@ -1161,7 +1156,6 @@ void UI::set_drawables() {
 		'\xd2', '\x00', '\x00', '\x00', '\x00', '\x49', '\x45', '\x4e', '\x44', '\xae', '\x42', '\x60', '\x82', '\xff',
 	};
 	start_menu_today->setup(start_menu_today_data, sizeof(start_menu_today_data), start_menu_today_hl_data, sizeof(start_menu_today_hl_data), 1550, 30, "temp/times-new-roman.ttf", 100, sf::Color::Black, 1580, 35, "Today");
-	core->add_drawable(*start_menu_today);
 
 
 
@@ -1481,7 +1475,6 @@ void UI::set_drawables() {
 		temp_text_y = temp_y + 40;
 
 		start_menu_month_buttons[i]->setup(start_menu_month_buttons_data, sizeof(start_menu_month_buttons_data), start_menu_month_buttons_hl_data, sizeof(start_menu_month_buttons_hl_data), temp_x, temp_y, "temp/times-new-roman.ttf", 100, sf::Color::Black, temp_text_x, temp_text_y, current_year->months[i].name);
-		core->add_drawable(*start_menu_month_buttons[i]);
 	}
 
 
@@ -2033,12 +2026,10 @@ void UI::set_drawables() {
 		'\x82', '\xff',
 	};
 	day_selection_menu_background->setup(day_selection_menu_background_data, sizeof(day_selection_menu_background_data), 0, 0);
-	core->add_drawable(*day_selection_menu_background);
 
 
 	day_selection_menu_month = new cn::Label;
 	day_selection_menu_month->setup(nullptr, NULL, 855, 30, "temp/times-new-roman.ttf", 100, sf::Color::Black, 855, 30, "");
-	core->add_drawable(*day_selection_menu_month);
 
 
 	day_selection_menu_back = new cn::TextButton;
@@ -2258,49 +2249,41 @@ void UI::set_drawables() {
 		'\xd2', '\x00', '\x00', '\x00', '\x00', '\x49', '\x45', '\x4e', '\x44', '\xae', '\x42', '\x60', '\x82', '\xff',
 	};
 	day_selection_menu_back->setup(day_selection_menu_back_data, sizeof(day_selection_menu_back_data), day_selection_menu_back_hl_data, sizeof(day_selection_menu_back_hl_data), 1550, 30, "temp/times-new-roman.ttf", 100, sf::Color::Black, 1580, 35, "Back");
-	core->add_drawable(*day_selection_menu_back);
 
 
 
 	day_selection_menu_monday = new cn::Label;
 	day_selection_menu_monday->setup(nullptr, NULL, 60, 120, "temp/times-new-roman.ttf", 50, sf::Color::Black, 60, 120, "Monday");
-	core->add_drawable(*day_selection_menu_monday);
 
 
 
 	day_selection_menu_tuesday = new cn::Label;
 	day_selection_menu_tuesday->setup(nullptr, NULL, 332, 120, "temp/times-new-roman.ttf", 50, sf::Color::Black, 332, 120, "Tuesday");
-	core->add_drawable(*day_selection_menu_tuesday);
 
 
 
 	day_selection_menu_wednesday = new cn::Label;
 	day_selection_menu_wednesday->setup(nullptr, NULL, 604, 120, "temp/times-new-roman.ttf", 50, sf::Color::Black, 604, 120, "Wednesday");
-	core->add_drawable(*day_selection_menu_wednesday);
 
 
 
 	day_selection_menu_thursday = new cn::Label;
 	day_selection_menu_thursday->setup(nullptr, NULL, 876, 120, "temp/times-new-roman.ttf", 50, sf::Color::Black, 876, 120, "Thursday");
-	core->add_drawable(*day_selection_menu_thursday);
 
 
 
 	day_selection_menu_friday = new cn::Label;
 	day_selection_menu_friday->setup(nullptr, NULL, 1148, 120, "temp/times-new-roman.ttf", 50, sf::Color::Black, 1148, 120, "Friday");
-	core->add_drawable(*day_selection_menu_friday);
 
 
 
 	day_selection_menu_saturday = new cn::Label;
 	day_selection_menu_saturday->setup(nullptr, NULL, 1420, 120, "temp/times-new-roman.ttf", 50, sf::Color::Black, 1420, 120, "Saturday");
-	core->add_drawable(*day_selection_menu_saturday);
 
 
 
 	day_selection_menu_sunday = new cn::Label;
 	day_selection_menu_sunday->setup(nullptr, NULL, 1692, 120, "temp/times-new-roman.ttf", 50, sf::Color::Black, 1692, 120, "Sunday");
-	core->add_drawable(*day_selection_menu_sunday);
 	
 	//================================================================================================================================
 
@@ -2651,20 +2634,17 @@ void UI::day_selection_menu_loop() {
 		temp_text_y = temp_y + 1;
 
 		day_selection_menu_days[j].first->setup(day_selection_menu_days_data, sizeof(day_selection_menu_days_data), day_selection_menu_days_hl_data, sizeof(day_selection_menu_days_hl_data), temp_x, temp_y, "temp/times-new-roman.ttf", 50, sf::Color::Black, temp_text_x, temp_text_y, std::to_string(current_month->days[i].date));
-		core->add_drawable(*day_selection_menu_days[j].first);
 
 		if (current_month->days[i].events.size() > 0) {
 			unsigned int number = current_month->days[i].events.size();
 			day_selection_menu_days[j].second = new cn::Label;
 
 			day_selection_menu_days[j].second->setup(day_selection_menu_days_date_label_data, sizeof(day_selection_menu_days_date_label_data), 855, 30, "temp/times-new-roman.ttf", 100, sf::Color::Black, 855, 30, std::to_string(number));
-			core->add_drawable(*day_selection_menu_days[j].second);
 		}
 		else {
 			day_selection_menu_days[j].second = new cn::Label;
 
 			day_selection_menu_days[j].second->setup(nullptr, NULL, 0, 0, "temp/times-new-roman.ttf", 0, sf::Color::Black, 0, 0, "");
-			core->add_drawable(*day_selection_menu_days[j].second);
 		}
 	}
 	for (const auto& each : day_selection_menu_days) {
@@ -2689,7 +2669,7 @@ void UI::application_loop() {
 	deserialize(years);
 	
 	auto[year, month, day] = get_current_date();
-	current_date = {year, month, day };
+	current_date = { year, month, day };
 
 	set_current_year(year);
 

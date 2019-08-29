@@ -10,7 +10,12 @@ void Core::set_delta_values() {
 	cn::DELTA_Y = 1 - (((native_height - static_cast<float>(window_height)) / (native_height / 100.0f)) / 100.0f);
 }
 
-void Core::resized_window(sf::Vector2u& new_size) {
+void Core::resized_window(const std::vector<cn::Drawable*> in_frame) {
+	sf::Vector2u new_size = window.getSize();
+	
+	sf::FloatRect visibleArea(0, 0, static_cast<float>(new_size.x), static_cast<float>(new_size.y));
+	window.setView(sf::View(visibleArea));
+	
 	window_width = new_size.x;
 	window_height = new_size.y;
 
@@ -19,15 +24,15 @@ void Core::resized_window(sf::Vector2u& new_size) {
 
 	set_delta_values();
 
-	for (auto& each : drawables) {
-		each->resize(cn::DELTA_X * old_delta_x, cn::DELTA_Y * old_delta_y);
+	for (auto each : in_frame) {
+		if (each) each->resize(cn::DELTA_X * old_delta_x, cn::DELTA_Y * old_delta_y);
 	}
 }
 
 //================================================================================================================================
 
 //Public:
-void Core::setup_window(sf::VideoMode& mode, const uint32_t& style) {
+void Core::setup_window(const sf::VideoMode mode, const uint32_t style) {
 	window.create(mode, "CaleNdar", style);
 
 	//sf::Image icon;
@@ -39,13 +44,10 @@ void Core::setup_window(sf::VideoMode& mode, const uint32_t& style) {
 	set_delta_values();
 }
 
-void Core::add_drawable(cn::Drawable& image) {
-	drawables.push_back(&image);
-}
-
-void Core::main_loop(std::vector<cn::Drawable*>& in_frame, bool& loop_selector) {
+void Core::main_loop(const std::vector<cn::Drawable*> in_frame, const bool& loop_selector) {
+	
 	while (window.isOpen() && loop_selector) {
-		for (auto& each : in_frame) {
+		for (auto each : in_frame) {
 			if (each) each->draw(window, event, mouse);
 		}
 		window.display();
@@ -57,24 +59,22 @@ void Core::main_loop(std::vector<cn::Drawable*>& in_frame, bool& loop_selector) 
 			cn::APPLICATION_STATE = EXIT;
 		}
 
-		sf::Vector2u new_size = window.getSize();
-		if ((window_width != new_size.x) || (window_height != new_size.y)) {
-			resized_window(new_size);
-			sf::FloatRect visibleArea(0, 0, static_cast<float>(new_size.x), static_cast<float>(new_size.y));
-			window.setView(sf::View(visibleArea));
-		}
 
+		if (event.type == sf::Event::Resized) {
+			resized_window(in_frame);
+		}
 	}
 }
 
-void Core::pop_up_loop(std::vector<cn::Drawable*>& in_frame_background, std::vector<cn::Drawable*>& in_frame_foreground, sf::FloatRect& constraints, bool& loop_selector) {
+void Core::pop_up_loop(const std::vector<cn::Drawable*> in_frame_background, const std::vector<cn::Drawable*> in_frame_foreground, const sf::FloatRect constraints, const bool& loop_selector) {
+	
 	while (window.isOpen() && loop_selector) {
-		for (auto& each : in_frame_background) {
-			each->draw(window);
+		for (auto each : in_frame_background) {
+			if (each) each->draw(window);
 		}
 
-		for (auto& each : in_frame_foreground) {
-			each->draw(window, event, mouse);
+		for (auto each : in_frame_foreground) {
+			if (each) each->draw(window, event, mouse);
 		}
 		window.display();
 
@@ -93,14 +93,15 @@ void Core::pop_up_loop(std::vector<cn::Drawable*>& in_frame_background, std::vec
 			}
 		}
 
-		sf::Vector2u new_size = window.getSize();
-		if ((window_width != new_size.x) || (window_height != new_size.y)) {
-			resized_window(new_size);
-			sf::FloatRect visibleArea(0, 0, static_cast<float>(new_size.x), static_cast<float>(new_size.y));
-			window.setView(sf::View(visibleArea));
+		if (event.type == sf::Event::Resized) {
+			resized_window(in_frame_background);
+			resized_window(in_frame_foreground);
 		}
-
 	}
+}
+
+void Core::scroll_loop() {
+	//add this
 }
 
 //================================================================================================================================
