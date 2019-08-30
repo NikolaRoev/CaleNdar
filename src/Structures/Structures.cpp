@@ -82,6 +82,7 @@ namespace cn {
 						function();
 					}
 					mouse_position = sf::Mouse::getPosition(window);
+					break;
 				}
 			}
 			window.draw(hl_sprite);
@@ -209,6 +210,7 @@ namespace cn {
 						function();
 					}
 					mouse_position = sf::Mouse::getPosition(window);
+					break;
 				}
 			}
 			window.draw(hl_sprite);
