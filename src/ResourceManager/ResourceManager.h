@@ -62,6 +62,10 @@ private:
 public:
 	std::unordered_map<int, cn::YearDrawables> preloaded_years;
 
+
+
+	void preload_year(const int _year);
+
 };
 
 //================================================================================================================================
