@@ -1,6 +1,6 @@
 #pragma once
 #include "pch.h"
-
+#include "..\Structures\Structures.h"
 
 
 //================================================================================================================================
@@ -12,13 +12,13 @@ namespace cn {
 	//================================================================================================================================
 
 	struct MonthSelectionMenu {
-		cn::Image* background;
-		cn::Label* time;
-		cn::Button* arrow_left;
-		cn::Label* year;
-		cn::Button* arrow_right;
-		cn::TextButton* today;
-		std::array<cn::TextButton*, 12> month_buttons;
+		Image* background;
+		Label* time;
+		Button* arrow_left;
+		Label* year;
+		Button* arrow_right;
+		TextButton* today;
+		std::array<TextButton*, 12> month_buttons;
 	};
 
 	//================================================================================================================================
