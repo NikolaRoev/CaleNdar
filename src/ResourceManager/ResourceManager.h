@@ -11,6 +11,35 @@ namespace cn {
 
 	//================================================================================================================================
 
+	struct EventDate {
+		int year;
+		int month;
+		int day;
+
+		int start_time;
+	};
+
+	//================================================================================================================================
+
+	struct EventSorter {
+		bool operator()(const EventDate& left, const EventDate& right) const {
+			if (left.year < right.year) {
+				return left.year < right.year;
+			}
+			else if (left.month < right.month) {
+				return left.month < right.month;
+			}
+			else if (left.day < right.day) {
+				return left.day < right.day;
+			}
+			else {
+				return left.start_time < right.start_time;
+			}
+		}
+	};
+
+	//================================================================================================================================
+
 	struct MonthSelectionMenu {
 		Image* background;
 		Label* time;
@@ -45,7 +74,8 @@ namespace cn {
 		MonthSelectionMenu* months_menu;
 		std::array<DaySelectionMenu*, 12> days_menu;
 		std::array<EventSelectionMenu*, 366> events_menu;
-		std::vector<IndividualEvent*> events;
+		
+		std::map<EventDate, IndividualEvent*, EventSorter> events;
 	};
 
 	//================================================================================================================================
