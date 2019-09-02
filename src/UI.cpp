@@ -2699,7 +2699,7 @@ void UI::application_loop() {
 		}
 	});
 
-	
+
 	bool open = true;
 	while (open) {
 		switch (cn::APPLICATION_STATE) {
