@@ -1,7 +1,7 @@
 #pragma once
 #include "pch.h"
 #include "..\Structures\Structures.h"
-
+#include "..\Core\Core.h"
 
 //================================================================================================================================
 //================================================================================================================================
@@ -90,6 +90,8 @@ class Manager {
 private:
 
 public:
+	Core* core;
+
 	std::unordered_map<int, cn::YearDrawables> preloaded_years;
 
 

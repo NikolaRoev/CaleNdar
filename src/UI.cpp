@@ -2676,7 +2676,7 @@ void UI::application_loop() {
 	set_drawables();
 
 	std::thread clock([&]() {
-		while (cn::APPLICATION_STATE == START_MENU) {
+		while (cn::APPLICATION_STATE != EXIT) {
 			auto[hour, minute, second] = get_current_time();
 			std::string minutes;
 			if (minute < 10) {

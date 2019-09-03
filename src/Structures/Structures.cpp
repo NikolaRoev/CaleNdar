@@ -19,14 +19,12 @@ namespace cn {
 		sprite.setTexture(texture);
 		sprite.setPosition(x * DELTA_X, y * DELTA_Y);
 		sprite.scale(DELTA_X, DELTA_Y);
-		position = sprite.getGlobalBounds();
 	}
 
 	void Image::resize(const float& resize_delta_x, const float& resize_delta_y) {
 		sprite.setPosition(image_x_position * DELTA_X, image_y_position * DELTA_Y);
 
 		sprite.scale(resize_delta_x, resize_delta_y);
-		position = sprite.getGlobalBounds();
 	}
 
 	void Image::draw(sf::RenderWindow& window) {
@@ -53,7 +51,6 @@ namespace cn {
 
 		sprite.scale(DELTA_X, DELTA_Y);
 		hl_sprite.scale(DELTA_X, DELTA_Y);
-		position = sprite.getGlobalBounds();
 	}
 
 	void Button::resize(const float& resize_delta_x, const float& resize_delta_y) {
@@ -63,7 +60,6 @@ namespace cn {
 		sprite.scale(resize_delta_x, resize_delta_y);
 		hl_sprite.scale(resize_delta_x, resize_delta_y);
 
-		position = sprite.getGlobalBounds();
 	}
 
 	void Button::draw(sf::RenderWindow& window) {
@@ -74,9 +70,9 @@ namespace cn {
 		sf::Vector2i mouse_position = sf::Mouse::getPosition(window);
 		window.draw(sprite);
 
-		if (position.contains(static_cast<float>(mouse_position.x), static_cast<float>(mouse_position.y))) {
+		if (sprite.getGlobalBounds().contains(static_cast<float>(mouse_position.x), static_cast<float>(mouse_position.y))) {
 			if (event.type == sf::Event::MouseButtonPressed && event.mouseButton.button == sf::Mouse::Left) {
-				while (position.contains(static_cast<float>(mouse_position.x), static_cast<float>(mouse_position.y))) {
+				while (sprite.getGlobalBounds().contains(static_cast<float>(mouse_position.x), static_cast<float>(mouse_position.y))) {
 					window.waitEvent(event);
 					if (event.type == sf::Event::MouseButtonReleased) {
 						function();
@@ -115,22 +111,18 @@ namespace cn {
 		text.setString(_text);
 
 		sprite.scale(DELTA_X, DELTA_Y);
-		position = sprite.getGlobalBounds();
 
 		text.scale(DELTA_X, DELTA_Y);
-		text_position = text.getGlobalBounds();
 	}
 
 	void Label::resize(const float& resize_delta_x, const float& resize_delta_y) {
 		sprite.setPosition(image_x_position * DELTA_X, image_y_position * DELTA_Y);
 
 		sprite.scale(resize_delta_x, resize_delta_y);
-		position = sprite.getGlobalBounds();
 
 		text.setPosition(text_x_position * DELTA_X, text_y_position * DELTA_Y);
 
 		text.scale(resize_delta_x, resize_delta_y);
-		text_position = text.getGlobalBounds();
 	}
 
 	void Label::draw(sf::RenderWindow& window) {
@@ -171,10 +163,8 @@ namespace cn {
 		sprite.scale(DELTA_X, DELTA_Y);
 		hl_sprite.scale(DELTA_X, DELTA_Y);
 
-		position = sprite.getGlobalBounds();
 
 		text.scale(DELTA_X, DELTA_Y);
-		text_position = text.getGlobalBounds();
 	}
 
 	void TextButton::resize(const float& resize_delta_x, const float& resize_delta_y) {
@@ -184,12 +174,10 @@ namespace cn {
 		sprite.scale(resize_delta_x, resize_delta_y);
 		hl_sprite.scale(resize_delta_x, resize_delta_y);
 
-		position = sprite.getGlobalBounds();
 
 		text.setPosition(text_x_position * DELTA_X, text_y_position * DELTA_Y);
 
 		text.scale(resize_delta_x, resize_delta_y);
-		text_position = text.getGlobalBounds();
 	}
 
 	void TextButton::draw(sf::RenderWindow& window) {
@@ -202,9 +190,9 @@ namespace cn {
 		window.draw(sprite);
 		window.draw(text);
 
-		if (position.contains(static_cast<float>(mouse_position.x), static_cast<float>(mouse_position.y))) {
+		if (sprite.getGlobalBounds().contains(static_cast<float>(mouse_position.x), static_cast<float>(mouse_position.y))) {
 			if (event.type == sf::Event::MouseButtonPressed && event.mouseButton.button == sf::Mouse::Left) {
-				while (position.contains(static_cast<float>(mouse_position.x), static_cast<float>(mouse_position.y))) {
+				while (sprite.getGlobalBounds().contains(static_cast<float>(mouse_position.x), static_cast<float>(mouse_position.y))) {
 					window.waitEvent(event);
 					if (event.type == sf::Event::MouseButtonReleased) {
 						function();

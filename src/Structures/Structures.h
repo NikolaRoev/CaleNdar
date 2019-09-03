@@ -87,7 +87,6 @@ namespace cn {
 		sf::Texture texture;
 		sf::Sprite sprite;
 
-		sf::FloatRect position;
 
 		void setup(const char* data, std::size_t size, const float& x, const float& y) override;
 
@@ -110,7 +109,6 @@ namespace cn {
 		sf::Texture texture;
 		sf::Sprite sprite;
 
-		sf::FloatRect position;
 
 		sf::Texture hl_texture;
 		sf::Sprite hl_sprite;
@@ -139,12 +137,10 @@ namespace cn {
 		sf::Texture texture;
 		sf::Sprite sprite;
 
-		sf::FloatRect position;
 
 		sf::Font font;
 		sf::Text text;
 
-		sf::FloatRect text_position;
 
 		void setup(const char* data, std::size_t size, const float& x, const float& y, const std::string& path, const unsigned int& text_size, const sf::Color color, const float& text_x, const float& text_y, const std::string& _text) override;
 
