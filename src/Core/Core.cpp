@@ -48,6 +48,10 @@ void Core::main_loop(const std::unordered_map<int, cn::YearDrawables>& preloaded
 	
 	while (window.isOpen() && (cn::APPLICATION_STATE != EXIT)) {
 		if (in_pop_up_frame.size()) {
+			for (auto each : in_scroll_frame) {
+				if (each) each->draw(window);
+			}
+			
 			for (auto each : in_frame) {
 				if (each) each->draw(window);
 			}
@@ -57,7 +61,20 @@ void Core::main_loop(const std::unordered_map<int, cn::YearDrawables>& preloaded
 			}
 		}
 		else if (in_scroll_frame.size()) {
-			// add additional draw functions with constraints for clicking
+			for (auto each : in_scroll_frame) {
+				if (each) {
+					float y1 = 150 * cn::DELTA_Y;
+					float y2 = 1080 * cn::DELTA_Y;
+					if ((each->image_y_position >= y1) || (each->image_y_position < y2)) {
+						each->draw(window, event, mouse);
+					}
+					
+				}
+			}
+
+			for (auto each : in_frame) {
+				if (each) each->draw(window, event, mouse);
+			}
 		}
 		else {
 			for (auto each : in_frame) {
