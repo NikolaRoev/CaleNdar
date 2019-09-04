@@ -30,12 +30,7 @@ public:
 	void setup_window(const sf::VideoMode mode, const uint32_t style);
 
 
-
-	void main_loop(const std::unordered_map<int, cn::YearDrawables>& preloaded_years, const std::vector<cn::Drawable*> in_frame, const bool& loop_selector);
-
-	void pop_up_loop(const std::unordered_map<int, cn::YearDrawables>& preloaded_years, const std::vector<cn::Drawable*> in_frame_background, const std::vector<cn::Drawable*> in_frame_foreground, const sf::FloatRect constraints, const bool& loop_selector);
-
-	void scroll_loop();
+	void main_loop(const std::unordered_map<int, cn::YearDrawables>& preloaded_years, const std::vector<cn::Drawable*>& in_frame, const std::vector<cn::Drawable*>& in_pop_up_frame, const std::vector<cn::Drawable*>& in_scroll_frame);
 };
 
 

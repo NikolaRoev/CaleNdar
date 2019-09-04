@@ -44,63 +44,55 @@ void Core::setup_window(const sf::VideoMode mode, const uint32_t style) {
 	set_delta_values();
 }
 
-void Core::main_loop(const std::unordered_map<int, cn::YearDrawables>& preloaded_years, const std::vector<cn::Drawable*> in_frame, const bool& loop_selector) {
+void Core::main_loop(const std::unordered_map<int, cn::YearDrawables>& preloaded_years, const std::vector<cn::Drawable*>& in_frame, const std::vector<cn::Drawable*>& in_pop_up_frame, const std::vector<cn::Drawable*>& in_scroll_frame) {
 	
-	while (window.isOpen() && loop_selector) {
-		for (auto each : in_frame) {
-			if (each) each->draw(window, event, mouse);
+	while (window.isOpen() && (cn::APPLICATION_STATE != EXIT)) {
+		if (in_pop_up_frame.size()) {
+			for (auto each : in_frame) {
+				if (each) each->draw(window);
+			}
+
+			for (auto each : in_pop_up_frame) {
+				if (each) each->draw(window, event, mouse);
+			}
 		}
-		window.display();
-
-
-		window.pollEvent(event);
-		if (event.type == sf::Event::Closed) {
-			window.close();
-			cn::APPLICATION_STATE = EXIT;
+		else if (in_scroll_frame.size()) {
+			// add additional draw functions with constraints for clicking
 		}
-
-
-		if (event.type == sf::Event::Resized) {
-			resized_window(preloaded_years);
-		}
-	}
-}
-
-void Core::pop_up_loop(const std::unordered_map<int, cn::YearDrawables>& preloaded_years, const std::vector<cn::Drawable*> in_frame_background, const std::vector<cn::Drawable*> in_frame_foreground, const sf::FloatRect constraints, const bool& loop_selector) {
-	
-	while (window.isOpen() && loop_selector) {
-		for (auto each : in_frame_background) {
-			if (each) each->draw(window);
-		}
-
-		for (auto each : in_frame_foreground) {
-			if (each) each->draw(window, event, mouse);
-		}
-		window.display();
-
-
-		window.pollEvent(event);
-
-		if (event.type == sf::Event::Closed) {
-			window.close();
-			cn::APPLICATION_STATE = EXIT;
-		}
-
-		sf::Vector2i mouse_position = sf::Mouse::getPosition(window);
-		if (!constraints.contains(static_cast<float>(mouse_position.x), static_cast<float>(mouse_position.y))) {
-			if (event.type == sf::Event::MouseButtonPressed && event.mouseButton.button == sf::Mouse::Left) {
-				break;
+		else {
+			for (auto each : in_frame) {
+				if (each) each->draw(window, event, mouse);
 			}
 		}
 
+
+		window.display();
+
+		window.pollEvent(event);
+		if (event.type == sf::Event::Closed) {
+			window.close();
+			cn::APPLICATION_STATE = EXIT;
+		}
+
+
 		if (event.type == sf::Event::Resized) {
 			resized_window(preloaded_years);
 		}
-	}
-}
 
-void Core::scroll_loop() {
-	//add this
+		if (in_pop_up_frame.size()) {
+			sf::Vector2i mouse_position = sf::Mouse::getPosition(window);
+			sf::FloatRect pop_up_sprite_size = {360.0f * cn::DELTA_X, 192.0f * cn::DELTA_Y, 1200.0f * cn::DELTA_X, 700.0f * cn::DELTA_Y };
+			if (!pop_up_sprite_size.contains(static_cast<float>(mouse_position.x), static_cast<float>(mouse_position.y))) {
+				if (event.type == sf::Event::MouseButtonPressed && event.mouseButton.button == sf::Mouse::Left) {
+					break;
+				}
+			}
+		}
+
+		if ((event.type == sf::Event::MouseWheelScrolled) && in_scroll_frame.size()) {
+			//add scroll function here. only on the scroll frame ofcourse
+		}
+	}
 }
 
 //================================================================================================================================

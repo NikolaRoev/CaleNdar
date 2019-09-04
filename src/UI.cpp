@@ -170,26 +170,6 @@ void UI::set_drawables() {
 
 //================================================================================================================================
 
-void UI::month_menu_loop() {
-	manager->set_month_frame();
-
-	core->main_loop(manager->preloaded_years, manager->month_menu_frame, loop_selector);
-}
-
-void UI::day_menu_loop() {
-	manager->set_day_frame();
-
-	core->main_loop(manager->preloaded_years, manager->day_menu_frame, loop_selector);
-}
-
-void UI::event_menu_loop() {
-	manager->set_event_frame();
-
-	core->main_loop(manager->preloaded_years, manager->event_menu_frame, loop_selector);
-}
-
-//================================================================================================================================
-
 //Public:
 void UI::application_loop() {
 	core = new Core;
@@ -211,7 +191,7 @@ void UI::application_loop() {
 
 	set_current_year(year);
 
-
+	manager->set_month_frame();
 
 	std::thread clock([&]() {
 		while (cn::APPLICATION_STATE != EXIT) {
@@ -239,27 +219,14 @@ void UI::application_loop() {
 
 
 
-	bool open = true;
-	while (open) {
+	while (cn::APPLICATION_STATE != EXIT) {
 		switch (cn::APPLICATION_STATE) {
-			case START_MENU: {
-				loop_selector = true;
-				month_menu_loop();
-				break;
-			}
-			case DAY_SELECTION_MENU: {
-				loop_selector = true;
-				day_menu_loop();
-				break;
-			}
-			case INDIVIDUAL_DAY_MENU: {
-				loop_selector = true;
-				event_menu_loop();
+			case RUNNING: {
+				core->main_loop(manager->preloaded_years, manager->in_frame, manager->in_pop_up_frame, manager->in_scroll_frame);
 				break;
 			}
 			case EXIT: {
 				serialize(years);
-				open = false;
 				break;
 			}
 		}

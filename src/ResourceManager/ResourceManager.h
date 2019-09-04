@@ -88,16 +88,15 @@ public:
 
 	UI* ui;
 
-	std::unordered_map<int, cn::YearDrawables> preloaded_years;
+	std::unordered_map<int, cn::YearDrawables> preloaded_years{};
 
 
 
 	cn::Label* static_time;
 
-	std::vector<cn::Drawable*> month_menu_frame;
-	std::vector<cn::Drawable*> day_menu_frame;
-	std::vector<cn::Drawable*> event_menu_frame;
-	std::vector<cn::Drawable*> pop_up_frame;
+	std::vector<cn::Drawable*> in_frame{};
+	std::vector<cn::Drawable*> in_pop_up_frame{};
+	std::vector<cn::Drawable*> in_scroll_frame{};
 
 
 
