@@ -11,11 +11,10 @@ namespace cn {
 
 	//================================================================================================================================
 
-	void Image::setup(const char* data, std::size_t size, const float& x, const float& y) {
+	void Image::setup(sf::Texture& texture, const float& x, const float& y) {
 		image_x_position = x;
 		image_y_position = y;
 
-		texture.loadFromMemory(data, size);
 		sprite.setTexture(texture);
 		sprite.setPosition(x * DELTA_X, y * DELTA_Y);
 		sprite.scale(DELTA_X, DELTA_Y);
@@ -37,15 +36,13 @@ namespace cn {
 
 	//================================================================================================================================
 
-	void Button::setup(const char* data, std::size_t size, const char* data_hl, std::size_t size_hl, const float& x, const float& y) {
+	void Button::setup(sf::Texture& texture, sf::Texture& hl_texture, const float& x, const float& y) {
 		image_x_position = x;
 		image_y_position = y;
 
-		texture.loadFromMemory(data, size);
 		sprite.setTexture(texture);
 		sprite.setPosition(x * DELTA_X, y * DELTA_Y);
 
-		hl_texture.loadFromMemory(data_hl, size_hl);
 		hl_sprite.setTexture(hl_texture);
 		hl_sprite.setPosition(x * DELTA_X, y * DELTA_Y);
 
@@ -91,68 +88,50 @@ namespace cn {
 
 	//================================================================================================================================
 
-	void Label::setup(const char* data, std::size_t size, const float& x, const float& y, const std::string& path, const unsigned int& text_size, const sf::Color color, const float& text_x, const float& text_y, const std::string& _text) {
-		image_x_position = x;
-		image_y_position = y;
-
+	void Label::setup(sf::Font& font, const unsigned int& text_size, const sf::Color color, const float& text_x, const float& text_y, const std::string& _text) {
 		text_x_position = text_x;
 		text_y_position = text_y;
 
-		texture.loadFromMemory(data, size);
-		sprite.setTexture(texture);
-		sprite.setPosition(x * DELTA_X, y * DELTA_Y);
-
-		font.loadFromFile(path); //change this when you serialize the font file.
 		text.setFont(font);
 		text.setCharacterSize(text_size);
 		text.setFillColor(color);
-		text.setPosition(x * DELTA_X, y * DELTA_Y);
+		text.setPosition(text_x * DELTA_X, text_y * DELTA_Y);
 
 		text.setString(_text);
-
-		sprite.scale(DELTA_X, DELTA_Y);
 
 		text.scale(DELTA_X, DELTA_Y);
 	}
 
 	void Label::resize(const float& resize_delta_x, const float& resize_delta_y) {
-		sprite.setPosition(image_x_position * DELTA_X, image_y_position * DELTA_Y);
-
-		sprite.scale(resize_delta_x, resize_delta_y);
-
 		text.setPosition(text_x_position * DELTA_X, text_y_position * DELTA_Y);
 
 		text.scale(resize_delta_x, resize_delta_y);
 	}
 
 	void Label::draw(sf::RenderWindow& window) {
-		window.draw(sprite);
 		window.draw(text);
 	}
 
 	void Label::draw(sf::RenderWindow& window, sf::Event& event, sf::Mouse& mouse) {
-		window.draw(sprite);
 		window.draw(text);
 	}
 
 	//================================================================================================================================
 
-	void TextButton::setup(const char* data, std::size_t size, const char* data_hl, std::size_t size_hl, const float& x, const float& y, const std::string& path, const unsigned int& text_size, const sf::Color color, const float& text_x, const float& text_y, const std::string& _text) {
+	void TextButton::setup(sf::Texture& texture, sf::Texture& hl_texture, const float& x, const float& y, sf::Font& font, const unsigned int& text_size, const sf::Color color, const float& text_x, const float& text_y, const std::string& _text) {
 		image_x_position = x;
 		image_y_position = y;
 
 		text_x_position = text_x;
 		text_y_position = text_y;
 
-		texture.loadFromMemory(data, size);
 		sprite.setTexture(texture);
 		sprite.setPosition(x * DELTA_X, y * DELTA_Y);
 
-		hl_texture.loadFromMemory(data_hl, size_hl);
 		hl_sprite.setTexture(hl_texture);
 		hl_sprite.setPosition(x * DELTA_X, y * DELTA_Y);
 
-		font.loadFromFile(path);
+
 		text.setFont(font);
 		text.setCharacterSize(text_size);
 		text.setFillColor(color);

@@ -6,3 +6,23 @@ x:   dx:
 
 y:   dx:
 176   226
+
+
+Day Menu:
+250x140(day buttons)
+
+x:   dx:
+25   270
+
+y:   dy:
+165   152
+
+
+Event Menu:
+1200x700
+
+x:
+360
+
+y:
+192
