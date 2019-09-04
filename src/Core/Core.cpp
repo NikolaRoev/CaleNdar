@@ -10,7 +10,7 @@ void Core::set_delta_values() {
 	cn::DELTA_Y = 1 - (((native_height - static_cast<float>(window_height)) / (native_height / 100.0f)) / 100.0f);
 }
 
-void Core::resized_window(const std::vector<cn::Drawable*> in_frame) {
+void Core::resized_window(const std::unordered_map<int, cn::YearDrawables>& preloaded_years) {
 	sf::Vector2u new_size = window.getSize();
 	
 	sf::FloatRect visibleArea(0, 0, static_cast<float>(new_size.x), static_cast<float>(new_size.y));
@@ -24,8 +24,8 @@ void Core::resized_window(const std::vector<cn::Drawable*> in_frame) {
 
 	set_delta_values();
 
-	for (auto each : in_frame) {
-		if (each) each->resize(cn::DELTA_X * old_delta_x, cn::DELTA_Y * old_delta_y);
+	for (auto each : preloaded_years) {
+		//Do this shit when you finish the set up.
 	}
 }
 
@@ -44,7 +44,7 @@ void Core::setup_window(const sf::VideoMode mode, const uint32_t style) {
 	set_delta_values();
 }
 
-void Core::main_loop(const std::vector<cn::Drawable*> in_frame, const bool& loop_selector) {
+void Core::main_loop(const std::unordered_map<int, cn::YearDrawables>& preloaded_years, const std::vector<cn::Drawable*> in_frame, const bool& loop_selector) {
 	
 	while (window.isOpen() && loop_selector) {
 		for (auto each : in_frame) {
@@ -61,12 +61,12 @@ void Core::main_loop(const std::vector<cn::Drawable*> in_frame, const bool& loop
 
 
 		if (event.type == sf::Event::Resized) {
-			resized_window(in_frame);
+			resized_window(preloaded_years);
 		}
 	}
 }
 
-void Core::pop_up_loop(const std::vector<cn::Drawable*> in_frame_background, const std::vector<cn::Drawable*> in_frame_foreground, const sf::FloatRect constraints, const bool& loop_selector) {
+void Core::pop_up_loop(const std::unordered_map<int, cn::YearDrawables>& preloaded_years, const std::vector<cn::Drawable*> in_frame_background, const std::vector<cn::Drawable*> in_frame_foreground, const sf::FloatRect constraints, const bool& loop_selector) {
 	
 	while (window.isOpen() && loop_selector) {
 		for (auto each : in_frame_background) {
@@ -94,8 +94,7 @@ void Core::pop_up_loop(const std::vector<cn::Drawable*> in_frame_background, con
 		}
 
 		if (event.type == sf::Event::Resized) {
-			resized_window(in_frame_background);
-			resized_window(in_frame_foreground);
+			resized_window(preloaded_years);
 		}
 	}
 }

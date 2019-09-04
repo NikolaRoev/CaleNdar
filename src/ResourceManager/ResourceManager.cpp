@@ -4473,7 +4473,7 @@ void Manager::add_year(const int _year) {
 
 }
 
-void Manager::add_event(const cn::Event _event, const cn::EventDate _date) {
+void Manager::add_event(const cn::Event _event) {
 
 }
 

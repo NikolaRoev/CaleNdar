@@ -36,6 +36,38 @@ namespace cn {
 		std::array<Month, 12> months;
 	};
 
+	//================================================================================================================================
+
+	struct MonthSelectionMenu {
+		Image* background;
+		Label* time;
+		Button* arrow_left;
+		Label* year;
+		Button* arrow_right;
+		TextButton* today;
+		std::array<TextButton*, 12> month_buttons;
+	};
+
+	struct DaySelectionMenu {
+
+	};
+
+	struct EventSelectionMenu {
+
+	};
+
+	struct IndividualEvent {
+
+	};
+
+	struct YearDrawables {
+		MonthSelectionMenu* months_menu;
+		std::array<DaySelectionMenu*, 12> days_menu;
+		std::array<EventSelectionMenu*, 366> events_menu;
+
+		std::map<int, IndividualEvent*> events; //The key is the start time.
+	};
+
 }
 
 //================================================================================================================================

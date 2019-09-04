@@ -2,7 +2,6 @@
 #include "pch.h"
 #include "..\Structures\Structures.h"
 
-
 //================================================================================================================================
 //================================================================================================================================
 //================================================================================================================================
@@ -20,7 +19,7 @@ private:
 	void set_delta_values();
 
 	//Call this on resize event.
-	void resized_window(const std::vector<cn::Drawable*> in_frame);
+	void resized_window(const std::unordered_map<int, cn::YearDrawables>& preloaded_years);
 
 public:
 	sf::RenderWindow window;
@@ -32,9 +31,9 @@ public:
 
 
 
-	void main_loop(const std::vector<cn::Drawable*> in_frame, const bool& loop_selector);
+	void main_loop(const std::unordered_map<int, cn::YearDrawables>& preloaded_years, const std::vector<cn::Drawable*> in_frame, const bool& loop_selector);
 
-	void pop_up_loop(const std::vector<cn::Drawable*> in_frame_background, const std::vector<cn::Drawable*> in_frame_foreground, const sf::FloatRect constraints, const bool& loop_selector);
+	void pop_up_loop(const std::unordered_map<int, cn::YearDrawables>& preloaded_years, const std::vector<cn::Drawable*> in_frame_background, const std::vector<cn::Drawable*> in_frame_foreground, const sf::FloatRect constraints, const bool& loop_selector);
 
 	void scroll_loop();
 };

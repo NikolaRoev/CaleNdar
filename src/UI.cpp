@@ -173,19 +173,19 @@ void UI::set_drawables() {
 void UI::month_menu_loop() {
 	manager->set_month_frame();
 
-	core->main_loop(manager->month_menu_frame, loop_selector);
+	core->main_loop(manager->preloaded_years, manager->month_menu_frame, loop_selector);
 }
 
 void UI::day_menu_loop() {
 	manager->set_day_frame();
 
-	core->main_loop(manager->day_menu_frame, loop_selector);
+	core->main_loop(manager->preloaded_years, manager->day_menu_frame, loop_selector);
 }
 
 void UI::event_menu_loop() {
 	manager->set_event_frame();
 
-	core->main_loop(manager->event_menu_frame, loop_selector);
+	core->main_loop(manager->preloaded_years, manager->event_menu_frame, loop_selector);
 }
 
 //================================================================================================================================
