@@ -95,7 +95,7 @@ public:
 	cn::Label* static_time;
 
 	std::vector<cn::Drawable*> in_frame{};
-	std::vector<cn::Drawable*> in_pop_up_frame{};
+	std::vector<cn::Drawable*> in_pop_up_frame{}; //when you make the event button function set this frame in it for each individual event idiot
 	std::vector<cn::Drawable*> in_scroll_frame{};
 
 

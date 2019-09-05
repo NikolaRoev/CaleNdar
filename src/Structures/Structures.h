@@ -38,6 +38,10 @@ namespace cn {
 
 	//================================================================================================================================
 
+	struct IndividualEvent { //the pop up drawables should be here
+
+	};
+
 	struct MonthSelectionMenu {
 		Image* background;
 		Label* time;
@@ -54,18 +58,14 @@ namespace cn {
 
 	struct EventSelectionMenu {
 
-	};
 
-	struct IndividualEvent {
-
+		std::map<int, IndividualEvent> events; //The key is the start time.
 	};
 
 	struct YearDrawables {
-		MonthSelectionMenu* months_menu;
-		std::array<DaySelectionMenu*, 12> days_menu;
-		std::array<EventSelectionMenu*, 366> events_menu;
-
-		std::map<int, IndividualEvent*> events; //The key is the start time.
+		MonthSelectionMenu months_menu;
+		std::array<DaySelectionMenu, 12> days_menu;
+		std::array<EventSelectionMenu, 366> events_menu;
 	};
 
 }
