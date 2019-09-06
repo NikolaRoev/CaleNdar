@@ -166,6 +166,18 @@ void UI::set_drawables() {
 		day_selection_menu_in_frame.emplace_back(each.first);
 		day_selection_menu_in_frame.emplace_back(each.second);
 	}
+
+
+	else if (setup->event.type == sf::Event::TextEntered) {
+		if (setup->event.text.unicode == '\b' && !setup->player_name_temp.empty()) {
+			setup->player_name_temp.erase(setup->player_name_temp.size() - 1, 1);
+			loader->new_game_name_text.setString(setup->player_name_temp);
+		}
+		else if (setup->event.text.unicode < 128 && setup->event.text.unicode != '\b') {
+			setup->player_name_temp += static_cast<char>(setup->event.text.unicode);
+			loader->new_game_name_text.setString(setup->player_name_temp);
+		}
+	}
 }
 
 //================================================================================================================================
@@ -184,14 +196,16 @@ void UI::application_loop() {
 
 	deserialize(years);
 	
-	manager->preload_years(years);
-
 	auto[year, month, day] = get_current_date();
 	current_date = { year, month, day };
 
 	set_current_year(year);
 
+	manager->preload_years(years);
+
 	manager->set_month_frame();
+
+
 
 	std::thread clock([&]() {
 		while (cn::APPLICATION_STATE != EXIT) {
