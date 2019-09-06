@@ -10,6 +10,8 @@
 //================================================================================================================================
 //================================================================================================================================
 
+class UI;
+
 class Manager {
 private:
 	//One use:
@@ -101,7 +103,7 @@ public:
 
 	void preload_static_drawables();
 
-	void preload_years(const std::vector<cn::Year>& years);
+	void preload_years(std::vector<cn::Year>& years);
 
 
 	void add_year(const int _year);

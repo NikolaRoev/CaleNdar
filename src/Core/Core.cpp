@@ -24,8 +24,40 @@ void Core::resized_window(const std::unordered_map<int, cn::YearDrawables>& prel
 
 	set_delta_values();
 
-	for (auto each : preloaded_years) {
-		//Do this shit when you finish the set up.
+	for (auto& each : preloaded_years) {
+		each.second.months_menu.background->resize(cn::DELTA_X * old_delta_x, cn::DELTA_Y * old_delta_y);
+		each.second.months_menu.time->resize(cn::DELTA_X * old_delta_x, cn::DELTA_Y * old_delta_y);
+		each.second.months_menu.arrow_left->resize(cn::DELTA_X * old_delta_x, cn::DELTA_Y * old_delta_y);
+		each.second.months_menu.year->resize(cn::DELTA_X * old_delta_x, cn::DELTA_Y * old_delta_y);
+		each.second.months_menu.arrow_right->resize(cn::DELTA_X * old_delta_x, cn::DELTA_Y * old_delta_y);
+		each.second.months_menu.today->resize(cn::DELTA_X * old_delta_x, cn::DELTA_Y * old_delta_y);
+		for (auto m_b : each.second.months_menu.month_buttons) {
+			m_b->resize(cn::DELTA_X * old_delta_x, cn::DELTA_Y * old_delta_y);
+		}
+
+		for (auto& d_m : each.second.days_menu) {
+			d_m.month_name->resize(cn::DELTA_X * old_delta_x, cn::DELTA_Y * old_delta_y);
+			d_m.back->resize(cn::DELTA_X * old_delta_x, cn::DELTA_Y * old_delta_y);
+			for (auto d_b : d_m.day_buttons) {
+				d_b->resize(cn::DELTA_X * old_delta_x, cn::DELTA_Y * old_delta_y);
+			}
+		}
+
+		for (auto& e_m : each.second.events_menu) {
+			e_m.day_name->resize(cn::DELTA_X * old_delta_x, cn::DELTA_Y * old_delta_y);
+			e_m.add_event->resize(cn::DELTA_X * old_delta_x, cn::DELTA_Y * old_delta_y);
+			e_m.back->resize(cn::DELTA_X * old_delta_x, cn::DELTA_Y * old_delta_y);
+			for (auto& e : e_m.events) {
+				e.second.pop_up_mask->resize(cn::DELTA_X * old_delta_x, cn::DELTA_Y * old_delta_y);
+				e.second.pop_up_background->resize(cn::DELTA_X * old_delta_x, cn::DELTA_Y * old_delta_y);
+				e.second.save_event->resize(cn::DELTA_X * old_delta_x, cn::DELTA_Y * old_delta_y);
+				e.second.start_time->resize(cn::DELTA_X * old_delta_x, cn::DELTA_Y * old_delta_y);
+				e.second.end_time->resize(cn::DELTA_X * old_delta_x, cn::DELTA_Y * old_delta_y);
+				e.second.delete_event->resize(cn::DELTA_X * old_delta_x, cn::DELTA_Y * old_delta_y);
+				e.second.event_title->resize(cn::DELTA_X * old_delta_x, cn::DELTA_Y * old_delta_y);
+				e.second.event_description->resize(cn::DELTA_X * old_delta_x, cn::DELTA_Y * old_delta_y);
+			}
+		}
 	}
 }
 

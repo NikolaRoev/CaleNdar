@@ -31,66 +31,7 @@ void UI::set_current_year(const int year) {
 
 //================================================================================================================================
 
-void UI::set_drawables() {
-
-
-	start_menu_arrow_left = new cn::Button;
-	start_menu_arrow_left->set_function([&]() {
-		set_current_year(current_year->year - 1);
-		start_menu_year->text.setString(std::to_string(current_year->year));
-	});
-
-	start_menu_arrow_left->setup(start_menu_arrow_left_data, sizeof(start_menu_arrow_left_data), start_menu_arrow_hl_data, sizeof(start_menu_arrow_hl_data), 750, 52);
-
-
-
-	start_menu_arrow_right = new cn::Button;
-	start_menu_arrow_right->set_function([&]() {
-		set_current_year(current_year->year + 1);
-		start_menu_year->text.setString(std::to_string(current_year->year));
-	});
-
-	start_menu_arrow_right->setup(start_menu_arrow_right_data, sizeof(start_menu_arrow_right_data), start_menu_arrow_hl_data, sizeof(start_menu_arrow_hl_data), 1110, 52);
-
-
-
-	start_menu_today = new cn::TextButton;
-	start_menu_today->set_function([&]() {
-		loop_selector = false;
-		set_current_year(current_date[0]);
-		current_month = &current_year->months[current_date[1] - 1];
-		current_day = &current_month->days[current_date[2] - 1];
-		cn::APPLICATION_STATE = INDIVIDUAL_DAY_MENU;
-	});
-
-	start_menu_today->setup(start_menu_today_data, sizeof(start_menu_today_data), start_menu_today_hl_data, sizeof(start_menu_today_hl_data), 1550, 30, "temp/times-new-roman.ttf", 100, sf::Color::Black, 1580, 35, "Today");
-
-
-
-
-	for (unsigned int i = 0; i < 12; i++) {
-		start_menu_month_buttons[i] = new cn::TextButton;
-		start_menu_month_buttons[i]->set_function([&, i]() {
-			loop_selector = false;
-			current_month = &current_year->months[i];
-			cn::APPLICATION_STATE = DAY_SELECTION_MENU;
-		});
-
-		float temp_x;
-		float temp_y;
-		float temp_text_x;
-		float temp_text_y;
-		//38 224 
-		//offset 627 214 
-		temp_x = (627*(i%3)) + 38;
-		temp_y = (214*(i/3)) + 224;
-		temp_text_x = temp_x + 50;
-		temp_text_y = temp_y + 40;
-
-		start_menu_month_buttons[i]->setup(start_menu_month_buttons_data, sizeof(start_menu_month_buttons_data), start_menu_month_buttons_hl_data, sizeof(start_menu_month_buttons_hl_data), temp_x, temp_y, "temp/times-new-roman.ttf", 100, sf::Color::Black, temp_text_x, temp_text_y, current_year->months[i].name);
-	}
-
-
+/*
 	//================================================================================================================================
 
 	//Day Selection Menu Drawables ===================================================================================================
@@ -178,7 +119,7 @@ void UI::set_drawables() {
 			loader->new_game_name_text.setString(setup->player_name_temp);
 		}
 	}
-}
+*/
 
 //================================================================================================================================
 
