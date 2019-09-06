@@ -15,9 +15,6 @@ private:
 	//One use:
 
 	cn::Image* static_background;
-
-	cn::Label* static_year;
-
 	cn::Image* static_pop_up_mask;
 	cn::Image* static_pop_up_background;
 

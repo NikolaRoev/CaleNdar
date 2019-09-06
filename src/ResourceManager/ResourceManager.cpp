@@ -4454,9 +4454,6 @@ void Manager::preload_static_drawables() {
 	static_time = new cn::Label;
 	static_time->setup(static_font, 100, sf::Color::Black, 150, 30, "");
 
-	static_year = new cn::Label;
-	static_year->setup(static_font, 100, sf::Color::Black, 855, 30, "");
-
 	static_pop_up_mask = new cn::Image;
 	static_pop_up_mask->setup(pop_up_mask_texture, 0, 0);
 
