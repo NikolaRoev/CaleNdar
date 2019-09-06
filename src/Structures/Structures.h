@@ -38,8 +38,16 @@ namespace cn {
 
 	//================================================================================================================================
 
-	struct IndividualEvent { //the pop up drawables should be here
+	struct IndividualEvent {
+		Image* pop_up_mask;
+		Image* pop_up_background;
 
+		Button* save_event;
+		TextButton* start_time;
+		TextButton* end_time;
+		Button* delete_event;
+		TextButton* event_title;
+		TextButton* event_description;
 	};
 
 	struct MonthSelectionMenu {
@@ -48,16 +56,24 @@ namespace cn {
 		Button* arrow_left;
 		Label* year;
 		Button* arrow_right;
-		TextButton* today;
+		Button* today;
 		std::array<TextButton*, 12> month_buttons;
 	};
 
 	struct DaySelectionMenu {
-
+		Image* background;
+		Label* time;
+		Label* month_name;
+		Button* back;
+		std::array<TextButton*, 42> day_buttons;
 	};
 
 	struct EventSelectionMenu {
-
+		Image* background;
+		Label* time;
+		Label* day_name;
+		Button* add_event;
+		Button* back;
 
 		std::map<int, IndividualEvent> events; //The key is the start time.
 	};
