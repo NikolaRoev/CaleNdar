@@ -4459,12 +4459,16 @@ void Manager::preload_static_drawables() {
 
 	static_pop_up_background = new cn::Image;
 	static_pop_up_background->setup(pop_up_background_texture, 360, 192);
+
+	//add the other static stuff here
 }
 
 void Manager::preload_years(std::vector<cn::Year>& years) {
 	for (auto& each : years) {
 		cn::YearDrawables temp;
 		
+
+		//Month menu:
 		temp.months_menu.background = static_background;
 		temp.months_menu.time = static_time;
 		
@@ -4503,8 +4507,6 @@ void Manager::preload_years(std::vector<cn::Year>& years) {
 			float temp_y;
 			float temp_text_x;
 			float temp_text_y;
-			//38 224 
-			//offset 627 214 
 			temp_x = (630 * (i % 3)) + 30;
 			temp_y = (226 * (i / 3)) + 176;
 			temp_text_x = temp_x + 50;
@@ -4518,7 +4520,21 @@ void Manager::preload_years(std::vector<cn::Year>& years) {
 			});
 
 		}
+		//END.
 
+
+
+		//Day Menu:
+
+		//END.
+
+
+
+		//Event Menu:
+		//When you click add event open up some staticly created stuff.
+
+
+		//END.
 
 
 		preloaded_years[each.year] = temp;

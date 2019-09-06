@@ -22,6 +22,13 @@ private:
 
 	sf::Font static_font;
 
+	cn::Button* static_save_event;
+	cn::TextButton* static_start_time;
+	cn::TextButton* static_end_time;
+	cn::Button* static_delete_event;
+	cn::TextButton* static_event_title;
+	cn::TextButton* static_event_description;
+
 	//End.
 
 
