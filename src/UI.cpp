@@ -175,18 +175,10 @@ void UI::application_loop() {
 
 
 	while (cn::APPLICATION_STATE != EXIT) {
-		switch (cn::APPLICATION_STATE) {
-			case RUNNING: {
-				core->main_loop(manager->preloaded_years, manager->in_frame, manager->in_pop_up_frame, manager->in_scroll_frame);
-				break;
-			}
-			case EXIT: {
-				serialize(years);
-				break;
-			}
-		}
+		core->main_loop(manager->preloaded_years, manager->in_frame, manager->in_pop_up_frame, manager->in_scroll_frame);
 	}
 
+	serialize(years);
 	clock.join();
 }
 

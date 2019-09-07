@@ -76,7 +76,7 @@ void Core::setup_window(const sf::VideoMode mode, const uint32_t style) {
 	set_delta_values();
 }
 
-void Core::main_loop(const std::unordered_map<int, cn::YearDrawables>& preloaded_years, const std::vector<cn::Drawable*> in_frame, const std::vector<cn::Drawable*> in_pop_up_frame, const std::vector<cn::Drawable*> in_scroll_frame) {
+void Core::main_loop(const std::unordered_map<int, cn::YearDrawables>& preloaded_years, const std::vector<cn::Drawable*>& in_frame, const std::vector<cn::Drawable*>& in_pop_up_frame, const std::vector<cn::Drawable*>& in_scroll_frame) {
 	
 	while (window.isOpen() && (cn::APPLICATION_STATE != EXIT)) {
 		if (in_pop_up_frame.size()) {

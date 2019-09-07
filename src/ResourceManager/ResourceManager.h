@@ -113,7 +113,7 @@ public:
 	void preload_years(std::vector<cn::Year>& years);
 
 
-	void add_year(const int _year);
+	void add_year();
 
 	void add_event(const cn::Event _event);
 

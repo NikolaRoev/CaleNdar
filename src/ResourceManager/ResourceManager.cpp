@@ -4472,24 +4472,28 @@ void Manager::preload_years(std::vector<cn::Year>& years) {
 		temp.months_menu.background = static_background;
 		temp.months_menu.time = static_time;
 		
+
 		temp.months_menu.arrow_left = new cn::Button;
 		temp.months_menu.arrow_left->setup(arrow_left_texture, arrow_left_hl_texture, 750, 52);
 		temp.months_menu.arrow_left->set_function([&]() {
 			ui->set_current_year(each.year - 1);
-			add_year(ui->current_year->year);
+			add_year();
 			set_month_frame();
 		});
 
+
 		temp.months_menu.year = new cn::Label;
 		temp.months_menu.year->setup(static_font, 100, sf::Color::Black, 855, 30, std::to_string(each.year));
+
 
 		temp.months_menu.arrow_right = new cn::Button;
 		temp.months_menu.arrow_right->setup(arrow_right_texture, arrow_right_hl_texture, 1110, 52);
 		temp.months_menu.arrow_right->set_function([&]() {
 			ui->set_current_year(each.year + 1);
-			add_year(ui->current_year->year);
+			add_year();
 			set_month_frame();
 		});
+
 
 		temp.months_menu.today = new cn::Button;
 		temp.months_menu.today->setup(today_button_texture, today_button_hl_texture, 1550, 30);
@@ -4499,6 +4503,7 @@ void Manager::preload_years(std::vector<cn::Year>& years) {
 			ui->current_day = &ui->current_month->days[ui->current_date[2] - 1];
 			set_event_frame();
 		});
+
 
 		for (unsigned int i = 0; i < 12; i++) {
 			temp.months_menu.month_buttons[i] = new cn::TextButton;
@@ -4517,7 +4522,9 @@ void Manager::preload_years(std::vector<cn::Year>& years) {
 			temp.months_menu.month_buttons[i]->set_function([&, i]() {
 				ui->current_month = &each.months[i];
 				set_day_frame();
+				std::cout << ui->current_year->year;
 			});
+
 
 		}
 		//END.
@@ -4537,14 +4544,13 @@ void Manager::preload_years(std::vector<cn::Year>& years) {
 		//END.
 
 
-		preloaded_years[each.year] = temp;
+		preloaded_years.insert(std::make_pair(each.year, temp));
 	}
 }
 
 
-void Manager::add_year(const int _year) {
-	//add a check to see if year already exists.
-	std::cout << ui->current_year->year;
+void Manager::add_year() {
+	//check if year is not already in the map
 }
 
 void Manager::add_event(const cn::Event _event) {
@@ -4553,9 +4559,11 @@ void Manager::add_event(const cn::Event _event) {
 
 
 void Manager::set_month_frame() {
+	in_frame = {};
 	in_pop_up_frame = {};
 	in_scroll_frame = {};
 
+	
 	in_frame.push_back(preloaded_years[ui->current_year->year].months_menu.background);
 	in_frame.push_back(preloaded_years[ui->current_year->year].months_menu.time);
 	in_frame.push_back(preloaded_years[ui->current_year->year].months_menu.arrow_left);
@@ -4566,6 +4574,7 @@ void Manager::set_month_frame() {
 	for (auto each : preloaded_years[ui->current_year->year].months_menu.month_buttons) {
 		in_frame.push_back(each);
 	}
+	
 }
 
 void Manager::set_day_frame() {
