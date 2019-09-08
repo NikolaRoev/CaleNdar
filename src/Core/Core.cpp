@@ -76,7 +76,7 @@ void Core::setup_window(const sf::VideoMode mode, const uint32_t style) {
 	set_delta_values();
 }
 
-void Core::main_loop(const std::unordered_map<int, cn::YearDrawables>& preloaded_years, const std::vector<cn::Drawable*>& in_frame, const std::vector<cn::Drawable*>& in_pop_up_frame, const std::vector<cn::Drawable*>& in_scroll_frame) {
+void Core::main_loop(const std::unordered_map<int, cn::YearDrawables>& preloaded_years, const std::vector<cn::Drawable*>& in_frame, const std::vector<cn::Drawable*>& in_scroll_frame, std::vector<cn::Drawable*>& in_pop_up_frame) {
 	
 	while (window.isOpen()) {
 		if (in_pop_up_frame.size()) {
@@ -132,7 +132,8 @@ void Core::main_loop(const std::unordered_map<int, cn::YearDrawables>& preloaded
 			sf::FloatRect pop_up_sprite_size = {360.0f * cn::DELTA_X, 192.0f * cn::DELTA_Y, 1200.0f * cn::DELTA_X, 700.0f * cn::DELTA_Y };
 			if (!pop_up_sprite_size.contains(static_cast<float>(mouse_position.x), static_cast<float>(mouse_position.y))) {
 				if (event.type == sf::Event::MouseButtonPressed && event.mouseButton.button == sf::Mouse::Left) {
-					break;
+					//Maybe add additional check for release of button like in drawables if it seems too fast.
+					in_pop_up_frame = {};
 				}
 			}
 		}

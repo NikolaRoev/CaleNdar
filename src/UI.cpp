@@ -172,7 +172,7 @@ void UI::application_loop() {
 	});
 
 
-	core->main_loop(manager->preloaded_years, manager->in_frame, manager->in_pop_up_frame, manager->in_scroll_frame);
+	core->main_loop(manager->preloaded_years, manager->in_frame, manager->in_scroll_frame, manager->in_pop_up_frame);
 
 
 	clock.join();
