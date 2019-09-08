@@ -4544,7 +4544,7 @@ void Manager::preload_years(std::vector<cn::Year>& years) {
 		//END.
 
 
-		preloaded_years.insert(std::make_pair(each.year, temp));
+		preloaded_years[each.year] = temp;
 	}
 }
 
