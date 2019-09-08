@@ -16,19 +16,19 @@ class Manager {
 private:
 	//One use:
 
-	cn::Image* static_background;
-	cn::Image* static_pop_up_mask;
-	cn::Image* static_pop_up_background;
-	cn::Button* static_today_button;
+	cn::Image* static_background{ nullptr };
+	cn::Image* static_pop_up_mask{ nullptr };
+	cn::Image* static_pop_up_background{ nullptr };
+	cn::Button* static_today_button{ nullptr };
 
 	sf::Font static_font;
 
-	cn::Button* static_save_event;
-	cn::TextButton* static_start_time;
-	cn::TextButton* static_end_time;
-	cn::Button* static_delete_event;
-	cn::TextButton* static_event_title;
-	cn::TextButton* static_event_description;
+	cn::Button* static_save_event{ nullptr };
+	cn::TextButton* static_start_time{ nullptr };
+	cn::TextButton* static_end_time{ nullptr };
+	cn::Button* static_delete_event{ nullptr };
+	cn::TextButton* static_event_title{ nullptr };
+	cn::TextButton* static_event_description{ nullptr };
 
 	//End.
 
@@ -91,15 +91,15 @@ private:
 	//End>
 
 public:
-	Core* core;
+	Core* core{ nullptr };
 
-	UI* ui;
+	UI* ui{ nullptr };
 
 	std::unordered_map<int, cn::YearDrawables> preloaded_years{};
 
 
 
-	cn::Label* static_time;
+	cn::Label* static_time{ nullptr };
 
 	std::vector<cn::Drawable*> in_frame{};
 	std::vector<cn::Drawable*> in_pop_up_frame{}; //when you make the event button function set this frame in it for each individual event idiot

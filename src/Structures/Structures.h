@@ -21,19 +21,19 @@ namespace cn {
 		int date{ 0 };
 		std::string name;
 
-		std::vector<Event> events;
+		std::vector<Event> events{};
 	};
 
 	struct Month {
 		std::string name;
 
-		std::vector<Day> days;
+		std::vector<Day> days{};
 	};
 
 	struct Year {
 		int year{ 0 };
 
-		std::array<Month, 12> months;
+		std::array<Month, 12> months{};
 	};
 
 }
@@ -196,49 +196,49 @@ namespace cn {
 namespace cn {
 
 	struct IndividualEvent {
-		Image* pop_up_mask;
-		Image* pop_up_background;
+		Image* pop_up_mask{ nullptr };
+		Image* pop_up_background{ nullptr };
 
-		Button* save_event;
-		TextButton* start_time;
-		TextButton* end_time;
-		Button* delete_event;
-		TextButton* event_title;
-		TextButton* event_description;
+		Button* save_event{ nullptr };
+		TextButton* start_time{ nullptr };
+		TextButton* end_time{ nullptr };
+		Button* delete_event{ nullptr };
+		TextButton* event_title{ nullptr };
+		TextButton* event_description{ nullptr };
 	};
 
 	struct MonthSelectionMenu {
-		Image* background;
-		Label* time;
-		Button* arrow_left;
-		Label* year;
-		Button* arrow_right;
-		Button* today;
-		std::array<TextButton*, 12> month_buttons;
+		Image* background{ nullptr };
+		Label* time{ nullptr };
+		Button* arrow_left{ nullptr };
+		Label* year{ nullptr };
+		Button* arrow_right{ nullptr };
+		Button* today{ nullptr };
+		std::array<TextButton*, 12> month_buttons{};
 	};
 
 	struct DaySelectionMenu {
-		Image* background;
-		Label* time;
-		Label* month_name;
-		Button* back;
-		std::array<TextButton*, 42> day_buttons;
+		Image* background{ nullptr };
+		Label* time{ nullptr };
+		Label* month_name{ nullptr };
+		Button* back{ nullptr };
+		std::array<TextButton*, 42> day_buttons{};
 	};
 
 	struct EventSelectionMenu {
-		Image* background;
-		Label* time;
-		Label* day_name;
-		Button* add_event;
-		Button* back;
+		Image* background{ nullptr };
+		Label* time{ nullptr };
+		Label* day_name{ nullptr };
+		Button* add_event{ nullptr };
+		Button* back{ nullptr };
 
-		std::map<int, IndividualEvent> events; //The key is the start time.
+		std::map<int, IndividualEvent> events{}; //The key is the start time.
 	};
 
 	struct YearDrawables {
-		MonthSelectionMenu months_menu;
-		std::array<DaySelectionMenu, 12> days_menu;
-		std::array<EventSelectionMenu, 366> events_menu;
+		MonthSelectionMenu months_menu{};
+		std::array<DaySelectionMenu, 12> days_menu{};
+		std::array<EventSelectionMenu, 366> events_menu{};
 	};
 
 }

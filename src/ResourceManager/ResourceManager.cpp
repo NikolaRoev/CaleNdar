@@ -4512,8 +4512,8 @@ void Manager::preload_years(std::vector<cn::Year>& years) {
 			float temp_y;
 			float temp_text_x;
 			float temp_text_y;
-			temp_x = (630 * (i % 3)) + 30;
-			temp_y = (226 * (i / 3)) + 176;
+			temp_x = static_cast<float>((630 * (i % 3)) + 30);
+			temp_y = static_cast<float>((226 * (i / 3)) + 176);
 			temp_text_x = temp_x + 50;
 			temp_text_y = temp_y + 40;
 
