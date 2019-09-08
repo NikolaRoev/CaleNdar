@@ -4538,7 +4538,7 @@ void Manager::preload_years(std::vector<cn::Year>& years) {
 
 
 		//Event Menu:
-		//When you click add event open up some staticly created stuff.
+
 
 
 		//END.
