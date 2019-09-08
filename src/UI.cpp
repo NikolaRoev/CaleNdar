@@ -123,7 +123,6 @@ void UI::set_current_year(const int year) {
 
 //================================================================================================================================
 
-//Public:
 void UI::application_loop() {
 	core = new Core;
 	sf::VideoMode mode = { 1024, 576, 32 };
@@ -132,8 +131,6 @@ void UI::application_loop() {
 	manager = new Manager;
 	manager->core = core;
 	manager->ui = this;
-	manager->preload_textures();
-	manager->preload_static_drawables();
 
 	deserialize(years);
 	
@@ -142,6 +139,8 @@ void UI::application_loop() {
 
 	set_current_year(year);
 
+	manager->preload_textures();
+	manager->preload_static_drawables();
 	manager->preload_years(years);
 
 	manager->set_month_frame();
@@ -149,7 +148,7 @@ void UI::application_loop() {
 
 
 	std::thread clock([&]() {
-		while (cn::APPLICATION_STATE != EXIT) {
+		while (core->window.isOpen()) {
 			auto[hour, minute, second] = get_current_time();
 			std::string minutes;
 			if (minute < 10) {
@@ -173,13 +172,11 @@ void UI::application_loop() {
 	});
 
 
+	core->main_loop(manager->preloaded_years, manager->in_frame, manager->in_pop_up_frame, manager->in_scroll_frame);
 
-	while (cn::APPLICATION_STATE != EXIT) {
-		core->main_loop(manager->preloaded_years, manager->in_frame, manager->in_pop_up_frame, manager->in_scroll_frame);
-	}
 
-	serialize(years);
 	clock.join();
+	serialize(years);
 }
 
 //================================================================================================================================

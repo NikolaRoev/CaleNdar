@@ -4460,7 +4460,14 @@ void Manager::preload_static_drawables() {
 	static_pop_up_background = new cn::Image;
 	static_pop_up_background->setup(pop_up_background_texture, 360, 192);
 
-	//add the other static stuff here
+	static_today_button = new cn::Button;
+	static_today_button->setup(today_button_texture, today_button_hl_texture, 1550, 30);
+	static_today_button->set_function([&]() {
+		ui->set_current_year(ui->current_date[0]);
+		ui->current_month = &ui->current_year->months[ui->current_date[1]];
+		ui->current_day = &ui->current_month->days[ui->current_date[2] - 1];
+		set_event_frame();
+	});
 }
 
 void Manager::preload_years(std::vector<cn::Year>& years) {
@@ -4495,14 +4502,7 @@ void Manager::preload_years(std::vector<cn::Year>& years) {
 		});
 
 
-		temp.months_menu.today = new cn::Button;
-		temp.months_menu.today->setup(today_button_texture, today_button_hl_texture, 1550, 30);
-		temp.months_menu.today->set_function([&]() {
-			ui->set_current_year(ui->current_date[0]);
-			ui->current_month = &ui->current_year->months[ui->current_date[1] - 1];
-			ui->current_day = &ui->current_month->days[ui->current_date[2] - 1];
-			set_event_frame();
-		});
+		temp.months_menu.today = static_today_button;
 
 
 		for (unsigned int i = 0; i < 12; i++) {
@@ -4520,9 +4520,9 @@ void Manager::preload_years(std::vector<cn::Year>& years) {
 			temp.months_menu.month_buttons[i]->setup(month_button_texture, month_button_hl_texture, temp_x, temp_y, static_font, 100, sf::Color::Black, temp_text_x, temp_text_y, each.months[i].name);
 
 			temp.months_menu.month_buttons[i]->set_function([&, i]() {
-				ui->current_month = &each.months[i];
+				ui->set_current_year(each.year);
+				ui->current_month = &ui->current_year->months[i]; //this might be a problem
 				set_day_frame();
-				std::cout << ui->current_year->year;
 			});
 
 
@@ -4578,11 +4578,11 @@ void Manager::set_month_frame() {
 }
 
 void Manager::set_day_frame() {
-	std::cout << "day";
+
 }
 
 void Manager::set_event_frame() {
-	std::cout << "event";
+
 }
 
 void Manager::set_pop_up_frame() {

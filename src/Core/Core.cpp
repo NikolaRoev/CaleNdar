@@ -78,7 +78,7 @@ void Core::setup_window(const sf::VideoMode mode, const uint32_t style) {
 
 void Core::main_loop(const std::unordered_map<int, cn::YearDrawables>& preloaded_years, const std::vector<cn::Drawable*>& in_frame, const std::vector<cn::Drawable*>& in_pop_up_frame, const std::vector<cn::Drawable*>& in_scroll_frame) {
 	
-	while (window.isOpen() && (cn::APPLICATION_STATE != EXIT)) {
+	while (window.isOpen()) {
 		if (in_pop_up_frame.size()) {
 			for (auto each : in_scroll_frame) {
 				if (each) each->draw(window);
@@ -120,7 +120,6 @@ void Core::main_loop(const std::unordered_map<int, cn::YearDrawables>& preloaded
 		window.pollEvent(event);
 		if (event.type == sf::Event::Closed) {
 			window.close();
-			cn::APPLICATION_STATE = EXIT;
 		}
 
 

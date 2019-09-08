@@ -19,6 +19,7 @@ private:
 	cn::Image* static_background;
 	cn::Image* static_pop_up_mask;
 	cn::Image* static_pop_up_background;
+	cn::Button* static_today_button;
 
 	sf::Font static_font;
 
