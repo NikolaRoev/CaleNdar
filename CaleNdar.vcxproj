@@ -93,23 +93,32 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
-    <ClInclude Include="src\CalendarGenerator.h" />
-    <ClInclude Include="src\Core.h" />
-    <ClInclude Include="src\CurrentTime.h" />
+    <ClInclude Include="src\Core\Core.h" />
+    <ClInclude Include="src\Core\pch.h" />
+    <ClInclude Include="src\Generators\CalendarGenerator.h" />
+    <ClInclude Include="src\Generators\CurrentTime.h" />
+    <ClInclude Include="src\Generators\pch.h" />
+    <ClInclude Include="src\Generators\Serializer.h" />
+    <ClInclude Include="src\Globals.h" />
     <ClInclude Include="src\pch.h" />
-    <ClInclude Include="src\Serializer.h" />
+    <ClInclude Include="src\ResourceManager\pch.h" />
+    <ClInclude Include="src\ResourceManager\ResourceManager.h" />
+    <ClInclude Include="src\Structures\pch.h" />
+    <ClInclude Include="src\Structures\Structures.h" />
     <ClInclude Include="src\UI.h" />
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="src\CalendarGenerator.cpp" />
-    <ClCompile Include="src\Core.cpp" />
-    <ClCompile Include="src\CurrentTime.cpp" />
+    <ClCompile Include="src\Core\Core.cpp" />
     <ClCompile Include="src\EntryPoint.cpp" />
+    <ClCompile Include="src\Generators\CalendarGenerator.cpp" />
+    <ClCompile Include="src\Generators\CurrentTime.cpp" />
+    <ClCompile Include="src\Generators\Serializer.cpp" />
     <ClCompile Include="src\pch.cpp">
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">Create</PrecompiledHeader>
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">Create</PrecompiledHeader>
     </ClCompile>
-    <ClCompile Include="src\Serializer.cpp" />
+    <ClCompile Include="src\ResourceManager\ResourceManager.cpp" />
+    <ClCompile Include="src\Structures\Structures.cpp" />
     <ClCompile Include="src\UI.cpp" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
