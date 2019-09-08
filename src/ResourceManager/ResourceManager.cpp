@@ -4521,7 +4521,7 @@ void Manager::preload_years(std::vector<cn::Year>& years) {
 
 			temp.months_menu.month_buttons[i]->set_function([&, i]() {
 				ui->set_current_year(each.year);
-				ui->current_month = &ui->current_year->months[i]; //this might be a problem
+				ui->current_month = &ui->current_year->months[i];
 				set_day_frame();
 			});
 
