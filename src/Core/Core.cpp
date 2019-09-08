@@ -47,9 +47,15 @@ void Core::resized_window(const std::unordered_map<int, cn::YearDrawables>& prel
 			e_m.day_name->resize(cn::DELTA_X * old_delta_x, cn::DELTA_Y * old_delta_y);
 			e_m.add_event->resize(cn::DELTA_X * old_delta_x, cn::DELTA_Y * old_delta_y);
 			e_m.back->resize(cn::DELTA_X * old_delta_x, cn::DELTA_Y * old_delta_y);
+			e_m.pop_up_mask->resize(cn::DELTA_X * old_delta_x, cn::DELTA_Y * old_delta_y);
+			e_m.pop_up_background->resize(cn::DELTA_X * old_delta_x, cn::DELTA_Y * old_delta_y);
+			e_m.new_save_event->resize(cn::DELTA_X * old_delta_x, cn::DELTA_Y * old_delta_y);
+			e_m.new_start_time->resize(cn::DELTA_X * old_delta_x, cn::DELTA_Y * old_delta_y);
+			e_m.new_end_time->resize(cn::DELTA_X * old_delta_x, cn::DELTA_Y * old_delta_y);
+			e_m.new_delete_event->resize(cn::DELTA_X * old_delta_x, cn::DELTA_Y * old_delta_y);
+			e_m.new_event_title->resize(cn::DELTA_X * old_delta_x, cn::DELTA_Y * old_delta_y);
+			e_m.new_event_description->resize(cn::DELTA_X * old_delta_x, cn::DELTA_Y * old_delta_y);
 			for (auto& e : e_m.events) {
-				e.second.pop_up_mask->resize(cn::DELTA_X * old_delta_x, cn::DELTA_Y * old_delta_y);
-				e.second.pop_up_background->resize(cn::DELTA_X * old_delta_x, cn::DELTA_Y * old_delta_y);
 				e.second.save_event->resize(cn::DELTA_X * old_delta_x, cn::DELTA_Y * old_delta_y);
 				e.second.start_time->resize(cn::DELTA_X * old_delta_x, cn::DELTA_Y * old_delta_y);
 				e.second.end_time->resize(cn::DELTA_X * old_delta_x, cn::DELTA_Y * old_delta_y);

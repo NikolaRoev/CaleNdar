@@ -196,9 +196,6 @@ namespace cn {
 namespace cn {
 
 	struct IndividualEvent {
-		Image* pop_up_mask{ nullptr };
-		Image* pop_up_background{ nullptr };
-
 		Button* save_event{ nullptr };
 		TextButton* start_time{ nullptr };
 		TextButton* end_time{ nullptr };
@@ -231,6 +228,18 @@ namespace cn {
 		Label* day_name{ nullptr };
 		Button* add_event{ nullptr };
 		Button* back{ nullptr };
+
+		Image* pop_up_mask{ nullptr };
+		Image* pop_up_background{ nullptr };
+
+		//For new Event:
+		Button* new_save_event{ nullptr };
+		TextButton* new_start_time{ nullptr };
+		TextButton* new_end_time{ nullptr };
+		Button* new_delete_event{ nullptr };
+		TextButton* new_event_title{ nullptr };
+		TextButton* new_event_description{ nullptr };
+		//End.
 
 		std::map<int, IndividualEvent> events{}; //The key is the start time.
 	};
