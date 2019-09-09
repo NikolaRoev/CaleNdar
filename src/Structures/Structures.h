@@ -11,13 +11,14 @@ namespace cn {
 
 	struct Event {
 		int start_time{ 0 };
-		int end_time{ 0 };
+		int end_time{ -1 };
 
 		std::string name;
 		std::string description;
 	};
 
 	struct Day {
+		int number{ 0 };
 		int date{ 0 };
 		std::string name;
 
@@ -25,6 +26,7 @@ namespace cn {
 	};
 
 	struct Month {
+		int number{ 0 };
 		std::string name;
 
 		std::vector<Day> days{};
@@ -196,6 +198,11 @@ namespace cn {
 namespace cn {
 
 	struct IndividualEvent {
+		TextButton* event_button;
+
+		Image* pop_up_mask{ nullptr };
+		Image* pop_up_background{ nullptr };
+
 		Button* save_event{ nullptr };
 		TextButton* start_time{ nullptr };
 		TextButton* end_time{ nullptr };
@@ -211,7 +218,7 @@ namespace cn {
 		Label* year{ nullptr };
 		Button* arrow_right{ nullptr };
 		Button* today{ nullptr };
-		std::array<TextButton*, 12> month_buttons{};
+		std::array<TextButton*, 12> month_buttons{ nullptr };
 	};
 
 	struct DaySelectionMenu {
@@ -219,7 +226,7 @@ namespace cn {
 		Label* time{ nullptr };
 		Label* month_name{ nullptr };
 		Button* back{ nullptr };
-		std::array<TextButton*, 42> day_buttons{};
+		std::array<TextButton*, 42> day_buttons{ nullptr };
 	};
 
 	struct EventSelectionMenu {
@@ -229,16 +236,18 @@ namespace cn {
 		Button* add_event{ nullptr };
 		Button* back{ nullptr };
 
+		//For new Event:
 		Image* pop_up_mask{ nullptr };
 		Image* pop_up_background{ nullptr };
 
-		//For new Event:
 		Button* new_save_event{ nullptr };
 		TextButton* new_start_time{ nullptr };
 		TextButton* new_end_time{ nullptr };
 		Button* new_delete_event{ nullptr };
 		TextButton* new_event_title{ nullptr };
 		TextButton* new_event_description{ nullptr };
+
+		Event holder_for_new_event;
 		//End.
 
 		std::map<int, IndividualEvent> events{}; //The key is the start time.

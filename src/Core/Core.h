@@ -18,19 +18,20 @@ private:
 	//Call this in setup_window and in each resized_window call.
 	void set_delta_values();
 
-	//Call this on resize event.
-	void resized_window(const std::unordered_map<int, cn::YearDrawables>& preloaded_years);
-
 public:
 	sf::RenderWindow window;
 	sf::Event event{sf::Event::MouseMoved};
 	sf::Mouse mouse;
 
+
+	//Call this on resize event.
+	void resized_window(const std::unordered_map<int, cn::YearDrawables>& preloaded_years);
+
 	//Call this once when we start up the program.
 	void setup_window(const sf::VideoMode mode, const uint32_t style);
 
 
-	void main_loop(const std::unordered_map<int, cn::YearDrawables>& preloaded_years, const std::vector<cn::Drawable*>& in_frame, const std::vector<cn::Drawable*>& in_scroll_frame, std::vector<cn::Drawable*>& in_pop_up_frame);
+	void main_loop(const std::unordered_map<int, cn::YearDrawables>& preloaded_years, const std::vector<cn::Drawable*>& in_frame, const std::vector<cn::Drawable*>& in_scroll_frame, std::vector<cn::Drawable*>& in_pop_up_frame, bool& reset);
 };
 
 

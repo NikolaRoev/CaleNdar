@@ -96,18 +96,21 @@ cn::Year generate_calendar(const int& year) {
 	cn::Year out;
 	out.year = year;
 
+	int temp_day_number = 0;
+
 	int current = day_number(1, 1, year);
 
 	for (int i = 0; i < 12; i++) {
 		int days = number_of_days(i, year);
 
 		cn::Month month;
+		month.number = i;
 		month.name = month_name(i);
 
 		int k = current;
 		for (int j = 1; j <= days; j++) {
 			
-			cn::Day day = { j, day_name(k) };
+			cn::Day day = { temp_day_number++, j, day_name(k) };
 			month.days.push_back(day);
 
 			if (++k > 6) k = 0;

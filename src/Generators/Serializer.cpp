@@ -30,6 +30,7 @@ void serialize_days(std::ofstream& os, std::vector<cn::Day>& days) {
 	os.write((char*)& len, sizeof(len));
 
 	for (unsigned int i = 0; i < len; ++i) {
+		os.write((char*)& days[i].number, sizeof(int));
 		os.write((char*)& days[i].date, sizeof(int));
 		serialize_string(os, days[i].name);
 		serialize_events(os, days[i].events);
@@ -41,6 +42,7 @@ void serialize_months(std::ofstream& os, std::array<cn::Month, 12> & months) {
 	os.write((char*)& len, sizeof(len));
 
 	for (unsigned int i = 0; i < len; ++i) {
+		os.write((char*)& months[i].number, sizeof(int));
 		serialize_string(os, months[i].name);
 		serialize_days(os, months[i].days);
 	}
@@ -92,6 +94,7 @@ void deserialize_days(std::ifstream& is, std::vector<cn::Day>& days) {
 	days.resize(len);
 
 	for (unsigned int i = 0; i < len; ++i) {
+		is.read((char*)& days[i].number, sizeof(int));
 		is.read((char*)& days[i].date, sizeof(int));
 		deserialize_string(is, days[i].name);
 		deserialize_events(is, days[i].events);
@@ -103,6 +106,7 @@ void deserialize_months(std::ifstream& is, std::array<cn::Month, 12> & months) {
 	is.read((char*)& len, sizeof(len));
 
 	for (unsigned int i = 0; i < len; ++i) {
+		is.read((char*)& months[i].number, sizeof(int));
 		deserialize_string(is, months[i].name);
 		deserialize_days(is, months[i].days);
 	}

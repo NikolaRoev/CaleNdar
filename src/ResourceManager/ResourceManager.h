@@ -116,7 +116,7 @@ public:
 
 	void add_year();
 
-	void add_event(const cn::Event _event);
+	void add_event(const cn::Event& _event, std::map<int, cn::IndividualEvent>& _events);
 
 
 	void set_month_frame();
@@ -125,8 +125,9 @@ public:
 
 	void set_event_frame();
 
-	void set_pop_up_frame();
+	void set_pop_up_frame_new_event();
 
+	void set_pop_up_frame_existing_event();
 };
 
 //================================================================================================================================

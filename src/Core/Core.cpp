@@ -56,6 +56,9 @@ void Core::resized_window(const std::unordered_map<int, cn::YearDrawables>& prel
 			e_m.new_event_title->resize(cn::DELTA_X * old_delta_x, cn::DELTA_Y * old_delta_y);
 			e_m.new_event_description->resize(cn::DELTA_X * old_delta_x, cn::DELTA_Y * old_delta_y);
 			for (auto& e : e_m.events) {
+				e.second.event_button->resize(cn::DELTA_X * old_delta_x, cn::DELTA_Y * old_delta_y);
+				e.second.pop_up_mask->resize(cn::DELTA_X * old_delta_x, cn::DELTA_Y * old_delta_y);
+				e.second.pop_up_background->resize(cn::DELTA_X * old_delta_x, cn::DELTA_Y * old_delta_y);
 				e.second.save_event->resize(cn::DELTA_X * old_delta_x, cn::DELTA_Y * old_delta_y);
 				e.second.start_time->resize(cn::DELTA_X * old_delta_x, cn::DELTA_Y * old_delta_y);
 				e.second.end_time->resize(cn::DELTA_X * old_delta_x, cn::DELTA_Y * old_delta_y);
@@ -82,45 +85,44 @@ void Core::setup_window(const sf::VideoMode mode, const uint32_t style) {
 	set_delta_values();
 }
 
-void Core::main_loop(const std::unordered_map<int, cn::YearDrawables>& preloaded_years, const std::vector<cn::Drawable*>& in_frame, const std::vector<cn::Drawable*>& in_scroll_frame, std::vector<cn::Drawable*>& in_pop_up_frame) {
+void Core::main_loop(const std::unordered_map<int, cn::YearDrawables>& preloaded_years, const std::vector<cn::Drawable*>& in_frame, const std::vector<cn::Drawable*>& in_scroll_frame, std::vector<cn::Drawable*>& in_pop_up_frame, bool& reset) {
 	
 	while (window.isOpen()) {
 		if (in_pop_up_frame.size()) {
 			for (auto each : in_scroll_frame) {
-				if (each) each->draw(window);
+				if (each && !reset) each->draw(window);
 			}
 			
 			for (auto each : in_frame) {
-				if (each) each->draw(window);
+				if (each && !reset) each->draw(window);
 			}
 
 			for (auto each : in_pop_up_frame) {
-				if (each) each->draw(window, event, mouse);
+				if (each && !reset) each->draw(window, event, mouse);
 			}
 		}
 		else if (in_scroll_frame.size()) {
 			for (auto each : in_scroll_frame) {
-				if (each) {
+				if (each && !reset) {
 					float y1 = 150 * cn::DELTA_Y;
 					float y2 = 1080 * cn::DELTA_Y;
 					if ((each->image_y_position >= y1) || (each->image_y_position < y2)) {
 						each->draw(window, event, mouse);
 					}
-					
 				}
 			}
 
 			for (auto each : in_frame) {
-				if (each) each->draw(window, event, mouse);
+				if (each && !reset) each->draw(window, event, mouse);
 			}
 		}
 		else {
 			for (auto each : in_frame) {
-				if (each) each->draw(window, event, mouse);
+				if (each && !reset) each->draw(window, event, mouse);
 			}
 		}
 
-
+		reset = false;
 		window.display();
 
 		window.pollEvent(event);
