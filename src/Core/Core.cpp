@@ -39,7 +39,7 @@ void Core::resized_window(const std::unordered_map<int, cn::YearDrawables>& prel
 			d_m.month_name->resize(cn::DELTA_X * old_delta_x, cn::DELTA_Y * old_delta_y);
 			d_m.back->resize(cn::DELTA_X * old_delta_x, cn::DELTA_Y * old_delta_y);
 			for (auto d_b : d_m.day_buttons) {
-				d_b->resize(cn::DELTA_X * old_delta_x, cn::DELTA_Y * old_delta_y);
+				if(d_b) d_b->resize(cn::DELTA_X * old_delta_x, cn::DELTA_Y * old_delta_y);
 			}
 		}
 
@@ -140,8 +140,10 @@ void Core::main_loop(const std::unordered_map<int, cn::YearDrawables>& preloaded
 			sf::FloatRect pop_up_sprite_size = {360.0f * cn::DELTA_X, 192.0f * cn::DELTA_Y, 1200.0f * cn::DELTA_X, 700.0f * cn::DELTA_Y };
 			if (!pop_up_sprite_size.contains(static_cast<float>(mouse_position.x), static_cast<float>(mouse_position.y))) {
 				if (event.type == sf::Event::MouseButtonPressed && event.mouseButton.button == sf::Mouse::Left) {
-					//Maybe add additional check for release of button like in drawables if it seems too fast.
-					in_pop_up_frame = {};
+					window.waitEvent(event);
+					if (event.type == sf::Event::MouseButtonReleased) {
+						in_pop_up_frame = {};
+					}
 				}
 			}
 		}
