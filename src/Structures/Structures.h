@@ -209,6 +209,8 @@ namespace cn {
 		Button* delete_event{ nullptr };
 		TextButton* event_title{ nullptr };
 		TextButton* event_description{ nullptr };
+
+		Event placeholder_event;
 	};
 
 	struct MonthSelectionMenu {
