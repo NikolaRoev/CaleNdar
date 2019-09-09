@@ -20,15 +20,9 @@ private:
 	cn::Image* static_pop_up_mask{ nullptr };
 	cn::Image* static_pop_up_background{ nullptr };
 	cn::Button* static_today_button{ nullptr };
+	cn::Image* static_event_menu_mask{ nullptr };
 
 	sf::Font static_font;
-
-	cn::Button* static_save_event{ nullptr };
-	cn::TextButton* static_start_time{ nullptr };
-	cn::TextButton* static_end_time{ nullptr };
-	cn::Button* static_delete_event{ nullptr };
-	cn::TextButton* static_event_title{ nullptr };
-	cn::TextButton* static_event_description{ nullptr };
 
 	//End.
 
@@ -65,6 +59,8 @@ private:
 
 
 	//Event Menu:
+
+	sf::Texture event_menu_mask_texture;
 
 	sf::Texture add_event_button_texture;
 	sf::Texture add_event_button_hl_texture;
@@ -114,7 +110,9 @@ public:
 	void preload_years();
 
 
-	void add_event(const cn::Event& _event, std::map<int, cn::IndividualEvent>& _events);
+	void add_event(cn::Event& _event, std::map<int, cn::IndividualEvent>& _events);
+
+	void sort_events();
 
 
 	void set_month_frame();

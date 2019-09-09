@@ -15,6 +15,10 @@ namespace cn {
 
 		std::string name;
 		std::string description;
+
+		bool operator==(const Event& right) const {
+			return start_time == right.start_time;
+		}
 	};
 
 	struct Day {
@@ -198,19 +202,13 @@ namespace cn {
 namespace cn {
 
 	struct IndividualEvent {
-		TextButton* event_button;
+		TextButton* event_button{ nullptr };;
 
 		Image* pop_up_mask{ nullptr };
 		Image* pop_up_background{ nullptr };
 
-		Button* save_event{ nullptr };
-		TextButton* start_time{ nullptr };
-		TextButton* end_time{ nullptr };
 		Button* delete_event{ nullptr };
-		TextButton* event_title{ nullptr };
-		TextButton* event_description{ nullptr };
-
-		Event placeholder_event;
+		Label* event_description{ nullptr };
 	};
 
 	struct MonthSelectionMenu {
@@ -251,7 +249,7 @@ namespace cn {
 
 		Event holder_for_new_event;
 		//End.
-
+		Image* mask{ nullptr };
 		std::map<int, IndividualEvent> events{}; //The key is the start time.
 	};
 

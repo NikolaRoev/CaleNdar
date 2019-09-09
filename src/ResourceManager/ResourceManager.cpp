@@ -1957,6 +1957,159 @@ void Manager::preload_textures() {
 
 
 
+	const char event_menu_mask_texture_data[] =
+	{
+		'\x89', '\x50', '\x4e', '\x47', '\x0d', '\x0a', '\x1a', '\x0a', '\x00', '\x00', '\x00', '\x0d', '\x49', '\x48', '\x44', '\x52', '\x00', '\x00', '\x07', '\x80',
+		'\x00', '\x00', '\x00', '\x96', '\x08', '\x02', '\x00', '\x00', '\x00', '\xb0', '\xe8', '\x02', '\x99', '\x00', '\x00', '\x00', '\x09', '\x70', '\x48', '\x59',
+		'\x73', '\x00', '\x00', '\x2e', '\x23', '\x00', '\x00', '\x2e', '\x23', '\x01', '\x78', '\xa5', '\x3f', '\x76', '\x00', '\x00', '\x06', '\xca', '\x69', '\x54',
+		'\x58', '\x74', '\x58', '\x4d', '\x4c', '\x3a', '\x63', '\x6f', '\x6d', '\x2e', '\x61', '\x64', '\x6f', '\x62', '\x65', '\x2e', '\x78', '\x6d', '\x70', '\x00',
+		'\x00', '\x00', '\x00', '\x00', '\x3c', '\x3f', '\x78', '\x70', '\x61', '\x63', '\x6b', '\x65', '\x74', '\x20', '\x62', '\x65', '\x67', '\x69', '\x6e', '\x3d',
+		'\x22', '\xef', '\xbb', '\xbf', '\x22', '\x20', '\x69', '\x64', '\x3d', '\x22', '\x57', '\x35', '\x4d', '\x30', '\x4d', '\x70', '\x43', '\x65', '\x68', '\x69',
+		'\x48', '\x7a', '\x72', '\x65', '\x53', '\x7a', '\x4e', '\x54', '\x63', '\x7a', '\x6b', '\x63', '\x39', '\x64', '\x22', '\x3f', '\x3e', '\x20', '\x3c', '\x78',
+		'\x3a', '\x78', '\x6d', '\x70', '\x6d', '\x65', '\x74', '\x61', '\x20', '\x78', '\x6d', '\x6c', '\x6e', '\x73', '\x3a', '\x78', '\x3d', '\x22', '\x61', '\x64',
+		'\x6f', '\x62', '\x65', '\x3a', '\x6e', '\x73', '\x3a', '\x6d', '\x65', '\x74', '\x61', '\x2f', '\x22', '\x20', '\x78', '\x3a', '\x78', '\x6d', '\x70', '\x74',
+		'\x6b', '\x3d', '\x22', '\x41', '\x64', '\x6f', '\x62', '\x65', '\x20', '\x58', '\x4d', '\x50', '\x20', '\x43', '\x6f', '\x72', '\x65', '\x20', '\x35', '\x2e',
+		'\x36', '\x2d', '\x63', '\x31', '\x34', '\x35', '\x20', '\x37', '\x39', '\x2e', '\x31', '\x36', '\x33', '\x34', '\x39', '\x39', '\x2c', '\x20', '\x32', '\x30',
+		'\x31', '\x38', '\x2f', '\x30', '\x38', '\x2f', '\x31', '\x33', '\x2d', '\x31', '\x36', '\x3a', '\x34', '\x30', '\x3a', '\x32', '\x32', '\x20', '\x20', '\x20',
+		'\x20', '\x20', '\x20', '\x20', '\x20', '\x22', '\x3e', '\x20', '\x3c', '\x72', '\x64', '\x66', '\x3a', '\x52', '\x44', '\x46', '\x20', '\x78', '\x6d', '\x6c',
+		'\x6e', '\x73', '\x3a', '\x72', '\x64', '\x66', '\x3d', '\x22', '\x68', '\x74', '\x74', '\x70', '\x3a', '\x2f', '\x2f', '\x77', '\x77', '\x77', '\x2e', '\x77',
+		'\x33', '\x2e', '\x6f', '\x72', '\x67', '\x2f', '\x31', '\x39', '\x39', '\x39', '\x2f', '\x30', '\x32', '\x2f', '\x32', '\x32', '\x2d', '\x72', '\x64', '\x66',
+		'\x2d', '\x73', '\x79', '\x6e', '\x74', '\x61', '\x78', '\x2d', '\x6e', '\x73', '\x23', '\x22', '\x3e', '\x20', '\x3c', '\x72', '\x64', '\x66', '\x3a', '\x44',
+		'\x65', '\x73', '\x63', '\x72', '\x69', '\x70', '\x74', '\x69', '\x6f', '\x6e', '\x20', '\x72', '\x64', '\x66', '\x3a', '\x61', '\x62', '\x6f', '\x75', '\x74',
+		'\x3d', '\x22', '\x22', '\x20', '\x78', '\x6d', '\x6c', '\x6e', '\x73', '\x3a', '\x78', '\x6d', '\x70', '\x3d', '\x22', '\x68', '\x74', '\x74', '\x70', '\x3a',
+		'\x2f', '\x2f', '\x6e', '\x73', '\x2e', '\x61', '\x64', '\x6f', '\x62', '\x65', '\x2e', '\x63', '\x6f', '\x6d', '\x2f', '\x78', '\x61', '\x70', '\x2f', '\x31',
+		'\x2e', '\x30', '\x2f', '\x22', '\x20', '\x78', '\x6d', '\x6c', '\x6e', '\x73', '\x3a', '\x78', '\x6d', '\x70', '\x4d', '\x4d', '\x3d', '\x22', '\x68', '\x74',
+		'\x74', '\x70', '\x3a', '\x2f', '\x2f', '\x6e', '\x73', '\x2e', '\x61', '\x64', '\x6f', '\x62', '\x65', '\x2e', '\x63', '\x6f', '\x6d', '\x2f', '\x78', '\x61',
+		'\x70', '\x2f', '\x31', '\x2e', '\x30', '\x2f', '\x6d', '\x6d', '\x2f', '\x22', '\x20', '\x78', '\x6d', '\x6c', '\x6e', '\x73', '\x3a', '\x73', '\x74', '\x45',
+		'\x76', '\x74', '\x3d', '\x22', '\x68', '\x74', '\x74', '\x70', '\x3a', '\x2f', '\x2f', '\x6e', '\x73', '\x2e', '\x61', '\x64', '\x6f', '\x62', '\x65', '\x2e',
+		'\x63', '\x6f', '\x6d', '\x2f', '\x78', '\x61', '\x70', '\x2f', '\x31', '\x2e', '\x30', '\x2f', '\x73', '\x54', '\x79', '\x70', '\x65', '\x2f', '\x52', '\x65',
+		'\x73', '\x6f', '\x75', '\x72', '\x63', '\x65', '\x45', '\x76', '\x65', '\x6e', '\x74', '\x23', '\x22', '\x20', '\x78', '\x6d', '\x6c', '\x6e', '\x73', '\x3a',
+		'\x64', '\x63', '\x3d', '\x22', '\x68', '\x74', '\x74', '\x70', '\x3a', '\x2f', '\x2f', '\x70', '\x75', '\x72', '\x6c', '\x2e', '\x6f', '\x72', '\x67', '\x2f',
+		'\x64', '\x63', '\x2f', '\x65', '\x6c', '\x65', '\x6d', '\x65', '\x6e', '\x74', '\x73', '\x2f', '\x31', '\x2e', '\x31', '\x2f', '\x22', '\x20', '\x78', '\x6d',
+		'\x6c', '\x6e', '\x73', '\x3a', '\x70', '\x68', '\x6f', '\x74', '\x6f', '\x73', '\x68', '\x6f', '\x70', '\x3d', '\x22', '\x68', '\x74', '\x74', '\x70', '\x3a',
+		'\x2f', '\x2f', '\x6e', '\x73', '\x2e', '\x61', '\x64', '\x6f', '\x62', '\x65', '\x2e', '\x63', '\x6f', '\x6d', '\x2f', '\x70', '\x68', '\x6f', '\x74', '\x6f',
+		'\x73', '\x68', '\x6f', '\x70', '\x2f', '\x31', '\x2e', '\x30', '\x2f', '\x22', '\x20', '\x78', '\x6d', '\x70', '\x3a', '\x43', '\x72', '\x65', '\x61', '\x74',
+		'\x6f', '\x72', '\x54', '\x6f', '\x6f', '\x6c', '\x3d', '\x22', '\x41', '\x64', '\x6f', '\x62', '\x65', '\x20', '\x50', '\x68', '\x6f', '\x74', '\x6f', '\x73',
+		'\x68', '\x6f', '\x70', '\x20', '\x43', '\x43', '\x20', '\x32', '\x30', '\x31', '\x39', '\x20', '\x28', '\x57', '\x69', '\x6e', '\x64', '\x6f', '\x77', '\x73',
+		'\x29', '\x22', '\x20', '\x78', '\x6d', '\x70', '\x3a', '\x43', '\x72', '\x65', '\x61', '\x74', '\x65', '\x44', '\x61', '\x74', '\x65', '\x3d', '\x22', '\x32',
+		'\x30', '\x31', '\x39', '\x2d', '\x30', '\x39', '\x2d', '\x30', '\x32', '\x54', '\x31', '\x36', '\x3a', '\x35', '\x32', '\x3a', '\x32', '\x36', '\x2b', '\x30',
+		'\x33', '\x3a', '\x30', '\x30', '\x22', '\x20', '\x78', '\x6d', '\x70', '\x3a', '\x4d', '\x65', '\x74', '\x61', '\x64', '\x61', '\x74', '\x61', '\x44', '\x61',
+		'\x74', '\x65', '\x3d', '\x22', '\x32', '\x30', '\x31', '\x39', '\x2d', '\x30', '\x39', '\x2d', '\x30', '\x39', '\x54', '\x32', '\x30', '\x3a', '\x35', '\x34',
+		'\x3a', '\x34', '\x31', '\x2b', '\x30', '\x33', '\x3a', '\x30', '\x30', '\x22', '\x20', '\x78', '\x6d', '\x70', '\x3a', '\x4d', '\x6f', '\x64', '\x69', '\x66',
+		'\x79', '\x44', '\x61', '\x74', '\x65', '\x3d', '\x22', '\x32', '\x30', '\x31', '\x39', '\x2d', '\x30', '\x39', '\x2d', '\x30', '\x39', '\x54', '\x32', '\x30',
+		'\x3a', '\x35', '\x34', '\x3a', '\x34', '\x31', '\x2b', '\x30', '\x33', '\x3a', '\x30', '\x30', '\x22', '\x20', '\x78', '\x6d', '\x70', '\x4d', '\x4d', '\x3a',
+		'\x49', '\x6e', '\x73', '\x74', '\x61', '\x6e', '\x63', '\x65', '\x49', '\x44', '\x3d', '\x22', '\x78', '\x6d', '\x70', '\x2e', '\x69', '\x69', '\x64', '\x3a',
+		'\x39', '\x39', '\x62', '\x31', '\x39', '\x30', '\x63', '\x61', '\x2d', '\x64', '\x62', '\x34', '\x63', '\x2d', '\x63', '\x38', '\x34', '\x37', '\x2d', '\x38',
+		'\x30', '\x39', '\x38', '\x2d', '\x34', '\x64', '\x64', '\x61', '\x33', '\x62', '\x31', '\x36', '\x30', '\x37', '\x37', '\x66', '\x22', '\x20', '\x78', '\x6d',
+		'\x70', '\x4d', '\x4d', '\x3a', '\x44', '\x6f', '\x63', '\x75', '\x6d', '\x65', '\x6e', '\x74', '\x49', '\x44', '\x3d', '\x22', '\x61', '\x64', '\x6f', '\x62',
+		'\x65', '\x3a', '\x64', '\x6f', '\x63', '\x69', '\x64', '\x3a', '\x70', '\x68', '\x6f', '\x74', '\x6f', '\x73', '\x68', '\x6f', '\x70', '\x3a', '\x37', '\x37',
+		'\x66', '\x34', '\x64', '\x61', '\x65', '\x37', '\x2d', '\x39', '\x36', '\x66', '\x39', '\x2d', '\x39', '\x36', '\x34', '\x62', '\x2d', '\x39', '\x36', '\x66',
+		'\x38', '\x2d', '\x36', '\x65', '\x32', '\x63', '\x37', '\x65', '\x38', '\x39', '\x61', '\x36', '\x61', '\x37', '\x22', '\x20', '\x78', '\x6d', '\x70', '\x4d',
+		'\x4d', '\x3a', '\x4f', '\x72', '\x69', '\x67', '\x69', '\x6e', '\x61', '\x6c', '\x44', '\x6f', '\x63', '\x75', '\x6d', '\x65', '\x6e', '\x74', '\x49', '\x44',
+		'\x3d', '\x22', '\x78', '\x6d', '\x70', '\x2e', '\x64', '\x69', '\x64', '\x3a', '\x38', '\x65', '\x35', '\x63', '\x62', '\x62', '\x38', '\x31', '\x2d', '\x66',
+		'\x61', '\x66', '\x36', '\x2d', '\x36', '\x66', '\x34', '\x66', '\x2d', '\x62', '\x34', '\x33', '\x64', '\x2d', '\x34', '\x31', '\x39', '\x32', '\x65', '\x30',
+		'\x66', '\x64', '\x65', '\x32', '\x64', '\x61', '\x22', '\x20', '\x64', '\x63', '\x3a', '\x66', '\x6f', '\x72', '\x6d', '\x61', '\x74', '\x3d', '\x22', '\x69',
+		'\x6d', '\x61', '\x67', '\x65', '\x2f', '\x70', '\x6e', '\x67', '\x22', '\x20', '\x70', '\x68', '\x6f', '\x74', '\x6f', '\x73', '\x68', '\x6f', '\x70', '\x3a',
+		'\x43', '\x6f', '\x6c', '\x6f', '\x72', '\x4d', '\x6f', '\x64', '\x65', '\x3d', '\x22', '\x33', '\x22', '\x20', '\x70', '\x68', '\x6f', '\x74', '\x6f', '\x73',
+		'\x68', '\x6f', '\x70', '\x3a', '\x49', '\x43', '\x43', '\x50', '\x72', '\x6f', '\x66', '\x69', '\x6c', '\x65', '\x3d', '\x22', '\x73', '\x52', '\x47', '\x42',
+		'\x20', '\x49', '\x45', '\x43', '\x36', '\x31', '\x39', '\x36', '\x36', '\x2d', '\x32', '\x2e', '\x31', '\x22', '\x3e', '\x20', '\x3c', '\x78', '\x6d', '\x70',
+		'\x4d', '\x4d', '\x3a', '\x48', '\x69', '\x73', '\x74', '\x6f', '\x72', '\x79', '\x3e', '\x20', '\x3c', '\x72', '\x64', '\x66', '\x3a', '\x53', '\x65', '\x71',
+		'\x3e', '\x20', '\x3c', '\x72', '\x64', '\x66', '\x3a', '\x6c', '\x69', '\x20', '\x73', '\x74', '\x45', '\x76', '\x74', '\x3a', '\x61', '\x63', '\x74', '\x69',
+		'\x6f', '\x6e', '\x3d', '\x22', '\x63', '\x72', '\x65', '\x61', '\x74', '\x65', '\x64', '\x22', '\x20', '\x73', '\x74', '\x45', '\x76', '\x74', '\x3a', '\x69',
+		'\x6e', '\x73', '\x74', '\x61', '\x6e', '\x63', '\x65', '\x49', '\x44', '\x3d', '\x22', '\x78', '\x6d', '\x70', '\x2e', '\x69', '\x69', '\x64', '\x3a', '\x38',
+		'\x65', '\x35', '\x63', '\x62', '\x62', '\x38', '\x31', '\x2d', '\x66', '\x61', '\x66', '\x36', '\x2d', '\x36', '\x66', '\x34', '\x66', '\x2d', '\x62', '\x34',
+		'\x33', '\x64', '\x2d', '\x34', '\x31', '\x39', '\x32', '\x65', '\x30', '\x66', '\x64', '\x65', '\x32', '\x64', '\x61', '\x22', '\x20', '\x73', '\x74', '\x45',
+		'\x76', '\x74', '\x3a', '\x77', '\x68', '\x65', '\x6e', '\x3d', '\x22', '\x32', '\x30', '\x31', '\x39', '\x2d', '\x30', '\x39', '\x2d', '\x30', '\x32', '\x54',
+		'\x31', '\x36', '\x3a', '\x35', '\x32', '\x3a', '\x32', '\x36', '\x2b', '\x30', '\x33', '\x3a', '\x30', '\x30', '\x22', '\x20', '\x73', '\x74', '\x45', '\x76',
+		'\x74', '\x3a', '\x73', '\x6f', '\x66', '\x74', '\x77', '\x61', '\x72', '\x65', '\x41', '\x67', '\x65', '\x6e', '\x74', '\x3d', '\x22', '\x41', '\x64', '\x6f',
+		'\x62', '\x65', '\x20', '\x50', '\x68', '\x6f', '\x74', '\x6f', '\x73', '\x68', '\x6f', '\x70', '\x20', '\x43', '\x43', '\x20', '\x32', '\x30', '\x31', '\x39',
+		'\x20', '\x28', '\x57', '\x69', '\x6e', '\x64', '\x6f', '\x77', '\x73', '\x29', '\x22', '\x2f', '\x3e', '\x20', '\x3c', '\x72', '\x64', '\x66', '\x3a', '\x6c',
+		'\x69', '\x20', '\x73', '\x74', '\x45', '\x76', '\x74', '\x3a', '\x61', '\x63', '\x74', '\x69', '\x6f', '\x6e', '\x3d', '\x22', '\x73', '\x61', '\x76', '\x65',
+		'\x64', '\x22', '\x20', '\x73', '\x74', '\x45', '\x76', '\x74', '\x3a', '\x69', '\x6e', '\x73', '\x74', '\x61', '\x6e', '\x63', '\x65', '\x49', '\x44', '\x3d',
+		'\x22', '\x78', '\x6d', '\x70', '\x2e', '\x69', '\x69', '\x64', '\x3a', '\x32', '\x39', '\x32', '\x61', '\x34', '\x66', '\x33', '\x61', '\x2d', '\x37', '\x61',
+		'\x63', '\x31', '\x2d', '\x34', '\x39', '\x34', '\x65', '\x2d', '\x62', '\x65', '\x61', '\x32', '\x2d', '\x35', '\x38', '\x30', '\x32', '\x33', '\x35', '\x37',
+		'\x66', '\x63', '\x30', '\x34', '\x39', '\x22', '\x20', '\x73', '\x74', '\x45', '\x76', '\x74', '\x3a', '\x77', '\x68', '\x65', '\x6e', '\x3d', '\x22', '\x32',
+		'\x30', '\x31', '\x39', '\x2d', '\x30', '\x39', '\x2d', '\x30', '\x32', '\x54', '\x31', '\x36', '\x3a', '\x35', '\x32', '\x3a', '\x32', '\x36', '\x2b', '\x30',
+		'\x33', '\x3a', '\x30', '\x30', '\x22', '\x20', '\x73', '\x74', '\x45', '\x76', '\x74', '\x3a', '\x73', '\x6f', '\x66', '\x74', '\x77', '\x61', '\x72', '\x65',
+		'\x41', '\x67', '\x65', '\x6e', '\x74', '\x3d', '\x22', '\x41', '\x64', '\x6f', '\x62', '\x65', '\x20', '\x50', '\x68', '\x6f', '\x74', '\x6f', '\x73', '\x68',
+		'\x6f', '\x70', '\x20', '\x43', '\x43', '\x20', '\x32', '\x30', '\x31', '\x39', '\x20', '\x28', '\x57', '\x69', '\x6e', '\x64', '\x6f', '\x77', '\x73', '\x29',
+		'\x22', '\x20', '\x73', '\x74', '\x45', '\x76', '\x74', '\x3a', '\x63', '\x68', '\x61', '\x6e', '\x67', '\x65', '\x64', '\x3d', '\x22', '\x2f', '\x22', '\x2f',
+		'\x3e', '\x20', '\x3c', '\x72', '\x64', '\x66', '\x3a', '\x6c', '\x69', '\x20', '\x73', '\x74', '\x45', '\x76', '\x74', '\x3a', '\x61', '\x63', '\x74', '\x69',
+		'\x6f', '\x6e', '\x3d', '\x22', '\x73', '\x61', '\x76', '\x65', '\x64', '\x22', '\x20', '\x73', '\x74', '\x45', '\x76', '\x74', '\x3a', '\x69', '\x6e', '\x73',
+		'\x74', '\x61', '\x6e', '\x63', '\x65', '\x49', '\x44', '\x3d', '\x22', '\x78', '\x6d', '\x70', '\x2e', '\x69', '\x69', '\x64', '\x3a', '\x39', '\x39', '\x62',
+		'\x31', '\x39', '\x30', '\x63', '\x61', '\x2d', '\x64', '\x62', '\x34', '\x63', '\x2d', '\x63', '\x38', '\x34', '\x37', '\x2d', '\x38', '\x30', '\x39', '\x38',
+		'\x2d', '\x34', '\x64', '\x64', '\x61', '\x33', '\x62', '\x31', '\x36', '\x30', '\x37', '\x37', '\x66', '\x22', '\x20', '\x73', '\x74', '\x45', '\x76', '\x74',
+		'\x3a', '\x77', '\x68', '\x65', '\x6e', '\x3d', '\x22', '\x32', '\x30', '\x31', '\x39', '\x2d', '\x30', '\x39', '\x2d', '\x30', '\x39', '\x54', '\x32', '\x30',
+		'\x3a', '\x35', '\x34', '\x3a', '\x34', '\x31', '\x2b', '\x30', '\x33', '\x3a', '\x30', '\x30', '\x22', '\x20', '\x73', '\x74', '\x45', '\x76', '\x74', '\x3a',
+		'\x73', '\x6f', '\x66', '\x74', '\x77', '\x61', '\x72', '\x65', '\x41', '\x67', '\x65', '\x6e', '\x74', '\x3d', '\x22', '\x41', '\x64', '\x6f', '\x62', '\x65',
+		'\x20', '\x50', '\x68', '\x6f', '\x74', '\x6f', '\x73', '\x68', '\x6f', '\x70', '\x20', '\x43', '\x43', '\x20', '\x32', '\x30', '\x31', '\x39', '\x20', '\x28',
+		'\x57', '\x69', '\x6e', '\x64', '\x6f', '\x77', '\x73', '\x29', '\x22', '\x20', '\x73', '\x74', '\x45', '\x76', '\x74', '\x3a', '\x63', '\x68', '\x61', '\x6e',
+		'\x67', '\x65', '\x64', '\x3d', '\x22', '\x2f', '\x22', '\x2f', '\x3e', '\x20', '\x3c', '\x2f', '\x72', '\x64', '\x66', '\x3a', '\x53', '\x65', '\x71', '\x3e',
+		'\x20', '\x3c', '\x2f', '\x78', '\x6d', '\x70', '\x4d', '\x4d', '\x3a', '\x48', '\x69', '\x73', '\x74', '\x6f', '\x72', '\x79', '\x3e', '\x20', '\x3c', '\x2f',
+		'\x72', '\x64', '\x66', '\x3a', '\x44', '\x65', '\x73', '\x63', '\x72', '\x69', '\x70', '\x74', '\x69', '\x6f', '\x6e', '\x3e', '\x20', '\x3c', '\x2f', '\x72',
+		'\x64', '\x66', '\x3a', '\x52', '\x44', '\x46', '\x3e', '\x20', '\x3c', '\x2f', '\x78', '\x3a', '\x78', '\x6d', '\x70', '\x6d', '\x65', '\x74', '\x61', '\x3e',
+		'\x20', '\x3c', '\x3f', '\x78', '\x70', '\x61', '\x63', '\x6b', '\x65', '\x74', '\x20', '\x65', '\x6e', '\x64', '\x3d', '\x22', '\x72', '\x22', '\x3f', '\x3e',
+		'\x90', '\xda', '\x88', '\x1d', '\x00', '\x00', '\x04', '\x50', '\x49', '\x44', '\x41', '\x54', '\x78', '\x01', '\xed', '\xc1', '\x31', '\x0d', '\x00', '\x00',
+		'\x0c', '\x03', '\xa0', '\xfa', '\x37', '\xdd', '\xa9', '\xe8', '\xb1', '\x04', '\x48', '\x01', '\x00', '\x00', '\x00', '\x00', '\x60', '\x20', '\x05', '\x00',
+		'\x00', '\x00', '\x00', '\x80', '\x81', '\x14', '\x00', '\x00', '\x00', '\x00', '\x00', '\x06', '\x52', '\x00', '\x00', '\x00', '\x00', '\x00', '\x18', '\x48',
+		'\x01', '\x00', '\x00', '\x00', '\x00', '\x60', '\x20', '\x05', '\x00', '\x00', '\x00', '\x00', '\x80', '\x81', '\x14', '\x00', '\x00', '\x00', '\x00', '\x00',
+		'\x06', '\x52', '\x00', '\x00', '\x00', '\x00', '\x00', '\x18', '\x48', '\x01', '\x00', '\x00', '\x00', '\x00', '\x60', '\x20', '\x05', '\x00', '\x00', '\x00',
+		'\x00', '\x80', '\x81', '\x14', '\x00', '\x00', '\x00', '\x00', '\x00', '\x06', '\x52', '\x00', '\x00', '\x00', '\x00', '\x00', '\x18', '\x48', '\x01', '\x00',
+		'\x00', '\x00', '\x00', '\x60', '\x20', '\x05', '\x00', '\x00', '\x00', '\x00', '\x80', '\x81', '\x14', '\x00', '\x00', '\x00', '\x00', '\x00', '\x06', '\x52',
+		'\x00', '\x00', '\x00', '\x00', '\x00', '\x18', '\x48', '\x01', '\x00', '\x00', '\x00', '\x00', '\x60', '\x20', '\x05', '\x00', '\x00', '\x00', '\x00', '\x80',
+		'\x81', '\x14', '\x00', '\x00', '\x00', '\x00', '\x00', '\x06', '\x52', '\x00', '\x00', '\x00', '\x00', '\x00', '\x18', '\x48', '\x01', '\x00', '\x00', '\x00',
+		'\x00', '\x60', '\x20', '\x05', '\x00', '\x00', '\x00', '\x00', '\x80', '\x81', '\x14', '\x00', '\x00', '\x00', '\x00', '\x00', '\x06', '\x52', '\x00', '\x00',
+		'\x00', '\x00', '\x00', '\x18', '\x48', '\x01', '\x00', '\x00', '\x00', '\x00', '\x60', '\x20', '\x05', '\x00', '\x00', '\x00', '\x00', '\x80', '\x81', '\x14',
+		'\x00', '\x00', '\x00', '\x00', '\x00', '\x06', '\x52', '\x00', '\x00', '\x00', '\x00', '\x00', '\x18', '\x48', '\x01', '\x00', '\x00', '\x00', '\x00', '\x60',
+		'\x20', '\x05', '\x00', '\x00', '\x00', '\x00', '\x80', '\x81', '\x14', '\x00', '\x00', '\x00', '\x00', '\x00', '\x06', '\x52', '\x00', '\x00', '\x00', '\x00',
+		'\x00', '\x18', '\x48', '\x01', '\x00', '\x00', '\x00', '\x00', '\x60', '\x20', '\x05', '\x00', '\x00', '\x00', '\x00', '\x80', '\x81', '\x14', '\x00', '\x00',
+		'\x00', '\x00', '\x00', '\x06', '\x52', '\x00', '\x00', '\x00', '\x00', '\x00', '\x18', '\x48', '\x01', '\x00', '\x00', '\x00', '\x00', '\x60', '\x20', '\x05',
+		'\x00', '\x00', '\x00', '\x00', '\x80', '\x81', '\x14', '\x00', '\x00', '\x00', '\x00', '\x00', '\x06', '\x52', '\x00', '\x00', '\x00', '\x00', '\x00', '\x18',
+		'\x48', '\x01', '\x00', '\x00', '\x00', '\x00', '\x60', '\x20', '\x05', '\x00', '\x00', '\x00', '\x00', '\x80', '\x81', '\x14', '\x00', '\x00', '\x00', '\x00',
+		'\x00', '\x06', '\x52', '\x00', '\x00', '\x00', '\x00', '\x00', '\x18', '\x48', '\x01', '\x00', '\x00', '\x00', '\x00', '\x60', '\x20', '\x05', '\x00', '\x00',
+		'\x00', '\x00', '\x80', '\x81', '\x14', '\x00', '\x00', '\x00', '\x00', '\x00', '\x06', '\x52', '\x00', '\x00', '\x00', '\x00', '\x00', '\x18', '\x48', '\x01',
+		'\x00', '\x00', '\x00', '\x00', '\x60', '\x20', '\x05', '\x00', '\x00', '\x00', '\x00', '\x80', '\x81', '\x14', '\x00', '\x00', '\x00', '\x00', '\x00', '\x06',
+		'\x52', '\x00', '\x00', '\x00', '\x00', '\x00', '\x18', '\x48', '\x01', '\x00', '\x00', '\x00', '\x00', '\x60', '\x20', '\x05', '\x00', '\x00', '\x00', '\x00',
+		'\x80', '\x81', '\x14', '\x00', '\x00', '\x00', '\x00', '\x00', '\x06', '\x52', '\x00', '\x00', '\x00', '\x00', '\x00', '\x18', '\x48', '\x01', '\x00', '\x00',
+		'\x00', '\x00', '\x60', '\x20', '\x05', '\x00', '\x00', '\x00', '\x00', '\x80', '\x81', '\x14', '\x00', '\x00', '\x00', '\x00', '\x00', '\x06', '\x52', '\x00',
+		'\x00', '\x00', '\x00', '\x00', '\x18', '\x48', '\x01', '\x00', '\x00', '\x00', '\x00', '\x60', '\x20', '\x05', '\x00', '\x00', '\x00', '\x00', '\x80', '\x81',
+		'\x14', '\x00', '\x00', '\x00', '\x00', '\x00', '\x06', '\x52', '\x00', '\x00', '\x00', '\x00', '\x00', '\x18', '\x48', '\x01', '\x00', '\x00', '\x00', '\x00',
+		'\x60', '\x20', '\x05', '\x00', '\x00', '\x00', '\x00', '\x80', '\x81', '\x14', '\x00', '\x00', '\x00', '\x00', '\x00', '\x06', '\x52', '\x00', '\x00', '\x00',
+		'\x00', '\x00', '\x18', '\x48', '\x01', '\x00', '\x00', '\x00', '\x00', '\x60', '\x20', '\x05', '\x00', '\x00', '\x00', '\x00', '\x80', '\x81', '\x14', '\x00',
+		'\x00', '\x00', '\x00', '\x00', '\x06', '\x52', '\x00', '\x00', '\x00', '\x00', '\x00', '\x18', '\x48', '\x01', '\x00', '\x00', '\x00', '\x00', '\x60', '\x20',
+		'\x05', '\x00', '\x00', '\x00', '\x00', '\x80', '\x81', '\x14', '\x00', '\x00', '\x00', '\x00', '\x00', '\x06', '\x52', '\x00', '\x00', '\x00', '\x00', '\x00',
+		'\x18', '\x48', '\x01', '\x00', '\x00', '\x00', '\x00', '\x60', '\x20', '\x05', '\x00', '\x00', '\x00', '\x00', '\x80', '\x81', '\x14', '\x00', '\x00', '\x00',
+		'\x00', '\x00', '\x06', '\x52', '\x00', '\x00', '\x00', '\x00', '\x00', '\x18', '\x48', '\x01', '\x00', '\x00', '\x00', '\x00', '\x60', '\x20', '\x05', '\x00',
+		'\x00', '\x00', '\x00', '\x80', '\x81', '\x14', '\x00', '\x00', '\x00', '\x00', '\x00', '\x06', '\x52', '\x00', '\x00', '\x00', '\x00', '\x00', '\x18', '\x48',
+		'\x01', '\x00', '\x00', '\x00', '\x00', '\x60', '\x20', '\x05', '\x00', '\x00', '\x00', '\x00', '\x80', '\x81', '\x14', '\x00', '\x00', '\x00', '\x00', '\x00',
+		'\x06', '\x52', '\x00', '\x00', '\x00', '\x00', '\x00', '\x18', '\x48', '\x01', '\x00', '\x00', '\x00', '\x00', '\x60', '\x20', '\x05', '\x00', '\x00', '\x00',
+		'\x00', '\x80', '\x81', '\x14', '\x00', '\x00', '\x00', '\x00', '\x00', '\x06', '\x52', '\x00', '\x00', '\x00', '\x00', '\x00', '\x18', '\x48', '\x01', '\x00',
+		'\x00', '\x00', '\x00', '\x60', '\x20', '\x05', '\x00', '\x00', '\x00', '\x00', '\x80', '\x81', '\x14', '\x00', '\x00', '\x00', '\x00', '\x00', '\x06', '\x52',
+		'\x00', '\x00', '\x00', '\x00', '\x00', '\x18', '\x48', '\x01', '\x00', '\x00', '\x00', '\x00', '\x60', '\x20', '\x05', '\x00', '\x00', '\x00', '\x00', '\x80',
+		'\x81', '\x14', '\x00', '\x00', '\x00', '\x00', '\x00', '\x06', '\x52', '\x00', '\x00', '\x00', '\x00', '\x00', '\x18', '\x48', '\x01', '\x00', '\x00', '\x00',
+		'\x00', '\x60', '\x20', '\x05', '\x00', '\x00', '\x00', '\x00', '\x80', '\x81', '\x14', '\x00', '\x00', '\x00', '\x00', '\x00', '\x06', '\x52', '\x00', '\x00',
+		'\x00', '\x00', '\x00', '\x18', '\x48', '\x01', '\x00', '\x00', '\x00', '\x00', '\x60', '\x20', '\x05', '\x00', '\x00', '\x00', '\x00', '\x80', '\x81', '\x14',
+		'\x00', '\x00', '\x00', '\x00', '\x00', '\x06', '\x52', '\x00', '\x00', '\x00', '\x00', '\x00', '\x18', '\x48', '\x01', '\x00', '\x00', '\x00', '\x00', '\x60',
+		'\x20', '\x05', '\x00', '\x00', '\x00', '\x00', '\x80', '\x81', '\x14', '\x00', '\x00', '\x00', '\x00', '\x00', '\x06', '\x52', '\x00', '\x00', '\x00', '\x00',
+		'\x00', '\x18', '\x48', '\x01', '\x00', '\x00', '\x00', '\x00', '\x60', '\x20', '\x05', '\x00', '\x00', '\x00', '\x00', '\x80', '\x81', '\x14', '\x00', '\x00',
+		'\x00', '\x00', '\x00', '\x06', '\x52', '\x00', '\x00', '\x00', '\x00', '\x00', '\x18', '\x48', '\x01', '\x00', '\x00', '\x00', '\x00', '\x60', '\x20', '\x05',
+		'\x00', '\x00', '\x00', '\x00', '\x80', '\x81', '\x14', '\x00', '\x00', '\x00', '\x00', '\x00', '\x06', '\x52', '\x00', '\x00', '\x00', '\x00', '\x00', '\x18',
+		'\x48', '\x01', '\x00', '\x00', '\x00', '\x00', '\x60', '\x20', '\x05', '\x00', '\x00', '\x00', '\x00', '\x80', '\x81', '\x14', '\x00', '\x00', '\x00', '\x00',
+		'\x00', '\x06', '\x52', '\x00', '\x00', '\x00', '\x00', '\x00', '\x18', '\x48', '\x01', '\x00', '\x00', '\x00', '\x00', '\x60', '\x20', '\x05', '\x00', '\x00',
+		'\x00', '\x00', '\x80', '\x81', '\x14', '\x00', '\x00', '\x00', '\x00', '\x00', '\x06', '\x52', '\x00', '\x00', '\x00', '\x00', '\x00', '\x18', '\x48', '\x01',
+		'\x00', '\x00', '\x00', '\x00', '\x60', '\x20', '\x05', '\x00', '\x00', '\x00', '\x00', '\x80', '\x81', '\x14', '\x00', '\x00', '\x00', '\x00', '\x00', '\x06',
+		'\x52', '\x00', '\x00', '\x00', '\x00', '\x00', '\x18', '\x48', '\x01', '\x00', '\x00', '\x00', '\x00', '\x60', '\x20', '\x05', '\x00', '\x00', '\x00', '\x00',
+		'\x80', '\x81', '\x14', '\x00', '\x00', '\x00', '\x00', '\x00', '\x06', '\x52', '\x00', '\x00', '\x00', '\x00', '\x00', '\x18', '\x48', '\x01', '\x00', '\x00',
+		'\x00', '\x00', '\x60', '\x20', '\x05', '\x00', '\x00', '\x00', '\x00', '\x80', '\x81', '\x14', '\x00', '\x00', '\x00', '\x00', '\x00', '\x06', '\x52', '\x00',
+		'\x00', '\x00', '\x00', '\x00', '\x18', '\x48', '\x01', '\x00', '\x00', '\x00', '\x00', '\x60', '\x20', '\x05', '\x00', '\x00', '\x00', '\x00', '\x80', '\x81',
+		'\x14', '\x00', '\x00', '\x00', '\x00', '\x00', '\x06', '\x52', '\x00', '\x00', '\x00', '\x00', '\x00', '\x18', '\x48', '\x01', '\x00', '\x00', '\x00', '\x00',
+		'\x60', '\x20', '\x00', '\x00', '\x00', '\x00', '\x00', '\x00', '\x00', '\x00', '\x00', '\x00', '\x00', '\x00', '\x00', '\x00', '\x00', '\x00', '\x00', '\x00',
+		'\x00', '\x00', '\x00', '\x00', '\x00', '\x00', '\x00', '\x00', '\x00', '\xc0', '\x0f', '\x07', '\x63', '\x97', '\x7f', '\xef', '\x23', '\x64', '\x1c', '\xd5',
+		'\x00', '\x00', '\x00', '\x00', '\x49', '\x45', '\x4e', '\x44', '\xae', '\x42', '\x60', '\x82', '\xff',
+	};
+	event_menu_mask_texture.loadFromMemory(event_menu_mask_texture_data, sizeof(event_menu_mask_texture_data));
+
+
 	const char add_event_button_texture_data[] =
 	{
 		'\x89', '\x50', '\x4e', '\x47', '\x0d', '\x0a', '\x1a', '\x0a', '\x00', '\x00', '\x00', '\x0d', '\x49', '\x48', '\x44', '\x52', '\x00', '\x00', '\x00', '\x32',
@@ -4468,6 +4621,9 @@ void Manager::preload_static_drawables() {
 		ui->current_day = &ui->current_month->days[ui->current_date[2] - 1];
 		set_event_frame();
 	});
+
+	static_event_menu_mask = new cn::Image;
+	static_event_menu_mask->setup(event_menu_mask_texture, 0, 0);
 }
 
 void Manager::preload_years() {
@@ -4606,7 +4762,7 @@ void Manager::preload_years() {
 					temp.events_menu[day_number].add_event->setup(add_event_button_texture, add_event_button_hl_texture, 1400, 30);
 					temp.events_menu[day_number].add_event->set_function([&]() {
 						set_pop_up_frame_new_event();
-						});
+					});
 
 
 					temp.events_menu[day_number].back = new cn::Button;
@@ -4626,7 +4782,8 @@ void Manager::preload_years() {
 					temp.events_menu[day_number].new_save_event->set_function([&]() {
 						ui->current_day->events.push_back(preloaded_years[ui->current_year->year].events_menu[ui->current_day->number].holder_for_new_event);
 						add_event(ui->current_day->events.back(), preloaded_years[ui->current_year->year].events_menu[ui->current_day->number].events);
-						});
+						set_event_frame();
+					});
 
 
 					temp.events_menu[day_number].new_start_time = new cn::TextButton;
@@ -4676,7 +4833,7 @@ void Manager::preload_years() {
 							}
 
 						}
-						});
+					});
 
 
 					temp.events_menu[day_number].new_end_time = new cn::TextButton;
@@ -4726,7 +4883,7 @@ void Manager::preload_years() {
 							}
 
 						}
-						});
+					});
 
 
 					temp.events_menu[day_number].new_delete_event = new cn::Button;
@@ -4740,7 +4897,7 @@ void Manager::preload_years() {
 
 						in_pop_up_frame = {};
 						ui->reset = true;
-						});
+					});
 
 
 
@@ -4791,7 +4948,7 @@ void Manager::preload_years() {
 							}
 
 						}
-						});
+					});
 
 
 					temp.events_menu[day_number].new_event_description = new cn::TextButton;
@@ -4841,15 +4998,53 @@ void Manager::preload_years() {
 							}
 
 						}
-						});
+					});
+
+
+					temp.events_menu[day_number].mask = static_event_menu_mask;
 					//End.
 
 
 					//For Each Event In The Day:
+					float event_button_y = 150;
 					for (auto& each_event : each_day.events) {
-						//add the event button and set the current event by setting it to each_event
+						cn::IndividualEvent temp_event;
 
-						//then add the other buttons for the pop_up_frame.
+
+						temp_event.event_button = new cn::TextButton;
+						temp_event.event_button->setup(event_button_texture, event_button_hl_texture, 0, event_button_y, static_font, 50, sf::Color::Black, 50, event_button_y + 30, std::to_string(each_event.start_time) + " - " + std::to_string(each_event.end_time) + " : " + each_event.name);
+						temp_event.event_button->set_function([&]() {
+							ui->current_event = &each_event;
+							set_pop_up_frame_existing_event();
+						});
+
+
+						temp_event.pop_up_mask = static_pop_up_mask;
+						temp_event.pop_up_background = static_pop_up_background;
+
+
+						temp_event.delete_event = new cn::Button;
+						temp_event.delete_event->setup(delete_event_button_texture, event_marker_texture, 1450, 220);
+						temp_event.delete_event->set_function([&]() {
+							preloaded_years[ui->current_year->year].events_menu[ui->current_day->number].events.erase(ui->current_event->start_time);
+							cn::Event finder = { ui->current_event->start_time };
+
+							auto iter = std::find(ui->current_day->events.begin(), ui->current_day->events.end(), finder);
+							if (iter != ui->current_day->events.end()) { ui->current_day->events.erase(iter); }
+
+							ui->current_event = nullptr;
+
+							sort_events();
+							set_event_frame();
+						});
+
+
+						temp_event.event_description = new cn::Label;
+						temp_event.event_description->setup(static_font, 100, sf::Color::Black, 600, 600, each_event.description);
+
+
+						temp.events_menu[day_number].events[each_event.start_time] = temp_event;
+						event_button_y += 100;
 					}
 					//End.
 
@@ -4860,15 +5055,58 @@ void Manager::preload_years() {
 			//END.
 
 
-
 			preloaded_years[each.year] = temp;
 		}
 	}
 }
 
 
-void Manager::add_event(const cn::Event& _event, std::map<int, cn::IndividualEvent>& _events) {
+void Manager::add_event(cn::Event& _event, std::map<int, cn::IndividualEvent>& _events) {
+	cn::IndividualEvent temp_event;
 
+
+	temp_event.event_button = new cn::TextButton;
+	temp_event.event_button->setup(event_button_texture, event_button_hl_texture, 0, 150, static_font, 50, sf::Color::Black, 10, 150, std::to_string(_event.start_time) + " - " + std::to_string(_event.end_time) + " : " + _event.name);
+	temp_event.event_button->set_function([&]() {
+		ui->current_event = &_event;
+		set_pop_up_frame_existing_event();
+	});
+
+
+	temp_event.pop_up_mask = static_pop_up_mask;
+	temp_event.pop_up_background = static_pop_up_background;
+
+
+	temp_event.delete_event = new cn::Button;
+	temp_event.delete_event->setup(delete_event_button_texture, event_marker_texture, 1450, 220);
+	temp_event.delete_event->set_function([&]() {
+		preloaded_years[ui->current_year->year].events_menu[ui->current_day->number].events.erase(ui->current_event->start_time);
+		cn::Event finder = { ui->current_event->start_time };
+
+		auto iter = std::find(ui->current_day->events.begin(), ui->current_day->events.end(), finder);
+		if (iter != ui->current_day->events.end()) { ui->current_day->events.erase(iter); }
+
+		ui->current_event = nullptr;
+
+		sort_events();
+		set_event_frame();
+	});
+
+
+	temp_event.event_description = new cn::Label;
+	temp_event.event_description->setup(static_font, 100, sf::Color::Black, 600, 600, _event.description);
+
+
+	_events[_event.start_time] = temp_event;
+
+	sort_events();
+}
+
+
+void Manager::sort_events() {
+	//use the current pointers to access the preloaded events
+	//preloaded_years[ui->current_year->year].events_menu[ui->current_day->number].events
+	//sort them by iterating over the map
 }
 
 
@@ -4914,7 +5152,9 @@ void Manager::set_event_frame() {
 	in_scroll_frame = {};
 	in_pop_up_frame = {};
 
-	in_frame.push_back(preloaded_years[ui->current_year->year].events_menu[ui->current_day->number].background);
+	in_scroll_frame.push_back(preloaded_years[ui->current_year->year].events_menu[ui->current_day->number].background);
+
+	in_frame.push_back(preloaded_years[ui->current_year->year].events_menu[ui->current_day->number].mask);
 	in_frame.push_back(preloaded_years[ui->current_year->year].events_menu[ui->current_day->number].time);
 	in_frame.push_back(preloaded_years[ui->current_year->year].events_menu[ui->current_day->number].day_name);
 	in_frame.push_back(preloaded_years[ui->current_year->year].events_menu[ui->current_day->number].add_event);
@@ -4949,11 +5189,7 @@ void Manager::set_pop_up_frame_existing_event() {
 	in_pop_up_frame.push_back(preloaded_years[ui->current_year->year].events_menu[ui->current_day->number].events[ui->current_event->start_time].pop_up_mask);
 	in_pop_up_frame.push_back(preloaded_years[ui->current_year->year].events_menu[ui->current_day->number].events[ui->current_event->start_time].pop_up_background);
 
-	in_pop_up_frame.push_back(preloaded_years[ui->current_year->year].events_menu[ui->current_day->number].events[ui->current_event->start_time].save_event);
-	in_pop_up_frame.push_back(preloaded_years[ui->current_year->year].events_menu[ui->current_day->number].events[ui->current_event->start_time].start_time);
-	in_pop_up_frame.push_back(preloaded_years[ui->current_year->year].events_menu[ui->current_day->number].events[ui->current_event->start_time].end_time);
 	in_pop_up_frame.push_back(preloaded_years[ui->current_year->year].events_menu[ui->current_day->number].events[ui->current_event->start_time].delete_event);
-	in_pop_up_frame.push_back(preloaded_years[ui->current_year->year].events_menu[ui->current_day->number].events[ui->current_event->start_time].event_title);
 	in_pop_up_frame.push_back(preloaded_years[ui->current_year->year].events_menu[ui->current_day->number].events[ui->current_event->start_time].event_description);
 
 	ui->reset = true;
