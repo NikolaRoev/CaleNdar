@@ -45,12 +45,11 @@ void UI::application_loop() {
 	auto[year, month, day] = get_current_date();
 	current_date = { year, month, day };
 
-	set_current_year(2020);
 	set_current_year(year);
 
 	manager->preload_textures();
 	manager->preload_static_drawables();
-	manager->preload_years(years);
+	manager->preload_years();
 
 	manager->set_month_frame();
 

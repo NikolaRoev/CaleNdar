@@ -111,10 +111,8 @@ public:
 
 	void preload_static_drawables();
 
-	void preload_years(std::vector<cn::Year>& years);
+	void preload_years();
 
-
-	void add_year();
 
 	void add_event(const cn::Event& _event, std::map<int, cn::IndividualEvent>& _events);
 

@@ -4470,407 +4470,402 @@ void Manager::preload_static_drawables() {
 	});
 }
 
-void Manager::preload_years(std::vector<cn::Year>& years) {
-	for (auto& each : years) {
-		cn::YearDrawables temp;
-		
+void Manager::preload_years() {
+	for (cn::Year& each : ui->years) {
+		std::unordered_map<int, cn::YearDrawables>::iterator it = preloaded_years.find(each.year);
+		if (it == preloaded_years.end()) {
 
-		//Month menu:
-		temp.months_menu.background = static_background;
-		temp.months_menu.time = static_time;
-		
+			cn::YearDrawables temp;
+			int temp_int = each.year;
 
-		temp.months_menu.arrow_left = new cn::Button;
-		temp.months_menu.arrow_left->setup(arrow_left_texture, arrow_left_hl_texture, 750, 52);
-		temp.months_menu.arrow_left->set_function([&]() {
-			ui->set_current_year(each.year - 1);
-			add_year();
-			set_month_frame();
-		});
+			//Month menu:
+			temp.months_menu.background = static_background;
+			temp.months_menu.time = static_time;
 
 
-		temp.months_menu.year = new cn::Label;
-		temp.months_menu.year->setup(static_font, 100, sf::Color::Black, 855, 30, std::to_string(each.year));
-
-
-		temp.months_menu.arrow_right = new cn::Button;
-		temp.months_menu.arrow_right->setup(arrow_right_texture, arrow_right_hl_texture, 1110, 52);
-		temp.months_menu.arrow_right->set_function([&]() {
-			ui->set_current_year(each.year + 1);
-			add_year();
-			set_month_frame();
-		});
-
-
-		temp.months_menu.today = static_today_button;
-
-
-		for (unsigned int i = 0; i < 12; i++) {
-			temp.months_menu.month_buttons[i] = new cn::TextButton;
-
-			float temp_x;
-			float temp_y;
-			float temp_text_x;
-			float temp_text_y;
-			temp_x = static_cast<float>((630 * (i % 3)) + 30);
-			temp_y = static_cast<float>((226 * (i / 3)) + 176);
-			temp_text_x = temp_x + 50;
-			temp_text_y = temp_y + 40;
-
-			temp.months_menu.month_buttons[i]->setup(month_button_texture, month_button_hl_texture, temp_x, temp_y, static_font, 100, sf::Color::Black, temp_text_x, temp_text_y, each.months[i].name);
-
-			temp.months_menu.month_buttons[i]->set_function([&, i]() {
-				ui->set_current_year(each.year);
-				ui->current_month = &ui->current_year->months[i];
-				set_day_frame();
-			});
-
-
-		}
-		//END.
-
-
-
-		//Day Menu:
-		for (unsigned int i = 0; i < 12; i++) {
-			temp.days_menu[i].background = static_background;
-			temp.days_menu[i].time = static_time;
-
-
-			temp.days_menu[i].month_name = new cn::Label;
-			temp.days_menu[i].month_name->setup(static_font, 100, sf::Color::Black, 855, 30, each.months[i].name);
-
-
-			temp.days_menu[i].back = new cn::Button;
-			temp.days_menu[i].back->setup(back_button_texture, today_button_hl_texture, 1550, 30);
-			temp.days_menu[i].back->set_function([&]() {
+			temp.months_menu.arrow_left = new cn::Button;
+			temp.months_menu.arrow_left->setup(arrow_left_texture, arrow_left_hl_texture, 750, 52);
+			temp.months_menu.arrow_left->set_function([&, temp_int]() {
+				ui->set_current_year(temp_int - 1);
+				preload_years();
 				set_month_frame();
 			});
 
 
-			unsigned int offset = 0;
-			if (each.months[i].days[0].name == "Tuesday") offset = 1;
-			else if (each.months[i].days[0].name == "Wednesday") offset = 2;
-			else if (each.months[i].days[0].name == "Thursday") offset = 3;
-			else if (each.months[i].days[0].name == "Friday") offset = 4;
-			else if (each.months[i].days[0].name == "Saturday") offset = 5;
-			else if (each.months[i].days[0].name == "Sunday") offset = 6;
+			temp.months_menu.year = new cn::Label;
+			temp.months_menu.year->setup(static_font, 100, sf::Color::Black, 855, 30, std::to_string(each.year));
 
-			for (unsigned int j = 0; j < each.months[i].days.size(); j++) {
-				int n = j + offset;
 
-				temp.days_menu[i].day_buttons[n] = new cn::TextButton;
-				
+			temp.months_menu.arrow_right = new cn::Button;
+			temp.months_menu.arrow_right->setup(arrow_right_texture, arrow_right_hl_texture, 1110, 52);
+			temp.months_menu.arrow_right->set_function([&, temp_int]() {
+				ui->set_current_year(temp_int + 1);
+				preload_years();
+				set_month_frame();
+			});
+
+
+			temp.months_menu.today = static_today_button;
+
+
+			for (unsigned int i = 0; i < 12; i++) {
+				temp.months_menu.month_buttons[i] = new cn::TextButton;
+
 				float temp_x;
 				float temp_y;
 				float temp_text_x;
 				float temp_text_y;
-				//200x150
-				//x 44 dx 272
-				//y 217 dy 174
-				temp_x = static_cast<float>((270 * (n % 7)) + 25);
-				temp_y = static_cast<float>((152 * (n / 7)) + 165);
-				temp_text_x = temp_x + 140;
-				temp_text_y = temp_y + 1;
+				temp_x = static_cast<float>((630 * (i % 3)) + 30);
+				temp_y = static_cast<float>((226 * (i / 3)) + 176);
+				temp_text_x = temp_x + 50;
+				temp_text_y = temp_y + 40;
 
-				temp.days_menu[i].day_buttons[n]->setup(day_button_texture, day_button_hl_texture, temp_x, temp_y, static_font, 50, sf::Color::Black, temp_text_x, temp_text_y, std::to_string(each.months[i].days[j].date));
+				temp.months_menu.month_buttons[i]->setup(month_button_texture, month_button_hl_texture, temp_x, temp_y, static_font, 100, sf::Color::Black, temp_text_x, temp_text_y, each.months[i].name);
 
-				temp.days_menu[i].day_buttons[n]->set_function([&, i, j]() {
-					ui->set_current_year(each.year);
+				temp.months_menu.month_buttons[i]->set_function([&, i, temp_int]() {
+					ui->set_current_year(temp_int);
 					ui->current_month = &ui->current_year->months[i];
-					ui->current_day = &ui->current_month->days[j];
-					set_event_frame();
-				});
-			}
-		}
-		//END.
-
-
-
-		//Event Menu:
-		int day_number = 0;
-		for (unsigned int i = 0; i < 12; i++) {
-			for (auto& each_day : each.months[i].days) {
-				temp.events_menu[day_number].background = static_background;
-				temp.events_menu[day_number].time = static_time;
-
-
-				temp.events_menu[day_number].day_name = new cn::Label;
-				temp.events_menu[day_number].day_name->setup(static_font, 100, sf::Color::Black, 855, 30, each_day.name);
-
-
-				temp.events_menu[day_number].add_event = new cn::Button;
-				temp.events_menu[day_number].add_event->setup(add_event_button_texture, add_event_button_hl_texture, 1400, 30);
-				temp.events_menu[day_number].add_event->set_function([&]() {
-					set_pop_up_frame_new_event();
-				});
-
-
-				temp.events_menu[day_number].back = new cn::Button;
-				temp.events_menu[day_number].back->setup(back_button_texture, today_button_hl_texture, 1550, 30);
-				temp.events_menu[day_number].back->set_function([&]() {
 					set_day_frame();
 				});
 
 
-				//For New Event:
-				temp.events_menu[day_number].pop_up_mask = static_pop_up_mask;
-				temp.events_menu[day_number].pop_up_background = static_pop_up_background;
-
-
-				temp.events_menu[day_number].new_save_event = new cn::Button;
-				temp.events_menu[day_number].new_save_event->setup(save_event_button_texture, event_marker_texture, 400, 220);
-				temp.events_menu[day_number].new_save_event->set_function([&]() {
-					ui->current_day->events.push_back(preloaded_years[ui->current_year->year].events_menu[ui->current_day->number].holder_for_new_event);
-					add_event(ui->current_day->events.back(), preloaded_years[ui->current_year->year].events_menu[ui->current_day->number].events);
-				});
-
-
-				temp.events_menu[day_number].new_start_time = new cn::TextButton;
-				temp.events_menu[day_number].new_start_time->setup(start_end_time_entry_texture, start_end_time_entry_hl_texture, 550, 220, static_font, 30, sf::Color::Black, 260, 260, "");
-				temp.events_menu[day_number].new_start_time->set_function([&]() {
-					while (core->window.isOpen()) {
-						for (auto each : in_scroll_frame) {
-							if (each) each->draw(core->window);
-						}
-
-						for (auto each : in_frame) {
-							if (each) each->draw(core->window);
-						}
-
-						for (auto each : in_pop_up_frame) {
-							if (each) each->draw(core->window);
-						}
-
-						core->window.display();
-						core->window.waitEvent(core->event);
-						if (core->event.type == sf::Event::KeyPressed && core->event.key.code == sf::Keyboard::Enter) {
-							std::string temp_string = preloaded_years[ui->current_year->year].events_menu[ui->current_day->number].new_start_time->text.getString();
-							preloaded_years[ui->current_year->year].events_menu[ui->current_day->number].holder_for_new_event.start_time = std::stoi(temp_string);
-							break;
-						}
-						else if (core->event.type == sf::Event::KeyPressed && core->event.key.code == sf::Keyboard::Escape) {
-							break;
-						}
-						else if (core->event.type == sf::Event::Closed) {
-							core->window.close();
-						}
-
-
-						else if (core->event.type == sf::Event::Resized) {
-							core->resized_window(preloaded_years);
-						}
-
-						else if (core->event.type == sf::Event::TextEntered) {
-							std::string temp_start_time_string = preloaded_years[ui->current_year->year].events_menu[ui->current_day->number].new_start_time->text.getString();
-							if (core->event.text.unicode == '\b' && !temp_start_time_string.empty()) {
-								temp_start_time_string.erase(temp_start_time_string.size() - 1, 1);
-							}
-							else if (core->event.text.unicode < 128 && core->event.text.unicode != '\b') {
-								temp_start_time_string += static_cast<char>(core->event.text.unicode);
-							}
-							preloaded_years[ui->current_year->year].events_menu[ui->current_day->number].new_start_time->text.setString(temp_start_time_string);
-						}
-
-					}
-				});
-
-
-				temp.events_menu[day_number].new_end_time = new cn::TextButton;
-				temp.events_menu[day_number].new_end_time->setup(start_end_time_entry_texture, start_end_time_entry_hl_texture, 1100, 220, static_font, 30, sf::Color::Black, 260, 260, "");
-				temp.events_menu[day_number].new_end_time->set_function([&]() {
-					while (core->window.isOpen()) {
-						for (auto each : in_scroll_frame) {
-							if (each) each->draw(core->window);
-						}
-
-						for (auto each : in_frame) {
-							if (each) each->draw(core->window);
-						}
-
-						for (auto each : in_pop_up_frame) {
-							if (each) each->draw(core->window);
-						}
-
-						core->window.display();
-						core->window.waitEvent(core->event);
-						if (core->event.type == sf::Event::KeyPressed && core->event.key.code == sf::Keyboard::Enter) {
-							std::string temp_string = preloaded_years[ui->current_year->year].events_menu[ui->current_day->number].new_end_time->text.getString();
-							preloaded_years[ui->current_year->year].events_menu[ui->current_day->number].holder_for_new_event.end_time = std::stoi(temp_string);
-							break;
-						}
-						else if (core->event.type == sf::Event::KeyPressed && core->event.key.code == sf::Keyboard::Escape) {
-							break;
-						}
-						else if (core->event.type == sf::Event::Closed) {
-							core->window.close();
-						}
-
-
-						else if (core->event.type == sf::Event::Resized) {
-							core->resized_window(preloaded_years);
-						}
-
-						else if (core->event.type == sf::Event::TextEntered) {
-							std::string temp_string = preloaded_years[ui->current_year->year].events_menu[ui->current_day->number].new_end_time->text.getString();
-							if (core->event.text.unicode == '\b' && !temp_string.empty()) {
-								temp_string.erase(temp_string.size() - 1, 1);
-							}
-							else if (core->event.text.unicode < 128 && core->event.text.unicode != '\b') {
-								temp_string += static_cast<char>(core->event.text.unicode);
-							}
-							preloaded_years[ui->current_year->year].events_menu[ui->current_day->number].new_end_time->text.setString(temp_string);
-						}
-
-					}
-				});
-
-
-				temp.events_menu[day_number].new_delete_event = new cn::Button;
-				temp.events_menu[day_number].new_delete_event->setup(delete_event_button_texture, event_marker_texture, 1450, 220);
-				temp.events_menu[day_number].new_delete_event->set_function([&]() {
-					preloaded_years[ui->current_year->year].events_menu[ui->current_day->number].new_start_time->text.setString("");
-					preloaded_years[ui->current_year->year].events_menu[ui->current_day->number].new_end_time->text.setString("");
-					preloaded_years[ui->current_year->year].events_menu[ui->current_day->number].new_event_title->text.setString("");
-					preloaded_years[ui->current_year->year].events_menu[ui->current_day->number].new_event_description->text.setString("");
-					preloaded_years[ui->current_year->year].events_menu[ui->current_day->number].holder_for_new_event = {};
-
-					in_pop_up_frame = {};
-					ui->reset = true;
-				});
-
-
-
-				temp.events_menu[day_number].new_event_title = new cn::TextButton;
-				temp.events_menu[day_number].new_event_title->setup(title_entry_texture, title_entry_hl_texture, 360, 320, static_font, 30, sf::Color::Black, 360, 320, "");
-				temp.events_menu[day_number].new_event_title->set_function([&]() {
-					while (core->window.isOpen()) {
-						for (auto each : in_scroll_frame) {
-							if (each) each->draw(core->window);
-						}
-
-						for (auto each : in_frame) {
-							if (each) each->draw(core->window);
-						}
-
-						for (auto each : in_pop_up_frame) {
-							if (each) each->draw(core->window);
-						}
-
-						core->window.display();
-						core->window.waitEvent(core->event);
-						if (core->event.type == sf::Event::KeyPressed && core->event.key.code == sf::Keyboard::Enter) {
-							std::string temp_string = preloaded_years[ui->current_year->year].events_menu[ui->current_day->number].new_event_title->text.getString();
-							preloaded_years[ui->current_year->year].events_menu[ui->current_day->number].holder_for_new_event.name = temp_string;
-							break;
-						}
-						else if (core->event.type == sf::Event::KeyPressed && core->event.key.code == sf::Keyboard::Escape) {
-							break;
-						}
-						else if (core->event.type == sf::Event::Closed) {
-							core->window.close();
-						}
-
-
-						else if (core->event.type == sf::Event::Resized) {
-							core->resized_window(preloaded_years);
-						}
-
-						else if (core->event.type == sf::Event::TextEntered) {
-							std::string temp_string = preloaded_years[ui->current_year->year].events_menu[ui->current_day->number].new_event_title->text.getString();
-							if (core->event.text.unicode == '\b' && !temp_string.empty()) {
-								temp_string.erase(temp_string.size() - 1, 1);
-							}
-							else if (core->event.text.unicode < 128 && core->event.text.unicode != '\b') {
-								temp_string += static_cast<char>(core->event.text.unicode);
-							}
-							preloaded_years[ui->current_year->year].events_menu[ui->current_day->number].new_event_title->text.setString(temp_string);
-						}
-
-					}
-				});
-
-
-				temp.events_menu[day_number].new_event_description = new cn::TextButton;
-				temp.events_menu[day_number].new_event_description->setup(description_entry_texture, description_entry_hl_texture, 560, 320, static_font, 30, sf::Color::Black, 560, 320, "");
-				temp.events_menu[day_number].new_event_description->set_function([&]() {
-					while (core->window.isOpen()) {
-						for (auto each : in_scroll_frame) {
-							if (each) each->draw(core->window);
-						}
-
-						for (auto each : in_frame) {
-							if (each) each->draw(core->window);
-						}
-
-						for (auto each : in_pop_up_frame) {
-							if (each) each->draw(core->window);
-						}
-
-						core->window.display();
-						core->window.waitEvent(core->event);
-						if (core->event.type == sf::Event::KeyPressed && core->event.key.code == sf::Keyboard::Enter) {
-							std::string temp_string = preloaded_years[ui->current_year->year].events_menu[ui->current_day->number].new_event_description->text.getString();
-							preloaded_years[ui->current_year->year].events_menu[ui->current_day->number].holder_for_new_event.description = temp_string;
-							break;
-						}
-						else if (core->event.type == sf::Event::KeyPressed && core->event.key.code == sf::Keyboard::Escape) {
-							break;
-						}
-						else if (core->event.type == sf::Event::Closed) {
-							core->window.close();
-						}
-
-
-						else if (core->event.type == sf::Event::Resized) {
-							core->resized_window(preloaded_years);
-						}
-
-						else if (core->event.type == sf::Event::TextEntered) {
-							std::string temp_string = preloaded_years[ui->current_year->year].events_menu[ui->current_day->number].new_event_description->text.getString();
-							if (core->event.text.unicode == '\b' && !temp_string.empty()) {
-								temp_string.erase(temp_string.size() - 1, 1);
-							}
-							else if (core->event.text.unicode < 128 && core->event.text.unicode != '\b') {
-								temp_string += static_cast<char>(core->event.text.unicode);
-							}
-							preloaded_years[ui->current_year->year].events_menu[ui->current_day->number].new_event_description->text.setString(temp_string);
-						}
-
-					}
-				});
-				//End.
-
-
-				//For Each Event In The Day:
-				for (auto& each_event : each_day.events) {
-					//add the event button and set the current event by setting it to each_event
-
-					//then add the other buttons for the pop_up_frame.
-				}
-				//End.
-
-
-				day_number++;
 			}
+			//END.
+
+
+
+			//Day Menu:
+			for (unsigned int i = 0; i < 12; i++) {
+				temp.days_menu[i].background = static_background;
+				temp.days_menu[i].time = static_time;
+
+
+				temp.days_menu[i].month_name = new cn::Label;
+				temp.days_menu[i].month_name->setup(static_font, 100, sf::Color::Black, 855, 30, each.months[i].name);
+
+
+				temp.days_menu[i].back = new cn::Button;
+				temp.days_menu[i].back->setup(back_button_texture, today_button_hl_texture, 1550, 30);
+				temp.days_menu[i].back->set_function([&]() {
+					set_month_frame();
+					});
+
+
+				unsigned int offset = 0;
+				if (each.months[i].days[0].name == "Tuesday") offset = 1;
+				else if (each.months[i].days[0].name == "Wednesday") offset = 2;
+				else if (each.months[i].days[0].name == "Thursday") offset = 3;
+				else if (each.months[i].days[0].name == "Friday") offset = 4;
+				else if (each.months[i].days[0].name == "Saturday") offset = 5;
+				else if (each.months[i].days[0].name == "Sunday") offset = 6;
+
+				for (unsigned int j = 0; j < each.months[i].days.size(); j++) {
+					int n = j + offset;
+
+					temp.days_menu[i].day_buttons[n] = new cn::TextButton;
+
+					float temp_x;
+					float temp_y;
+					float temp_text_x;
+					float temp_text_y;
+					//200x150
+					//x 44 dx 272
+					//y 217 dy 174
+					temp_x = static_cast<float>((270 * (n % 7)) + 25);
+					temp_y = static_cast<float>((152 * (n / 7)) + 165);
+					temp_text_x = temp_x + 140;
+					temp_text_y = temp_y + 1;
+
+					temp.days_menu[i].day_buttons[n]->setup(day_button_texture, day_button_hl_texture, temp_x, temp_y, static_font, 50, sf::Color::Black, temp_text_x, temp_text_y, std::to_string(each.months[i].days[j].date));
+
+					temp.days_menu[i].day_buttons[n]->set_function([&, i, j, temp_int]() {
+						ui->set_current_year(temp_int);
+						ui->current_month = &ui->current_year->months[i];
+						ui->current_day = &ui->current_month->days[j];
+						set_event_frame();
+						});
+				}
+			}
+			//END.
+
+
+
+			//Event Menu:
+			int day_number = 0;
+			for (unsigned int i = 0; i < 12; i++) {
+				for (auto& each_day : each.months[i].days) {
+					temp.events_menu[day_number].background = static_background;
+					temp.events_menu[day_number].time = static_time;
+
+
+					temp.events_menu[day_number].day_name = new cn::Label;
+					temp.events_menu[day_number].day_name->setup(static_font, 100, sf::Color::Black, 855, 30, each_day.name);
+
+
+					temp.events_menu[day_number].add_event = new cn::Button;
+					temp.events_menu[day_number].add_event->setup(add_event_button_texture, add_event_button_hl_texture, 1400, 30);
+					temp.events_menu[day_number].add_event->set_function([&]() {
+						set_pop_up_frame_new_event();
+						});
+
+
+					temp.events_menu[day_number].back = new cn::Button;
+					temp.events_menu[day_number].back->setup(back_button_texture, today_button_hl_texture, 1550, 30);
+					temp.events_menu[day_number].back->set_function([&]() {
+						set_day_frame();
+						});
+
+
+					//For New Event:
+					temp.events_menu[day_number].pop_up_mask = static_pop_up_mask;
+					temp.events_menu[day_number].pop_up_background = static_pop_up_background;
+
+
+					temp.events_menu[day_number].new_save_event = new cn::Button;
+					temp.events_menu[day_number].new_save_event->setup(save_event_button_texture, event_marker_texture, 400, 220);
+					temp.events_menu[day_number].new_save_event->set_function([&]() {
+						ui->current_day->events.push_back(preloaded_years[ui->current_year->year].events_menu[ui->current_day->number].holder_for_new_event);
+						add_event(ui->current_day->events.back(), preloaded_years[ui->current_year->year].events_menu[ui->current_day->number].events);
+						});
+
+
+					temp.events_menu[day_number].new_start_time = new cn::TextButton;
+					temp.events_menu[day_number].new_start_time->setup(start_end_time_entry_texture, start_end_time_entry_hl_texture, 550, 220, static_font, 30, sf::Color::Black, 260, 260, "");
+					temp.events_menu[day_number].new_start_time->set_function([&]() {
+						while (core->window.isOpen()) {
+							for (auto each : in_scroll_frame) {
+								if (each) each->draw(core->window);
+							}
+
+							for (auto each : in_frame) {
+								if (each) each->draw(core->window);
+							}
+
+							for (auto each : in_pop_up_frame) {
+								if (each) each->draw(core->window);
+							}
+
+							core->window.display();
+							core->window.waitEvent(core->event);
+							if (core->event.type == sf::Event::KeyPressed && core->event.key.code == sf::Keyboard::Enter) {
+								std::string temp_string = preloaded_years[ui->current_year->year].events_menu[ui->current_day->number].new_start_time->text.getString();
+								preloaded_years[ui->current_year->year].events_menu[ui->current_day->number].holder_for_new_event.start_time = std::stoi(temp_string);
+								break;
+							}
+							else if (core->event.type == sf::Event::KeyPressed && core->event.key.code == sf::Keyboard::Escape) {
+								break;
+							}
+							else if (core->event.type == sf::Event::Closed) {
+								core->window.close();
+							}
+
+
+							else if (core->event.type == sf::Event::Resized) {
+								core->resized_window(preloaded_years);
+							}
+
+							else if (core->event.type == sf::Event::TextEntered) {
+								std::string temp_start_time_string = preloaded_years[ui->current_year->year].events_menu[ui->current_day->number].new_start_time->text.getString();
+								if (core->event.text.unicode == '\b' && !temp_start_time_string.empty()) {
+									temp_start_time_string.erase(temp_start_time_string.size() - 1, 1);
+								}
+								else if (core->event.text.unicode < 128 && core->event.text.unicode != '\b') {
+									temp_start_time_string += static_cast<char>(core->event.text.unicode);
+								}
+								preloaded_years[ui->current_year->year].events_menu[ui->current_day->number].new_start_time->text.setString(temp_start_time_string);
+							}
+
+						}
+						});
+
+
+					temp.events_menu[day_number].new_end_time = new cn::TextButton;
+					temp.events_menu[day_number].new_end_time->setup(start_end_time_entry_texture, start_end_time_entry_hl_texture, 1100, 220, static_font, 30, sf::Color::Black, 260, 260, "");
+					temp.events_menu[day_number].new_end_time->set_function([&]() {
+						while (core->window.isOpen()) {
+							for (auto each : in_scroll_frame) {
+								if (each) each->draw(core->window);
+							}
+
+							for (auto each : in_frame) {
+								if (each) each->draw(core->window);
+							}
+
+							for (auto each : in_pop_up_frame) {
+								if (each) each->draw(core->window);
+							}
+
+							core->window.display();
+							core->window.waitEvent(core->event);
+							if (core->event.type == sf::Event::KeyPressed && core->event.key.code == sf::Keyboard::Enter) {
+								std::string temp_string = preloaded_years[ui->current_year->year].events_menu[ui->current_day->number].new_end_time->text.getString();
+								preloaded_years[ui->current_year->year].events_menu[ui->current_day->number].holder_for_new_event.end_time = std::stoi(temp_string);
+								break;
+							}
+							else if (core->event.type == sf::Event::KeyPressed && core->event.key.code == sf::Keyboard::Escape) {
+								break;
+							}
+							else if (core->event.type == sf::Event::Closed) {
+								core->window.close();
+							}
+
+
+							else if (core->event.type == sf::Event::Resized) {
+								core->resized_window(preloaded_years);
+							}
+
+							else if (core->event.type == sf::Event::TextEntered) {
+								std::string temp_string = preloaded_years[ui->current_year->year].events_menu[ui->current_day->number].new_end_time->text.getString();
+								if (core->event.text.unicode == '\b' && !temp_string.empty()) {
+									temp_string.erase(temp_string.size() - 1, 1);
+								}
+								else if (core->event.text.unicode < 128 && core->event.text.unicode != '\b') {
+									temp_string += static_cast<char>(core->event.text.unicode);
+								}
+								preloaded_years[ui->current_year->year].events_menu[ui->current_day->number].new_end_time->text.setString(temp_string);
+							}
+
+						}
+						});
+
+
+					temp.events_menu[day_number].new_delete_event = new cn::Button;
+					temp.events_menu[day_number].new_delete_event->setup(delete_event_button_texture, event_marker_texture, 1450, 220);
+					temp.events_menu[day_number].new_delete_event->set_function([&]() {
+						preloaded_years[ui->current_year->year].events_menu[ui->current_day->number].new_start_time->text.setString("");
+						preloaded_years[ui->current_year->year].events_menu[ui->current_day->number].new_end_time->text.setString("");
+						preloaded_years[ui->current_year->year].events_menu[ui->current_day->number].new_event_title->text.setString("");
+						preloaded_years[ui->current_year->year].events_menu[ui->current_day->number].new_event_description->text.setString("");
+						preloaded_years[ui->current_year->year].events_menu[ui->current_day->number].holder_for_new_event = {};
+
+						in_pop_up_frame = {};
+						ui->reset = true;
+						});
+
+
+
+					temp.events_menu[day_number].new_event_title = new cn::TextButton;
+					temp.events_menu[day_number].new_event_title->setup(title_entry_texture, title_entry_hl_texture, 360, 320, static_font, 30, sf::Color::Black, 360, 320, "");
+					temp.events_menu[day_number].new_event_title->set_function([&]() {
+						while (core->window.isOpen()) {
+							for (auto each : in_scroll_frame) {
+								if (each) each->draw(core->window);
+							}
+
+							for (auto each : in_frame) {
+								if (each) each->draw(core->window);
+							}
+
+							for (auto each : in_pop_up_frame) {
+								if (each) each->draw(core->window);
+							}
+
+							core->window.display();
+							core->window.waitEvent(core->event);
+							if (core->event.type == sf::Event::KeyPressed && core->event.key.code == sf::Keyboard::Enter) {
+								std::string temp_string = preloaded_years[ui->current_year->year].events_menu[ui->current_day->number].new_event_title->text.getString();
+								preloaded_years[ui->current_year->year].events_menu[ui->current_day->number].holder_for_new_event.name = temp_string;
+								break;
+							}
+							else if (core->event.type == sf::Event::KeyPressed && core->event.key.code == sf::Keyboard::Escape) {
+								break;
+							}
+							else if (core->event.type == sf::Event::Closed) {
+								core->window.close();
+							}
+
+
+							else if (core->event.type == sf::Event::Resized) {
+								core->resized_window(preloaded_years);
+							}
+
+							else if (core->event.type == sf::Event::TextEntered) {
+								std::string temp_string = preloaded_years[ui->current_year->year].events_menu[ui->current_day->number].new_event_title->text.getString();
+								if (core->event.text.unicode == '\b' && !temp_string.empty()) {
+									temp_string.erase(temp_string.size() - 1, 1);
+								}
+								else if (core->event.text.unicode < 128 && core->event.text.unicode != '\b') {
+									temp_string += static_cast<char>(core->event.text.unicode);
+								}
+								preloaded_years[ui->current_year->year].events_menu[ui->current_day->number].new_event_title->text.setString(temp_string);
+							}
+
+						}
+						});
+
+
+					temp.events_menu[day_number].new_event_description = new cn::TextButton;
+					temp.events_menu[day_number].new_event_description->setup(description_entry_texture, description_entry_hl_texture, 560, 320, static_font, 30, sf::Color::Black, 560, 320, "");
+					temp.events_menu[day_number].new_event_description->set_function([&]() {
+						while (core->window.isOpen()) {
+							for (auto each : in_scroll_frame) {
+								if (each) each->draw(core->window);
+							}
+
+							for (auto each : in_frame) {
+								if (each) each->draw(core->window);
+							}
+
+							for (auto each : in_pop_up_frame) {
+								if (each) each->draw(core->window);
+							}
+
+							core->window.display();
+							core->window.waitEvent(core->event);
+							if (core->event.type == sf::Event::KeyPressed && core->event.key.code == sf::Keyboard::Enter) {
+								std::string temp_string = preloaded_years[ui->current_year->year].events_menu[ui->current_day->number].new_event_description->text.getString();
+								preloaded_years[ui->current_year->year].events_menu[ui->current_day->number].holder_for_new_event.description = temp_string;
+								break;
+							}
+							else if (core->event.type == sf::Event::KeyPressed && core->event.key.code == sf::Keyboard::Escape) {
+								break;
+							}
+							else if (core->event.type == sf::Event::Closed) {
+								core->window.close();
+							}
+
+
+							else if (core->event.type == sf::Event::Resized) {
+								core->resized_window(preloaded_years);
+							}
+
+							else if (core->event.type == sf::Event::TextEntered) {
+								std::string temp_string = preloaded_years[ui->current_year->year].events_menu[ui->current_day->number].new_event_description->text.getString();
+								if (core->event.text.unicode == '\b' && !temp_string.empty()) {
+									temp_string.erase(temp_string.size() - 1, 1);
+								}
+								else if (core->event.text.unicode < 128 && core->event.text.unicode != '\b') {
+									temp_string += static_cast<char>(core->event.text.unicode);
+								}
+								preloaded_years[ui->current_year->year].events_menu[ui->current_day->number].new_event_description->text.setString(temp_string);
+							}
+
+						}
+						});
+					//End.
+
+
+					//For Each Event In The Day:
+					for (auto& each_event : each_day.events) {
+						//add the event button and set the current event by setting it to each_event
+
+						//then add the other buttons for the pop_up_frame.
+					}
+					//End.
+
+
+					day_number++;
+				}
+			}
+			//END.
+
+
+
+			preloaded_years[each.year] = temp;
 		}
-		//END.
-
-
-
-		preloaded_years[each.year] = temp;
 	}
 }
 
-
-void Manager::add_year() {
-	std::unordered_map<int, cn::YearDrawables>::iterator it = preloaded_years.find(ui->current_year->year);
-	if (it == preloaded_years.end()) {
-
-
-
-	}
-}
 
 void Manager::add_event(const cn::Event& _event, std::map<int, cn::IndividualEvent>& _events) {
 
