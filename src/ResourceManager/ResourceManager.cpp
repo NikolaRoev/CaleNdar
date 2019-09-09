@@ -4926,7 +4926,7 @@ void Manager::set_event_frame() {
 	in_frame.push_back(preloaded_years[ui->current_year->year].events_menu[ui->current_day->number].back);
 
 	for (auto& each : preloaded_years[ui->current_year->year].events_menu[ui->current_day->number].events) {
-		in_frame.push_back(each.second.event_button);
+		in_scroll_frame.push_back(each.second.event_button);
 	}
 
 	ui->reset = true;
