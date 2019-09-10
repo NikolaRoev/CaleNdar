@@ -188,6 +188,15 @@ namespace cn {
 		function = _function;
 	}
 
+	void TextButton::scroll(const float direction) {
+		image_y_position += (100*cn::DELTA_Y) * direction;
+		text_y_position += (100 * cn::DELTA_Y) * direction;
+
+		sprite.move(0, (100 * cn::DELTA_Y) * direction);
+		hl_sprite.move(0, (100 * cn::DELTA_Y) * direction);
+		text.move(0, (100 * cn::DELTA_Y) * direction);
+	}
+
 	//================================================================================================================================
 
 }

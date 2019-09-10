@@ -85,6 +85,8 @@ namespace cn {
 		virtual void draw(sf::RenderWindow& window, sf::Event& event, sf::Mouse& mouse) = 0;
 
 		virtual void set_function(std::function<void()> _function) = 0;
+
+		virtual void scroll(const float direction) = 0;
 	};
 
 	//================================================================================================================================
@@ -106,6 +108,8 @@ namespace cn {
 		void draw(sf::RenderWindow& window) override;
 
 		void set_function(std::function<void()> _function) override {}
+
+		void scroll(const float direction) override {}
 	};
 
 	//================================================================================================================================
@@ -131,6 +135,8 @@ namespace cn {
 		void draw(sf::RenderWindow& window, sf::Event& event, sf::Mouse& mouse) override;
 
 		void set_function(std::function<void()> _function) override;
+
+		void scroll(const float direction) override {}
 	};
 
 	//================================================================================================================================
@@ -155,6 +161,8 @@ namespace cn {
 		void draw(sf::RenderWindow& window, sf::Event& event, sf::Mouse& mouse) override;
 
 		void set_function(std::function<void()> _function) override {}
+
+		void scroll(const float direction) override {}
 	};
 
 	//================================================================================================================================
@@ -183,6 +191,8 @@ namespace cn {
 		void draw(sf::RenderWindow& window, sf::Event& event, sf::Mouse& mouse) override;
 
 		void set_function(std::function<void()> _function) override;
+
+		void scroll(const float direction) override;
 	};
 
 	//================================================================================================================================

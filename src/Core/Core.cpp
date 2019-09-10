@@ -84,6 +84,8 @@ void Core::setup_window(const sf::VideoMode mode, const uint32_t style) {
 
 void Core::main_loop(const std::unordered_map<int, cn::YearDrawables>& preloaded_years, const std::vector<cn::Drawable*>& in_frame, const std::vector<cn::Drawable*>& in_scroll_frame, std::vector<cn::Drawable*>& in_pop_up_frame, bool& reset) {
 	
+	bool ready_to_scroll = true;
+
 	while (window.isOpen()) {
 		if (in_pop_up_frame.size()) {
 			for (auto each : in_scroll_frame) {
@@ -146,8 +148,14 @@ void Core::main_loop(const std::unordered_map<int, cn::YearDrawables>& preloaded
 			}
 		}
 
-		if ((event.type == sf::Event::MouseWheelScrolled) && in_scroll_frame.size()) {
-			//add scroll function here. only on the scroll frame ofcourse
+		if ((event.type == sf::Event::MouseWheelScrolled) && in_scroll_frame.size() && ready_to_scroll) {
+			for (auto each : in_scroll_frame) {
+				if (each) each->scroll(event.mouseWheelScroll.delta);
+			}
+			ready_to_scroll = false;
+		}
+		if ((event.type != sf::Event::MouseWheelScrolled) && in_scroll_frame.size()) {
+			ready_to_scroll = true;
 		}
 	}
 }

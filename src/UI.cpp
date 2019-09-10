@@ -46,20 +46,12 @@ void UI::application_loop() {
 	current_date = { year, month, day };
 
 	set_current_year(year);
-	cn::Event test0 = { 0, 1, "test0", "TEST0" };
-	cn::Event test1 = { 1, 1, "test1", "TEST1" };
-	cn::Event test2 = { 2, 1, "test2", "TEST2" };
-	cn::Event test3 = { 3, 1, "test3", "TEST3" };
-	cn::Event test4 = { 4, 1, "test4", "TEST4" };
-
-	years[0].months[0].days[0].events = { test0, test1, test2, test3, test4 };
 
 	manager->preload_textures();
 	manager->preload_static_drawables();
 	manager->preload_years();
 
 	manager->set_month_frame();
-
 
 
 	std::thread clock([&]() {
