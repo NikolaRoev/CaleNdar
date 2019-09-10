@@ -1,0 +1,73 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<DEFECTS>
+  <DEFECT>
+    <SFA>
+      <FILEPATH>D:\Projects\CaleNdar\src\ResourceManager\</FILEPATH>
+      <FILENAME>ResourceManager.cpp</FILENAME>
+      <LINE>8</LINE>
+      <COLUMN>14</COLUMN>
+    </SFA>
+    <DEFECTCODE>6262</DEFECTCODE>
+    <DESCRIPTION>Function uses '85256' bytes of stack:  exceeds /analyze:stacksize '16384'.  Consider moving some data to heap.</DESCRIPTION>
+    <FUNCTION>Manager::preload_textures</FUNCTION>
+    <DECORATED>?preload_textures@Manager@@QAEXXZ</DECORATED>
+    <FUNCLINE>8</FUNCLINE>
+    <PATH></PATH>
+  </DEFECT>
+  <DEFECT>
+    <SFA>
+      <FILEPATH>D:\Projects\CaleNdar\src\ResourceManager\</FILEPATH>
+      <FILENAME>ResourceManager.cpp</FILENAME>
+      <LINE>4547</LINE>
+      <COLUMN>25</COLUMN>
+    </SFA>
+    <DEFECTCODE>6262</DEFECTCODE>
+    <DESCRIPTION>Function uses '25708' bytes of stack:  exceeds /analyze:stacksize '16384'.. This allocation was for a compiler-generated temporary for 'struct std::pair&lt;int const ,struct cn::YearDrawables&gt;' at line 4547.  Consider moving some data to heap.</DESCRIPTION>
+    <FUNCTION>Manager::preload_years</FUNCTION>
+    <DECORATED>?preload_years@Manager@@QAEXAAV?$vector@UYear@cn@@V?$allocator@UYear@cn@@@std@@@std@@@Z</DECORATED>
+    <FUNCLINE>4473</FUNCLINE>
+    <PATH></PATH>
+  </DEFECT>
+  <DEFECT>
+    <SFA>
+      <FILEPATH>D:\Projects\CaleNdar\src\ResourceManager\</FILEPATH>
+      <FILENAME>ResourceManager.cpp</FILENAME>
+      <LINE>4547</LINE>
+      <COLUMN>25</COLUMN>
+    </SFA>
+    <DEFECTCODE>6262</DEFECTCODE>
+    <DESCRIPTION>Function uses '25708' bytes of stack:  exceeds /analyze:stacksize '16384'.. This allocation was for a compiler-generated temporary for 'struct std::pair&lt;int const ,struct cn::YearDrawables&gt;' at line 4547.  Consider moving some data to heap.</DESCRIPTION>
+    <FUNCTION>Manager::preload_years</FUNCTION>
+    <DECORATED>?preload_years@Manager@@QAEXAAV?$vector@UYear@cn@@V?$allocator@UYear@cn@@@std@@@std@@@Z</DECORATED>
+    <FUNCLINE>4473</FUNCLINE>
+    <PATH></PATH>
+  </DEFECT>
+  <DEFECT>
+    <SFA>
+      <FILEPATH>D:\Projects\CaleNdar\src\ResourceManager\</FILEPATH>
+      <FILENAME>ResourceManager.cpp</FILENAME>
+      <LINE>4547</LINE>
+      <COLUMN>25</COLUMN>
+    </SFA>
+    <DEFECTCODE>6262</DEFECTCODE>
+    <DESCRIPTION>Function uses '25708' bytes of stack:  exceeds /analyze:stacksize '16384'.. This allocation was for a compiler-generated temporary for 'struct std::pair&lt;int const ,struct cn::YearDrawables&gt;' at line 4547.  Consider moving some data to heap.</DESCRIPTION>
+    <FUNCTION>Manager::preload_years</FUNCTION>
+    <DECORATED>?preload_years@Manager@@QAEXAAV?$vector@UYear@cn@@V?$allocator@UYear@cn@@@std@@@std@@@Z</DECORATED>
+    <FUNCLINE>4473</FUNCLINE>
+    <PATH></PATH>
+  </DEFECT>
+  <DEFECT>
+    <SFA>
+      <FILEPATH>D:\Projects\CaleNdar\src\ResourceManager\</FILEPATH>
+      <FILENAME>ResourceManager.cpp</FILENAME>
+      <LINE>4473</LINE>
+      <COLUMN>14</COLUMN>
+    </SFA>
+    <DEFECTCODE>6262</DEFECTCODE>
+    <DESCRIPTION>Function uses '25736' bytes of stack:  exceeds /analyze:stacksize '16384'.  Consider moving some data to heap.</DESCRIPTION>
+    <FUNCTION>Manager::preload_years</FUNCTION>
+    <DECORATED>?preload_years@Manager@@QAEXAAV?$vector@UYear@cn@@V?$allocator@UYear@cn@@@std@@@std@@@Z</DECORATED>
+    <FUNCLINE>4473</FUNCLINE>
+    <PATH></PATH>
+  </DEFECT>
+</DEFECTS>
