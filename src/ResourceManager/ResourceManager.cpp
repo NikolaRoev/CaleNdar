@@ -4769,7 +4769,7 @@ void Manager::preload_years() {
 					temp.events_menu[day_number].back->setup(back_button_texture, today_button_hl_texture, 1550, 30);
 					temp.events_menu[day_number].back->set_function([&]() {
 						set_day_frame();
-						});
+					});
 
 
 					//For New Event:
@@ -4782,6 +4782,13 @@ void Manager::preload_years() {
 					temp.events_menu[day_number].new_save_event->set_function([&]() {
 						ui->current_day->events.push_back(preloaded_years[ui->current_year->year].events_menu[ui->current_day->number].holder_for_new_event);
 						add_event(ui->current_day->events.back(), preloaded_years[ui->current_year->year].events_menu[ui->current_day->number].events);
+						
+						preloaded_years[ui->current_year->year].events_menu[ui->current_day->number].new_start_time->text.setString("");
+						preloaded_years[ui->current_year->year].events_menu[ui->current_day->number].new_end_time->text.setString("");
+						preloaded_years[ui->current_year->year].events_menu[ui->current_day->number].new_event_title->text.setString("");
+						preloaded_years[ui->current_year->year].events_menu[ui->current_day->number].new_event_description->text.setString("");
+						preloaded_years[ui->current_year->year].events_menu[ui->current_day->number].holder_for_new_event = {};
+
 						set_event_frame();
 					});
 
@@ -5013,8 +5020,10 @@ void Manager::preload_years() {
 
 						temp_event.event_button = new cn::TextButton;
 						temp_event.event_button->setup(event_button_texture, event_button_hl_texture, 0, event_button_y, static_font, 50, sf::Color::Black, 50, event_button_y + 30, std::to_string(each_event.start_time) + " - " + std::to_string(each_event.end_time) + " : " + each_event.name);
-						temp_event.event_button->set_function([&]() {
-							ui->current_event = &each_event;
+						temp_event.event_button->set_function([&, each_event]() {
+							cn::Event holder = each_event;
+							auto iter = std::find(ui->current_day->events.begin(), ui->current_day->events.end(), holder);
+							ui->current_event = &(*iter);
 							set_pop_up_frame_existing_event();
 						});
 
@@ -5055,7 +5064,7 @@ void Manager::preload_years() {
 			//END.
 
 
-			preloaded_years[each.year] = temp;
+			preloaded_years.insert(std::make_pair(each.year, temp));
 		}
 	}
 }
@@ -5066,9 +5075,11 @@ void Manager::add_event(cn::Event& _event, std::map<int, cn::IndividualEvent>& _
 
 
 	temp_event.event_button = new cn::TextButton;
-	temp_event.event_button->setup(event_button_texture, event_button_hl_texture, 0, 150, static_font, 50, sf::Color::Black, 10, 150, std::to_string(_event.start_time) + " - " + std::to_string(_event.end_time) + " : " + _event.name);
-	temp_event.event_button->set_function([&]() {
-		ui->current_event = &_event;
+	temp_event.event_button->setup(event_button_texture, event_button_hl_texture, 0, 0, static_font, 50, sf::Color::Black, 0, 0, std::to_string(_event.start_time) + " - " + std::to_string(_event.end_time) + " : " + _event.name);
+	temp_event.event_button->set_function([&, _event]() {
+		cn::Event holder = _event;
+		auto iter = std::find(ui->current_day->events.begin(), ui->current_day->events.end(), holder);
+		ui->current_event = &(*iter);
 		set_pop_up_frame_existing_event();
 	});
 
@@ -5097,16 +5108,25 @@ void Manager::add_event(cn::Event& _event, std::map<int, cn::IndividualEvent>& _
 	temp_event.event_description->setup(static_font, 100, sf::Color::Black, 600, 600, _event.description);
 
 
-	_events[_event.start_time] = temp_event;
+	_events.insert(std::make_pair(_event.start_time, temp_event));
 
 	sort_events();
 }
 
 
 void Manager::sort_events() {
-	//use the current pointers to access the preloaded events
-	//preloaded_years[ui->current_year->year].events_menu[ui->current_day->number].events
-	//sort them by iterating over the map
+	float y_pos_temp = 150 * cn::DELTA_Y;
+	for (auto& each : preloaded_years[ui->current_year->year].events_menu[ui->current_day->number].events) {
+		each.second.event_button->image_x_position = 0;
+		each.second.event_button->image_y_position = y_pos_temp;
+		each.second.event_button->text_x_position = 50;
+		each.second.event_button->text_y_position = y_pos_temp;
+		each.second.event_button->sprite.setPosition(0, y_pos_temp);
+		each.second.event_button->hl_sprite.setPosition(0, y_pos_temp);
+		each.second.event_button->text.setPosition(50, y_pos_temp);
+
+		y_pos_temp += 100 * cn::DELTA_Y;
+	}
 }
 
 
@@ -5163,6 +5183,8 @@ void Manager::set_event_frame() {
 	for (auto& each : preloaded_years[ui->current_year->year].events_menu[ui->current_day->number].events) {
 		in_scroll_frame.push_back(each.second.event_button);
 	}
+
+	sort_events();
 
 	ui->reset = true;
 }
