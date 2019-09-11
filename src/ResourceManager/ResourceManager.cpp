@@ -4689,6 +4689,7 @@ void Manager::preload_years() {
 				auto sizer = temp.days_menu[i].month_name->text.getGlobalBounds();
 				temp.days_menu[i].month_name->text.setPosition((960 * cn::DELTA_X - sizer.width / 2), 0);
 				temp.days_menu[i].month_name->text_x_position = 960 * cn::DELTA_X - sizer.width / 2;
+				temp.days_menu[i].month_name->dynamic = true;
 
 
 				temp.days_menu[i].back = new cn::Button;
@@ -4750,6 +4751,7 @@ void Manager::preload_years() {
 					auto sizer = temp.events_menu[day_number].day_name->text.getGlobalBounds();
 					temp.events_menu[day_number].day_name->text.setPosition((960 * cn::DELTA_X - sizer.width / 2), 0);
 					temp.events_menu[day_number].day_name->text_x_position = 960 * cn::DELTA_X - sizer.width / 2;
+					temp.events_menu[day_number].day_name->dynamic = true;
 
 
 					temp.events_menu[day_number].add_event = new cn::Button;
@@ -4807,7 +4809,9 @@ void Manager::preload_years() {
 							core->window.waitEvent(core->event);
 							if (core->event.type == sf::Event::KeyPressed && core->event.key.code == sf::Keyboard::Enter) {
 								std::string temp_string = preloaded_years[ui->current_year->year].events_menu[ui->current_day->number].new_start_time->text.getString();
-								preloaded_years[ui->current_year->year].events_menu[ui->current_day->number].holder_for_new_event.start_time = std::stoi(temp_string);
+								if (temp_string.size()) {
+									preloaded_years[ui->current_year->year].events_menu[ui->current_day->number].holder_for_new_event.start_time = std::stoi(temp_string);
+								}
 								break;
 							}
 							else if (core->event.type == sf::Event::KeyPressed && core->event.key.code == sf::Keyboard::Escape) {
@@ -4857,7 +4861,9 @@ void Manager::preload_years() {
 							core->window.waitEvent(core->event);
 							if (core->event.type == sf::Event::KeyPressed && core->event.key.code == sf::Keyboard::Enter) {
 								std::string temp_string = preloaded_years[ui->current_year->year].events_menu[ui->current_day->number].new_end_time->text.getString();
-								preloaded_years[ui->current_year->year].events_menu[ui->current_day->number].holder_for_new_event.end_time = std::stoi(temp_string);
+								if (temp_string.size()) {
+									preloaded_years[ui->current_year->year].events_menu[ui->current_day->number].holder_for_new_event.end_time = std::stoi(temp_string);
+								}
 								break;
 							}
 							else if (core->event.type == sf::Event::KeyPressed && core->event.key.code == sf::Keyboard::Escape) {
@@ -4955,6 +4961,9 @@ void Manager::preload_years() {
 					temp.events_menu[day_number].new_event_description = new cn::TextButton;
 					temp.events_menu[day_number].new_event_description->setup(description_entry_texture, description_entry_hl_texture, 370, 373, static_font, 40, sf::Color::Black, 400, 383, "");
 					temp.events_menu[day_number].new_event_description->set_function([&]() {
+						int char_counter = 0;
+
+						
 						while (core->window.isOpen()) {
 							for (auto each : in_scroll_frame) {
 								if (each) each->draw(core->window);
@@ -4991,9 +5000,16 @@ void Manager::preload_years() {
 								std::string temp_string = preloaded_years[ui->current_year->year].events_menu[ui->current_day->number].new_event_description->text.getString();
 								if (core->event.text.unicode == '\b' && !temp_string.empty()) {
 									temp_string.erase(temp_string.size() - 1, 1);
+									char_counter--;
+									if (char_counter < -1) char_counter = 50;
 								}
-								else if (core->event.text.unicode < 128 && core->event.text.unicode != '\b') {
+								else if (core->event.text.unicode < 128 && core->event.text.unicode != '\b' && (temp_string.size() < 400)) {
+									char_counter++;
 									temp_string += static_cast<char>(core->event.text.unicode);
+									if (char_counter > 50) {
+										temp_string += '\n';
+										char_counter = -1;
+									}
 								}
 								preloaded_years[ui->current_year->year].events_menu[ui->current_day->number].new_event_description->text.setString(temp_string);
 							}
@@ -5013,7 +5029,7 @@ void Manager::preload_years() {
 
 
 						temp_event.event_button = new cn::TextButton;
-						temp_event.event_button->setup(event_button_texture, event_button_hl_texture, 0, event_button_y, static_font, 50, sf::Color::Black, 50, event_button_y + 30, std::to_string(each_event.start_time) + " - " + std::to_string(each_event.end_time) + " : " + each_event.name);
+						temp_event.event_button->setup(event_button_texture, event_button_hl_texture, 0, event_button_y, static_font, 50, sf::Color::Black, 0, 0, std::to_string(each_event.start_time) + " --- " + std::to_string(each_event.end_time) + " : " + each_event.name);
 						temp_event.event_button->set_function([&, each_event]() {
 							cn::Event holder = each_event;
 							auto iter = std::find(ui->current_day->events.begin(), ui->current_day->events.end(), holder);
@@ -5027,7 +5043,7 @@ void Manager::preload_years() {
 
 
 						temp_event.delete_event = new cn::Button;
-						temp_event.delete_event->setup(delete_event_button_texture, event_marker_texture, 1450, 220);
+						temp_event.delete_event->setup(delete_event_button_texture, event_marker_texture, 1450, 217);
 						temp_event.delete_event->set_function([&]() {
 							preloaded_years[ui->current_year->year].events_menu[ui->current_day->number].events.erase(ui->current_event->start_time);
 							cn::Event finder = { ui->current_event->start_time };
@@ -5043,7 +5059,7 @@ void Manager::preload_years() {
 
 
 						temp_event.event_description = new cn::Label;
-						temp_event.event_description->setup(static_font, 100, sf::Color::Black, 600, 600, each_event.description);
+						temp_event.event_description->setup(static_font, 40, sf::Color::Black, 400, 303, each_event.description);
 
 
 						temp.events_menu[day_number].events[each_event.start_time] = temp_event;
@@ -5069,7 +5085,7 @@ void Manager::add_event(cn::Event& _event, std::map<int, cn::IndividualEvent>& _
 
 
 	temp_event.event_button = new cn::TextButton;
-	temp_event.event_button->setup(event_button_texture, event_button_hl_texture, 0, 0, static_font, 50, sf::Color::Black, 0, 0, std::to_string(_event.start_time) + " - " + std::to_string(_event.end_time) + " : " + _event.name);
+	temp_event.event_button->setup(event_button_texture, event_button_hl_texture, 0, 0, static_font, 50, sf::Color::Black, 0, 0, std::to_string(_event.start_time) + " --- " + std::to_string(_event.end_time) + " : " + _event.name);
 	temp_event.event_button->set_function([&, _event]() {
 		cn::Event holder = _event;
 		auto iter = std::find(ui->current_day->events.begin(), ui->current_day->events.end(), holder);
@@ -5099,7 +5115,7 @@ void Manager::add_event(cn::Event& _event, std::map<int, cn::IndividualEvent>& _
 
 
 	temp_event.event_description = new cn::Label;
-	temp_event.event_description->setup(static_font, 100, sf::Color::Black, 600, 600, _event.description);
+	temp_event.event_description->setup(static_font, 40, sf::Color::Black, 400, 303, _event.description);
 
 
 	_events.insert(std::make_pair(_event.start_time, temp_event));
@@ -5114,10 +5130,10 @@ void Manager::sort_events() {
 		each.second.event_button->image_x_position = 0;
 		each.second.event_button->image_y_position = y_pos_temp;
 		each.second.event_button->text_x_position = 50;
-		each.second.event_button->text_y_position = y_pos_temp;
+		each.second.event_button->text_y_position = y_pos_temp + 10;
 		each.second.event_button->sprite.setPosition(0, y_pos_temp);
 		each.second.event_button->hl_sprite.setPosition(0, y_pos_temp);
-		each.second.event_button->text.setPosition(50, y_pos_temp);
+		each.second.event_button->text.setPosition(50, y_pos_temp + 10);
 
 		y_pos_temp += 100 * cn::DELTA_Y;
 	}

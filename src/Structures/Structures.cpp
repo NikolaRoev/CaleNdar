@@ -103,9 +103,18 @@ namespace cn {
 	}
 
 	void Label::resize(const float& resize_delta_x, const float& resize_delta_y) {
-		text.setPosition(text_x_position * DELTA_X, text_y_position * DELTA_Y);
+		if (dynamic) {
+			auto sizer = text.getGlobalBounds();
+			text.setPosition((960 * cn::DELTA_X - sizer.width / 2), 0);
+			text_x_position = 960 * cn::DELTA_X - sizer.width / 2;
 
-		text.scale(resize_delta_x, resize_delta_y);
+			text.scale(resize_delta_x, resize_delta_y);
+		}
+		else {
+			text.setPosition(text_x_position * DELTA_X, text_y_position * DELTA_Y);
+
+			text.scale(resize_delta_x, resize_delta_y);
+		}
 	}
 
 	void Label::draw(sf::RenderWindow& window) {

@@ -143,6 +143,7 @@ namespace cn {
 
 	struct Label : public Drawable {
 		
+		bool dynamic{ false };
 
 		sf::Text text;
 
