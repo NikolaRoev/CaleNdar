@@ -4587,7 +4587,8 @@ void Manager::preload_textures() {
 }
 
 void Manager::preload_static_drawables() {
-	static_font.loadFromFile("data/times-new-roman.ttf");
+
+	static_font.loadFromFile("font.ttf");
 
 	static_background = new cn::Image;
 	static_background->setup(background_texture, 0, 0);

@@ -84,7 +84,7 @@ private:
 	sf::Texture description_entry_texture;
 	sf::Texture description_entry_hl_texture;
 
-	//End>
+	//End.
 
 public:
 	Core* core{ nullptr };
@@ -98,7 +98,7 @@ public:
 	cn::Label* static_time{ nullptr };
 
 	std::vector<cn::Drawable*> in_frame{};
-	std::vector<cn::Drawable*> in_pop_up_frame{}; //when you make the event button function set this frame in it for each individual event idiot
+	std::vector<cn::Drawable*> in_pop_up_frame{};
 	std::vector<cn::Drawable*> in_scroll_frame{};
 
 

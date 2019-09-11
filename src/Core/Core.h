@@ -15,7 +15,6 @@ private:
 	unsigned int window_height{ 0 };
 
 
-	//Call this in setup_window and in each resized_window call.
 	void set_delta_values();
 
 public:
@@ -30,7 +29,7 @@ public:
 	//Call this once when we start up the program.
 	void setup_window(const sf::VideoMode mode, const uint32_t style);
 
-
+	//This loop is the program.
 	void main_loop(const std::unordered_map<int, cn::YearDrawables>& preloaded_years, const std::vector<cn::Drawable*>& in_frame, const std::vector<cn::Drawable*>& in_scroll_frame, std::vector<cn::Drawable*>& in_pop_up_frame, bool& reset);
 };
 
