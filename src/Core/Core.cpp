@@ -72,6 +72,7 @@ void Core::resized_window(const std::unordered_map<int, cn::YearDrawables>& prel
 
 void Core::setup_window(const sf::VideoMode mode, const uint32_t style) {
 	window.create(mode, "CaleNdar", style);
+	window.setFramerateLimit(60);
 
 	const char imageData[] =
 	{
