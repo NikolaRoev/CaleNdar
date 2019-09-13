@@ -4607,7 +4607,7 @@ void Manager::preload_static_drawables() {
 	static_today_button->set_function([&]() {
 		ui->set_current_year(ui->current_date[0]);
 		ui->current_month = &ui->current_year->months[ui->current_date[1]];
-		ui->current_day = &ui->current_month->days[ui->current_date[2] - 1];
+		ui->current_day = &ui->current_month->days[ui->current_date[2]];
 		set_event_frame();
 	});
 
